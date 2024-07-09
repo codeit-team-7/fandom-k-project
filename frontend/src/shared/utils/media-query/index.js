@@ -1,18 +1,14 @@
 import { css } from "styled-components";
 import { BREAKPOINTS } from "@app/theme";
-import { pxe, px } from "@shared/utils/pxcel-calculator";
+import { pxe, px } from "@utils";
 
-const media = (function () {
-  return Object.keys(BREAKPOINTS).reduce((acc, label) => {
-    return (
-      (acc[label] = (...args) => css`
-        @media (min-width: ${pxe(BREAKPOINTS[label])}) {
-          ${px(...args)}
-        }
-      `),
-      acc
-    );
-  }, {});
-})();
-
-export default media;
+export const media = Object.keys(BREAKPOINTS).reduce((acc, label) => {
+  return (
+    (acc[label] = (...args) => css`
+      @media (min-width: ${pxe(BREAKPOINTS[label])}) {
+        ${px(...args)}
+      }
+    `),
+    acc
+  );
+}, {});
