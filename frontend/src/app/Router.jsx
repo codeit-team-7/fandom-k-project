@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Index from "./Index";
-import ThemeProvider from "./ThemeProvider";
+import ThemeProvider from "./theme/ThemeProvider";
 import { LandingPage, ListPage, MyPage } from "@pages";
 
 export default function Router() {
