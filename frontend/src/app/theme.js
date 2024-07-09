@@ -1,14 +1,15 @@
-const BREAKPOINTS = {
-  DEFAULT: 1,
-  EXTRA_SMALL: 320,
-  SMALL: 425,
-  MEDIUM: 728,
-  LARGE: 1024,
+export const BREAKPOINTS = {
+  default: 1,
+  extra_small: 320,
+  small: 425,
+  medium: 728,
+  large: 1024,
+  extra_large: 1440,
 };
 
-const COLORS = {
-  PRIMARY: "#123456",
-};
+export const COLORS = {};
+
+export const FONT_SIZES = {};
 
 export const theme = {
   ...BREAKPOINTS,
