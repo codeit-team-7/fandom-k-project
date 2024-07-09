@@ -1,3 +1,7 @@
 export default function Index() {
-  return <main></main>;
+  return (
+    <main>
+      <section>랜딩 페이지</section>
+    </main>
+  );
 }

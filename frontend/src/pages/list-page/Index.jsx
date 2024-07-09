@@ -1,7 +1,7 @@
 export default function Index() {
-  return <main>
-    <section>
-      
-    </section>
-  </main>;
+  return (
+    <main>
+      <section>리스트</section>
+    </main>
+  );
 }

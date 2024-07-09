@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import Header from "./header/Index";
+import Header from "@app/header/Index";
 
-export default function App() {
+export default function Index() {
   return (
     <>
       <Header />
