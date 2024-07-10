@@ -13,10 +13,10 @@ export const Button = styled.button`
       });
       color: #fff;
       width: 100%;
-      height: ${42};
+      height:${42};
+      border: none;
       font-size: ${theme.fontSize.XSM};
       font-weight: 700;
-      border: black;
     `}
   `}
 `;
