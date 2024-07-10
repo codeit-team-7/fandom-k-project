@@ -1,3 +1,4 @@
+// 미디어 쿼리 작성 시엔 소문자로 써주세요
 export const BREAKPOINTS = {
   BASE: 1,
   XSM: 320,
@@ -29,19 +30,19 @@ export const COLORS = {
 
 // 폰트 사이즈
 export const FONT_SIZES = {
-  "3xSM": 12,
-  "2xSM": 13,
+  "3xSM": 12, // 대괄호 표기법
+  "2xSM": 13, // 대괄호 표기법
   "XSM": 14,
   "SM": 15,
   "MD": 16,
   "LG": 18,
   "XLG": 20,
-  "2xLG": 26,
+  "2xLG": 26, // 대괄호 표기법
 };
 
 // 테마
 export const theme = {
-  ...BREAKPOINTS,
-  ...COLORS,
-  ...FONT_SIZES,
+  breakpoints: { ...BREAKPOINTS },
+  colors: { ...COLORS },
+  fontSize: { ...FONT_SIZES },
 };
