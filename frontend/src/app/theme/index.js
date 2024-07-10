@@ -26,6 +26,9 @@ export const COLORS = {
     100: "#f96d69",
     200: "#fe5493",
   },
+  MIXED: {
+    100: "linear-gradient(to right, #f96d69, #fe5493)",
+  },
 };
 
 // 폰트 사이즈
