@@ -19,5 +19,5 @@ const StyledHeader = styled.header`
 `;
 
 export default function Index() {
-  return <StyledHeader>test</StyledHeader>;
+  return <StyledHeader></StyledHeader>;
 }
