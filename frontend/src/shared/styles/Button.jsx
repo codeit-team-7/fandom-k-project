@@ -6,6 +6,9 @@ import { media } from "@utils";
 export const Button = styled.button`
   ${({ theme, $activable }) =>
     `${media.base`
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background: ${
         $activable
           ? `${theme.colors.GRAY[200]};`
