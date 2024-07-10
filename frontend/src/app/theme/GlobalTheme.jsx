@@ -1,44 +1,53 @@
-import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { createGlobalStyle } from "styled-components";
+import { media } from "@utils";
 
 // 전역 CSS 설정
 const GlobalTheme = createGlobalStyle`
   ${reset}
 
   ${({ theme }) => `
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
+    ${media.base`
+      body {
+        font-size: ${theme.fontSize.MD};
+        color: ${theme.colors.WHITE[100]};
+        background-color: ${theme.colors.BLACK[200]};
+      }
+    `}
+  `}
 
-    body {
-      width: 100%;
-      min-height: 100vh;
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 
-      font-size: ${theme.fontSize.MD};
-      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
-        Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
-        "Noto Sans KR", "Malgun Gothic", sans-serif;
+  body {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+      Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", sans-serif;
       line-height: 1.5;
-      
-      color: ${theme.colors.WHITE[100]};
-      background-color: ${theme.colors.BLACK[200]};
-    }
+    width: 100%;
+    min-height: 100vh;
+  }
 
-    textarea,
+  textarea,
     button,
     select,
     input {
       font: inherit;
     }
 
-    img,
-    picture {
-      max-width: 100%;
-      display: block;
-    }
-  `}
+  img,
+  picture {
+    max-width: 100%;
+    display: block;
+  }
+
+  button {
+    padding: 0;
+    margin: 0;
+  }
 `;
 
 export default GlobalTheme;
