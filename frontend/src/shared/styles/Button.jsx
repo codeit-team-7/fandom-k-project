@@ -15,6 +15,7 @@ export const Button = styled.button`
       width: 100%;
       height:${42};
       border: none;
+      border-radius: 3px;
       font-size: ${theme.fontSize.XSM};
       font-weight: 700;
     `}
