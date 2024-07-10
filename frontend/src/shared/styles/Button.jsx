@@ -9,8 +9,8 @@ export const Button = styled.button`
       background: ${
         $activable
           ? `${theme.colors.GRAY[200]};`
-          : `linear-gradient(to right, ${theme.colors.BRAND[100]}, ${theme.colors.BRAND[200]}`
-      });
+          : `${theme.colors.MIXED[100]};`
+      }
       color: #fff;
       width: 100%;
       height:${42};
