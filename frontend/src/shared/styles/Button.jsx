@@ -6,19 +6,17 @@ import { media } from "@utils";
 export const Button = styled.button`
   ${({ theme, $activable }) =>
     `${media.base`
-  background: ${
-    $activable
-      ? `${theme.colors.GRAY[200]};`
-      : `linear-gradient(to right, ${theme.colors.BRAND[100]}, ${theme.colors.BRAND[200]}`
-  });
-  color: #fff;
-  width: 100%;
-  height:${42};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: ${theme.fontSize.XSM};
-  font-weight: 700;
-  border: none
-  `}`}
+      background: ${
+        $activable
+          ? `${theme.colors.GRAY[200]};`
+          : `linear-gradient(to right, ${theme.colors.BRAND[100]}, ${theme.colors.BRAND[200]}`
+      });
+      color: #fff;
+      width: 100%;
+      height:${42};
+      border: none;
+      font-size: ${theme.fontSize.XSM};
+      font-weight: 700;
+    `}
+  `}
 `;
