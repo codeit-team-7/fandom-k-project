@@ -46,6 +46,7 @@ const GlobalTheme = createGlobalStyle`
 
   button {
     padding: 0;
+    border: 0;
     margin: 0;
   }
 `;
