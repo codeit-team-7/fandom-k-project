@@ -1,9 +1,10 @@
 import useWidth from "@hooks/use-width/index";
+import useFetchIdolData from "./hooks/useFetchIdolData";
 
 export default function Index() {
   const width = useWidth();
-
-  console.log(width);
+  const pageSize = Math.floor(width / 100);
+  const { idols } = useFetchIdolData(pageSize);
 
   return (
     <main>
