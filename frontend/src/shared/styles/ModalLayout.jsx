@@ -15,6 +15,6 @@ export const ModalLayout = styled.div`
   padding-right: ${24}; 
   padding-bottom: ${32}; 
   background-color: ${theme.colors.BLACK[100]};
-  z-index: 11;
+  z-index: 15;
   `}`}
 `;

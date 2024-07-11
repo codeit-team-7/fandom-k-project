@@ -3,7 +3,6 @@ import creditIcon from "@assets/icons/credit.svg";
 import creditWhiteIcon from "@assets/icons/credit_white.svg";
 import deleteBtn24 from "@assets/icons/btn_delete_24px.svg";
 import { ModalBg } from "@shared/styles/ModalBg";
-
 import styled from "styled-components";
 
 const ChargeModal = styled.div`
@@ -18,6 +17,7 @@ const ChargeModal = styled.div`
   height: 372px;
   border-radius: 8px;
   padding: 0 16px;
+  z-index: 20;
 `;
 
 const TopSection = styled.div`
@@ -125,7 +125,8 @@ export default function Index({ onChargeClick }) {
   };
 
   return (
-    <ModalBg>
+    <>
+      <ModalBg />
       <ChargeModal>
         <form onSubmit={handleCreditCharge}>
           <TopSection>
@@ -186,6 +187,6 @@ export default function Index({ onChargeClick }) {
           </ChargeButton>
         </form>
       </ChargeModal>
-    </ModalBg>
+    </>
   );
 }
