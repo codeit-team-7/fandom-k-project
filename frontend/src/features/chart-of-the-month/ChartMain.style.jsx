@@ -1,6 +1,16 @@
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 import { media } from "@utils";
+
+const moveRight = keyframes`
+  from{ left : 0; }
+  to { left : 50%; }
+`;
+
+const moveLeft = keyframes`
+  from{ right: 0; }
+  to { right: 50%; }
+`;
 
 export const ChartMainBox = styled.div`
   ${({ theme }) =>
@@ -15,30 +25,42 @@ export const ChartMainBox = styled.div`
 `;
 
 export const GenderSelectBox = styled.div`
-  ${({ theme, $gender }) =>
-    `${media.base`
+  ${({ theme, $isMale }) => `
+    ${media.base`
       position: relative;
       .gender {
       width: 50%;
       height: 42px;
       background-color: inherit;
+      cursor: pointer;
       }
       .female {
-      color: ${$gender === `female` ? `#fff;` : `${theme.colors.GRAY[200]};`}
+      color: ${!$isMale ? `#fff;` : `${theme.colors.GRAY[200]};`}
       }
       .male {
-      color: ${$gender === `male` ? `#fff;` : `${theme.colors.GRAY[200]};`}
+      color: ${$isMale ? `#fff;` : `${theme.colors.GRAY[200]};`}
       }
       .gender-selector {
       display: inline-block;
       position: absolute;
       top: 0;
-      ${$gender === `male` ? `right: 0;` : `left: 0;`}
       width: 50%;
       height: 42px;
       background-color: rgba(255, 255, 255, 0.1);
       border-bottom: 1px solid;
   }
-  `}`}
+  `}
+  `}
+  ${css`
+    .gender-selector {
+      animation: ${({ $isMale }) =>
+        $isMale
+          ? css`
+              ${moveRight} 0.4s forwards
+            `
+          : css`
+              ${moveLeft} 0.4s forwards
+            `};
+    }
+  `}
 `;
-// ${theme.colors.GRAY[200]}
