@@ -1,6 +1,10 @@
-import { Button } from "@shared/styles/Button";
+import useWidth from "@hooks/use-width/index";
 
 export default function Index() {
+  const width = useWidth();
+
+  console.log(width);
+
   return (
     <main>
       <section>
@@ -12,9 +16,7 @@ export default function Index() {
       <section>
         <h1>관심 있는 아이돌을 추가해보세요.</h1>
         <ul>
-          <li>
-            <Button>버튼구현</Button>
-          </li>
+          <li></li>
         </ul>
       </section>
     </main>
