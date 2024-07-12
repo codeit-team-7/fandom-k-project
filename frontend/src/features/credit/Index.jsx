@@ -55,7 +55,7 @@ const CreditAmount = styled.div`
 
 const Charge = styled.div`
   ${({ theme }) => `
-  color: ${theme.colors.BRAND[200]};
+  color: ${theme.colors.BRAND[100]};
   font-size: ${theme.fontSize["2xSM"]}px;
   
   `}
