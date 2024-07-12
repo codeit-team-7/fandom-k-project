@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import { FavoriteIdol, ChartOfTheMonth } from "@features";
-=======
-import { FavoriteIdol, Credit, ChargeCredit } from "@features";
+import { FavoriteIdol, Credit, ChargeCredit, ChartOfTheMonth } from "@features";
 import { useState } from "react";
 import { Header } from "../../features";
->>>>>>> development
 
 export default function Index() {
   const [chargeModal, setChargeModal] = useState(false);
