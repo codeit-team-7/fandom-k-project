@@ -1,31 +1,37 @@
 import { useCallback, useReducer } from "react";
 
 const initialState = {
-  idols: [],
+  contents: [],
+  pageSize: 0,
 };
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "SET":
-      return {
-        ...state,
-        idols: action.payload,
-      };
+const idolReducer = (state, action) => {
+  const type = action.type;
+  if (type === "SET") {
+    return {
+      ...state,
+      contents: action.payload.contents,
+      pageSize: action.payload.pageSize,
+    };
   }
+
+  return state;
 };
 
-export const useIdolReducer = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export default function useIdolReducer() {
+  const [state, dispatch] = useReducer(idolReducer, initialState);
 
-  const setIdol = useCallback(
-    (idols) => {
+  const setupState = useCallback(
+    ({ data, pageSize }) =>
       dispatch({
         type: "SET",
-        payload: idols,
-      });
-    },
-    [dispatch]
+        payload: {
+          contents: data,
+          pageSize: pageSize,
+        },
+      }),
+    []
   );
 
-  return { idols: state, setIdol };
-};
+  return { state, setupState };
+}

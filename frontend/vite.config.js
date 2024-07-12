@@ -8,7 +8,9 @@ const __dirname = path.dirname(__filename);
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  test: {
+    globals: true,
+  },
   resolve: {
     alias: {
       "@app": path.resolve(__dirname, "./src/app"),
@@ -21,4 +23,5 @@ export default defineConfig({
       "@styles": path.resolve(__dirname, "./src/shared/styles"),
     },
   },
+  plugins: [react()],
 });
