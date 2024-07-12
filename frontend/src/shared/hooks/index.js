@@ -1,4 +1,4 @@
 import useTitle from "./use-title";
-import useWidth from "./use-width";
+import useSize from "./use-size";
 
-export { useTitle, useWidth };
+export { useTitle, useSize };

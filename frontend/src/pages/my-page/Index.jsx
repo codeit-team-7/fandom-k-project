@@ -1,103 +1,173 @@
-import { useCallback, useRef } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { useEffect } from "react";
 
-import useWidth from "@hooks/use-width/index";
-import useFetchIdol from "./hooks/useFetchIdol";
-
-import { BREAKPOINTS } from "@app/theme/index";
-import { Container } from "@styles/StylesByWoosung";
+import { useMyPageReducer } from "./hooks/use-mypage-reducer";
 import { media } from "@utils";
 import { debounce } from "@utils";
 
-const StyledContainer = styled(Container)`
-  ${() => `
+const StyledSection1 = styled.section`
+  ${({ theme }) => `
     ${media.base`
+      #prev,
+      #next {
+        display: none;
+      }
+
       .title {
         padding: 0 ${24};
       }
-    `}
-  `}
-`;
 
-const StyledList = styled.ul`
-  ${({ theme }) => css`
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+      .items {
+        overflow: scroll hidden;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: ${17};
+        row-gap: ${24};
+        padding: 0 ${24};
+        height: ${360};
+      }
 
-    ${media.base`
-      padding: ${24} ${16};
-      column-gap: ${17};
-      max-height: ${320};
       .item {
-        .img {
-          width: ${88};
-          height: ${88};
-          padding: ${5};
-          border-radius: 50%;
-          border: 2px solid ${theme.colors.BRAND[100]};
-          object-fit: cover;
-        }
+        flex: 0 0 auto;
+      }
+
+      .item-img {
+        width: ${88};
+        height: ${88};
+        padding: ${5};
+        border: 2px solid ${theme.colors.BRAND[100]};
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .item-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    `}
+
+    ${media.md`
+      .content-wrap {
+        display: grid;
+        grid-template:
+          "prev items next" auto
+          "prev items next" auto
+        / auto auto auto;  
+        justify-content: center;
+      }
+
+      .items {
+       overflow: hidden;
+      }
+
+      .items-box {
+
+      }
+
+      #prev,
+      #next {
+        cursor: pointer;
+        display: block;
+        align-self: center;
+        width: ${29};
+        height: ${135};
+        border-radius: ${4};
+        color: white;
+        background: #1b1b1b;
+      }
+
+      #prev.hidden,
+      #next.hidden {
+        visibility: hidden
+      }
+
+      #prev { 
+        grid-area: prev;
+      }
+
+      #next {
+        grid-area: next;
+      }
+
+      .items {
+        grid-area: items;
       }
     `}
   `}
 `;
 
-const calculatePageSize = (width) => {
-  if (BREAKPOINTS.BASE <= width && width < BREAKPOINTS.MD) {
-    return 8;
-  } else if (BREAKPOINTS.MD <= width && width < BREAKPOINTS.LG) {
-    return 8;
-  } else {
-    return 16;
-  }
-};
-
 export default function Index() {
-  const width = useWidth();
-  const pageSizeRef = useRef(calculatePageSize(width));
-  const { state, setupState } = useFetchIdol(pageSizeRef.current);
-  const { list } = state.contents;
+  const { state, fetchItems } = useMyPageReducer();
+  const { items } = state;
 
-  const handleScroll = useCallback(
-    (event) =>
-      debounce(() => {
-        const { scrollLeft, scrollWidth, offsetWidth } = event.target;
-        if (offsetWidth === scrollWidth - scrollLeft) {
-          pageSizeRef.current += 4;
-          setupState({
-            data: state.contents,
-            pageSize: pageSizeRef.current,
-          });
-        }
-        event.target;
-      }, 300)(),
-    [setupState, state.contents]
-  );
+  useEffect(() => {
+    const handleScroll = debounce(() => {
+      // 이 공간에 무한 스크롤을 구현합니다.
+    }, 300);
+    const items = document.getElementById("items");
+    items && items.addEventListener("scroll", handleScroll);
+    return () => {
+      items && items.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleResize = debounce(() => {
+      fetchItems({ reset: true });
+    }, 300);
+
+    fetchItems({ reset: true });
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleClick = (e) => {
+    const id = e.target.id;
+    fetchItems({ direction: id });
+  };
+
   return (
     <main>
       <section>
-        <h1>내가 좋아하는 아이돌</h1>
-        <ul>
-          <li></li>
-        </ul>
+        <h1>내가 관심있는 아이돌</h1>
       </section>
-      <section>
-        <StyledContainer $width={1920} $padding={360}>
-          <h1 className="title">관심 있는 아이돌을 추가해보세요.</h1>
-          <StyledList className="list" onScroll={handleScroll}>
-            {list &&
-              list.map((item) => (
+      <StyledSection1>
+        <h1 className="title">관심 있는 아이돌을 추가해보세요</h1>
+        <div className="content-wrap">
+          <button
+            id="prev"
+            className={`${state.currentCursorIndex < 1 && "hidden"}`}
+            onClick={handleClick}
+          >
+            {"<"}
+          </button>
+          <ul id="items" className="items">
+            {items &&
+              items.map((item) => (
                 <li className="item" key={item.id}>
-                  <img className="img" src={item.profilePicture} />
-                  <p className="name">{item.name}</p>
-                  <p className="group">{item.group}</p>
+                  <img className="item-img" src={item.profilePicture} alt="" />
+                  <div className="item-box">
+                    <p>{item.name}</p>
+                    <p>{item.group}</p>
+                  </div>
                 </li>
               ))}
-          </StyledList>
-        </StyledContainer>
-      </section>
+          </ul>
+          <button
+            id="next"
+            className={`${
+              state.cursors.length < 2 ||
+              (state.cursors[state.currentCursorIndex + 1] === null && "hidden")
+            }`}
+            onClick={handleClick}
+          >
+            {">"}
+          </button>
+        </div>
+      </StyledSection1>
     </main>
   );
 }

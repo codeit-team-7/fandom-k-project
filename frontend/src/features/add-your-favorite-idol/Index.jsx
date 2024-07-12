@@ -1,3 +1,3 @@
 export default function Index() {
-  return <article></article>;
+  return <section></section>;
 }
