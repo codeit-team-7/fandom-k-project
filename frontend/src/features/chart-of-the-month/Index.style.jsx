@@ -10,9 +10,10 @@ export const ChartLayout = styled.article`
       max-width: 1200px;
       gap: 16px;
       padding: 0 ${24};
-      margin: 0 auto;
+      margin: 0 auto 200px;
     
   `}${media.md`
       gap: 24px;
+      
   `}`}
 `;

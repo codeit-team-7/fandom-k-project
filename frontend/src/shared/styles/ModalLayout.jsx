@@ -6,7 +6,7 @@ width와 height는 직접 추가,
 export const ModalLayout = styled.div`
   ${({ theme }) =>
     `${media.base`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

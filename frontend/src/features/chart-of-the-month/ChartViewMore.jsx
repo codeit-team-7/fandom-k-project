@@ -1,9 +1,9 @@
 import { ViewMoreBox } from "./ChartViewMore.style";
 
-export default function ChartViewMore() {
+export default function ChartViewMore({ onClick, cursor }) {
   return (
     <ViewMoreBox>
-      <button>더보기</button>
+      {cursor && <button onClick={onClick}>더보기</button>}
     </ViewMoreBox>
   );
 }

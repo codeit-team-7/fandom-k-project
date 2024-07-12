@@ -15,6 +15,7 @@ const moveLeft = keyframes`
 export const ChartMainBox = styled.div`
   ${({ theme }) =>
     `${media.base`
+      position: relative;
       display:flex;
       flex-direction: column;
       gap: 16px;
@@ -56,10 +57,10 @@ export const GenderSelectBox = styled.div`
       animation: ${({ $isMale }) =>
         $isMale
           ? css`
-              ${moveRight} 0.4s forwards
+              ${moveRight} 0.2s forwards
             `
           : css`
-              ${moveLeft} 0.4s forwards
+              ${moveLeft} 0.2s forwards
             `};
     }
   `}
