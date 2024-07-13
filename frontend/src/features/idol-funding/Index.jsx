@@ -2,8 +2,9 @@ import CreditSVG from "../../assets/icons/credit.svg";
 import { styled } from "styled-components";
 import { media } from "@utils";
 import { Button } from "../../shared/styles/Button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getFundingApi } from "./api";
+import { ArrowBtn } from "../../shared/styles/ArrowBtn";
 
 const Container = styled.section`
   ${media.base`
@@ -18,6 +19,9 @@ const Container = styled.section`
     padding: 0px;
     max-width: 1200px;
   `}
+`;
+const Box = styled.div`
+  position: relative;
 `;
 
 const IdolFundingContainer = styled.div`
@@ -34,6 +38,7 @@ const IdolFundingContainer = styled.div`
 
 const FundingItems = styled.ul`
   display: flex;
+  position: relative;
   ${media.base`
     gap: 8px;
     max-width: 100%;
@@ -50,6 +55,28 @@ const FundingItems = styled.ul`
   ${media.md`
     gap: 24px;
   `}
+`;
+
+const LgArrowBtnLeft = styled(ArrowBtn)`
+  display: none;
+  position: absolute;
+  left: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  ${media.lg`
+   display: block;
+   `}
+`;
+
+const LgArrowBtnRight = styled(ArrowBtn)`
+  display: none;
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  ${media.lg`
+   display: block;
+   `}
 `;
 
 const Title = styled.h2`
@@ -231,6 +258,7 @@ function FundingItem({ item }) {
   };
   const percentage = calculatePercentage(receivedDonations, targetDonation);
   const korReceivedDonations = receivedDonations.toLocaleString();
+
   const getTimegap = (deadTime) => {
     const nowTimeDate = new Date();
     const nowTimeStamp = nowTimeDate.getTime();
@@ -287,6 +315,32 @@ function FundingItem({ item }) {
 export default function Index() {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
+  const [itemNum, setItemNum] = useState(0);
+  const itemRefs = useRef([]);
+
+  const scrollItem = (nextItemNum) => {
+    setItemNum(nextItemNum);
+    if (itemRefs.current[nextItemNum]) {
+      itemRefs.current[nextItemNum].scrollIntoView({
+        block: "start",
+        behavior: "smooth",
+        inline: "start",
+      });
+    }
+  };
+
+  const onClickRight = () => {
+    const lastNum = items.list.length - 1;
+    if (lastNum - 3 <= itemNum) return;
+    const nextItemNum = itemNum + 1;
+    scrollItem(nextItemNum);
+  };
+
+  const onClickLeft = () => {
+    if (itemNum < 1) return;
+    const nextItemNum = itemNum - 1;
+    scrollItem(nextItemNum);
+  };
 
   const fetchItemData = async () => {
     try {
@@ -309,13 +363,17 @@ export default function Index() {
   return (
     <Container>
       <Title>후원을 기다리는 조공</Title>
-      <FundingItems>
-        {cutItems.map((item) => (
-          <li key={item.id}>
-            <FundingItem item={item} />
-          </li>
-        ))}
-      </FundingItems>
+      <Box>
+        <LgArrowBtnLeft direction="left" onClick={onClickLeft} />
+        <FundingItems>
+          {cutItems.map((item, i) => (
+            <li key={item.id} ref={(el) => (itemRefs.current[i] = el)}>
+              <FundingItem id={`content${i}`} item={item} />
+            </li>
+          ))}
+        </FundingItems>
+        <LgArrowBtnRight direction="right" onClick={onClickRight} />
+      </Box>
     </Container>
   );
 }
