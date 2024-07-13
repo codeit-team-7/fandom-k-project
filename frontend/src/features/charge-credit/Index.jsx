@@ -114,10 +114,13 @@ export default function Index({ onChargeClick }) {
     setSelectedCredit(e.target.value);
   };
 
+  const getCharge = () => {
+    return Number(localStorage.getItem("credit"));
+  };
+
   const handleCreditCharge = (e) => {
     e.preventDefault();
-    const creditTemp =
-      Number(localStorage.getItem("credit")) + Number(selectedCredit);
+    const creditTemp = getCharge() + Number(selectedCredit);
     localStorage.setItem("credit", creditTemp);
     if (onChargeClick) {
       onChargeClick();
