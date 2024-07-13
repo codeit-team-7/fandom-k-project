@@ -15,5 +15,12 @@ export const ChartLayout = styled.article`
   `}${media.md`
       gap: 24px;
       
-  `}`}
+  `}${media.lg`
+      gap: 24px;
+  `}
+  @media (min-width: 1200px) {
+    padding: 0;
+  }
+
+  `}
 `;

@@ -3,24 +3,37 @@ import ChartIdolList from "./ChartIdolList";
 import { ChartMainBox, GenderSelectBox } from "./ChartMain.style";
 import ChartViewMore from "./ChartViewMore";
 
-export default function ChartMain({ idols, onClickViewMore, cursor }) {
-  const [isMale, ChangeIsMale] = useReducer((state) => {
-    return !state;
-  }, false);
-
+export default function ChartMain({
+  idolList,
+  onClickViewMore,
+  onClickGender,
+  cursor,
+  gender,
+}) {
+  const isMale = gender === "male" ? true : false;
   return (
     <>
       <ChartMainBox>
         <GenderSelectBox $isMale={isMale}>
-          <button className="gender female" onClick={ChangeIsMale}>
+          <button
+            className="gender female"
+            onClick={() => {
+              onClickGender("female");
+            }}
+          >
             이달의 여자 아이돌
           </button>
           <div className="gender-selector" />
-          <button className="gender male" onClick={ChangeIsMale}>
+          <button
+            className="gender male"
+            onClick={() => {
+              onClickGender("male");
+            }}
+          >
             이달의 남자 아이돌
           </button>
         </GenderSelectBox>
-        <ChartIdolList idols={idols} />
+        <ChartIdolList idolList={idolList} />
       </ChartMainBox>
       <ChartViewMore onClick={onClickViewMore} cursor={cursor} />
     </>

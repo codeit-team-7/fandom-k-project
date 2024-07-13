@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import ChartTop from "./ChartTop";
 import ChartMain from "./ChartMain";
@@ -10,38 +10,56 @@ import { ModalBg } from "@styles/ModalBg";
 import VoteModal from "./VoteModal";
 
 export default function Index() {
-  const [idols, setIdols] = useState([]);
+  const [gender, setGender] = useState("female");
+  const [idolList, setIdolList] = useState([]);
   const [cursor, setCursor] = useState(0);
   const [isOpenVote, setIsOpenVote] = useState(false);
-  const loadIdols = async ({ cursor }) => {
-    const { list, nextCursor } = await getIdolList({ cursor });
-    setIdols((prev) => [...prev, ...list]);
-    setCursor(nextCursor);
+
+  const loadIdols = async ({ cursor, gender, scroll = false }) => {
+    const { idols, nextCursor } = await getIdolList({ cursor, gender });
+    if (idols) {
+      setIdolList((prev) => [...prev, ...idols]);
+      setCursor(nextCursor);
+    }
   };
-  const handleViewMoreButton = () => {
-    loadIdols({ cursor: cursor });
+  const handleViewMoreButton = (e) => {
+    loadIdols({ cursor, gender, scroll: true });
   };
-  const handleOpenModal = () => {
-    setIsOpenVote(true);
+  const handleModal = () => {
+    if (!isOpenVote) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    setIsOpenVote(!isOpenVote);
+  };
+
+  const handleGenderChange = (gender) => {
+    setCursor(0);
+    setIdolList([]);
+    setGender(gender);
   };
 
   useEffect(() => {
-    loadIdols({ cursor: cursor });
-  }, []);
+    loadIdols({ cursor, gender });
+  }, [gender]);
+
   return (
     <>
       <ChartLayout>
-        <ChartTop onClick={handleOpenModal} />
+        <ChartTop onClick={handleModal} />
         <ChartMain
-          idols={idols}
+          idolList={idolList}
+          onClickGender={handleGenderChange}
           onClickViewMore={handleViewMoreButton}
           cursor={cursor}
+          gender={gender}
         />
       </ChartLayout>
       {isOpenVote && (
         <>
           <ModalBg />
-          <VoteModal />
+          <VoteModal idolList={idolList} handleModal={handleModal} />
         </>
       )}
     </>

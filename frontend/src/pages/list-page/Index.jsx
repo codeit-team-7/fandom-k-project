@@ -1,4 +1,4 @@
-import { FavoriteIdol, Credit, ChargeCredit, ChartOfTheMonth } from "@features";
+import { Credit, ChargeCredit, ChartOfTheMonth } from "@features";
 import { useState } from "react";
 import { Header } from "../../features";
 
