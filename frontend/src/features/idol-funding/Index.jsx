@@ -366,11 +366,13 @@ export default function Index() {
       <Box>
         <LgArrowBtnLeft direction="left" onClick={onClickLeft} />
         <FundingItems>
-          {cutItems.map((item, i) => (
-            <li key={item.id} ref={(el) => (itemRefs.current[i] = el)}>
-              <FundingItem id={`content${i}`} item={item} />
-            </li>
-          ))}
+          {cutItems
+            .filter((item) => item.status)
+            .map((item, i) => (
+              <li key={item.id} ref={(el) => (itemRefs.current[i] = el)}>
+                <FundingItem id={`content${i}`} item={item} />
+              </li>
+            ))}
         </FundingItems>
         <LgArrowBtnRight direction="right" onClick={onClickRight} />
       </Box>
