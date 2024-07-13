@@ -68,11 +68,15 @@ const Charge = styled.div`
 const CreditIcon = styled.img`
   width: 32px;
   height: 32px;
-  margin-right: 4px;
+  margin-right: -2px;
 `;
 
+const getCharge = () => {
+  return Number(localStorage.getItem("credit"));
+};
+
 export default function Index({ onChargeClick }) {
-  const credit = Number(localStorage.getItem("credit"));
+  const credit = getCharge();
   return (
     <CreditConainer>
       <CreditBox>
