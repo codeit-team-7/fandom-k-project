@@ -1,10 +1,10 @@
 import { Button } from "@styles/Button";
-import { VoteModalBottomBox } from "./VoteModalBottom.styel";
+import { VoteModalBottomBox } from "./VoteModalBottom.style";
 
-export default function VoteModalBottom() {
+export default function VoteModalBottom({ onClick }) {
   return (
     <VoteModalBottomBox>
-      <Button>투표하기</Button>
+      <Button onClick={onClick}>투표하기</Button>
       <div className="info">
         <p>투표하는 데&nbsp;</p>
         <p className="strong">1000 크레딧</p>

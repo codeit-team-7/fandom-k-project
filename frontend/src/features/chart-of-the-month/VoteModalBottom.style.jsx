@@ -9,6 +9,9 @@ export const VoteModalBottomBox = styled.div`
       flex-direction: column;
       gap: 12px;
       padding: 10px 0;
+      button{
+      cursor: pointer;
+      }
       p {
       font-weight: 500;
       font-size: ${theme.fontSize["3xSM"]}

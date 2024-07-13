@@ -3,7 +3,7 @@ import { IdolListUl } from "./ChartIdolList.style";
 export default function ChartIdolList({ idolList }) {
   return (
     <IdolListUl>
-      {!idolList.length ||
+      {idolList?.length > 0 &&
         idolList.map((idol, index) => {
           return (
             <li key={Date.now() * index} className="list-item">

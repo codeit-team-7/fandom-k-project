@@ -1,4 +1,3 @@
-import { useReducer, useState } from "react";
 import ChartIdolList from "./ChartIdolList";
 import { ChartMainBox, GenderSelectBox } from "./ChartMain.style";
 import ChartViewMore from "./ChartViewMore";
@@ -11,6 +10,7 @@ export default function ChartMain({
   gender,
 }) {
   const isMale = gender === "male" ? true : false;
+
   return (
     <>
       <ChartMainBox>

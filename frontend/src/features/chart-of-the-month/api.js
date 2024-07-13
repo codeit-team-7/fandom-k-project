@@ -1,5 +1,8 @@
-export const getIdolList = async ({ cursor = 0, gender = "female" }) => {
-  const pageSize = window.innerWidth > 1024 ? 10 : 5;
+export const getIdolList = async ({
+  cursor = 0,
+  gender = "female",
+  pageSize = 10,
+}) => {
   try {
     const response = await fetch(
       `https://fandom-k-api.vercel.app/8-7/charts/{gender}?gender=${gender}&pageSize=${pageSize}&cursor=${cursor}`
@@ -9,4 +12,19 @@ export const getIdolList = async ({ cursor = 0, gender = "female" }) => {
   } catch (err) {
     console.log("패치에러", err);
   }
+};
+
+export const postVote = async (idolId) => {
+  try {
+    const response = await fetch(`https://fandom-k-api.vercel.app/8-7/votes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        idolId: idolId,
+      }),
+    });
+    console.log(response);
+  } catch (err) {}
 };

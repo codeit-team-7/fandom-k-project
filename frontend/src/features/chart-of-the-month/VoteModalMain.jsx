@@ -1,7 +1,12 @@
 import { VoteModalMainBox } from "./VoteModalMain.style";
 import icCheckbox from "@assets/icons/ic_checkbox.svg";
 import icCheckboxActive from "@assets/icons/ic_checkbox_active.svg";
-export default function VoteModalMain({ idolList }) {
+export default function VoteModalMain({
+  idolList,
+  onClickCheck,
+  checkedId,
+  observerRef,
+}) {
   return (
     <VoteModalMainBox>
       {!idolList.length ||
@@ -21,12 +26,20 @@ export default function VoteModalMain({ idolList }) {
                   <span className="votes">{idol.totalVotes}표</span>
                 </div>
               </div>
-              <button class="check">
-                <img src={icCheckbox} />
+              <button
+                className="check"
+                onClick={() => {
+                  onClickCheck(idol.id);
+                }}
+              >
+                <img
+                  src={checkedId === idol.id ? icCheckboxActive : icCheckbox}
+                />
               </button>
             </li>
           );
         })}
+      <div ref={observerRef}>옵저버</div>
     </VoteModalMainBox>
   );
 }

@@ -24,5 +24,6 @@ export const OpenVoteButton = styled(Button)`
       height: 32px;
       font-size: ${theme.fontSize["2xSM"]};
       gap: 4px;
+      cursor: pointer;
   `}`}
 `;
