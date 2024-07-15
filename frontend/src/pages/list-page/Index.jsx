@@ -1,4 +1,4 @@
-import { IdolFunding, Credit, ChargeCredit } from "@features";
+import { FavoriteIdol, Credit, ChargeCredit, ChartOfTheMonth } from "@features";
 import { useState } from "react";
 import { Header } from "../../features";
 
@@ -7,6 +7,8 @@ export default function Index() {
 
   const handleChargeModal = () => {
     setChargeModal(chargeModal ? false : true);
+
+    document.body.style.overflow = chargeModal ? "auto" : "hidden";
   };
 
   return (
@@ -14,7 +16,9 @@ export default function Index() {
       {chargeModal && <ChargeCredit onChargeClick={handleChargeModal} />}
       <Header />
       <Credit onChargeClick={handleChargeModal} />
-      <IdolFunding />
+      <FavoriteIdol />
+      <ChartOfTheMonth></ChartOfTheMonth>
+      <section>리스트</section>
     </main>
   );
 }

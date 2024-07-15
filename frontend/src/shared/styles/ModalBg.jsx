@@ -4,7 +4,7 @@ import { media } from "@utils";
 export const ModalBg = styled.div`
   ${({ theme }) =>
     `${media.base`
-      position: absolute;
+      position: fixed;
       background-color: #000;
       opacity: 0.8;
       inset: 0 0 0 0;

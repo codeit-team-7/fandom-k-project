@@ -8,6 +8,7 @@ import homeBg01 from "@assets/images/Img_web_01.png";
 import homeBg02 from "@assets/images/Img_web_02.png";
 import homeBg03 from "@assets/images/Img_web_03.png";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const ListButton = styled(Button)`
   width: 230px;
@@ -191,9 +192,9 @@ const IntroDeco = styled.div`
 
 function IntroSection({ title, text, img, bgImg, sortDir }) {
   return (
-    <IntroBgContainer bgImg={bgImg}>
+    <IntroBgContainer $bgImg={bgImg}>
       <IntroSectionContainer>
-        <IntroTextContainer sortDir={sortDir}>
+        <IntroTextContainer $sortDir={sortDir}>
           <IntroTitle>{title}</IntroTitle>
           <IntroText>{text}</IntroText>
         </IntroTextContainer>
@@ -219,7 +220,9 @@ export default function Index() {
           <MainLogo src={mainLogo}></MainLogo>
           <BackgroundImg />
         </TitleSection>
-        <ListButton onClick={handleButtonClick}>지금 시작하기</ListButton>
+        <Link to="list">
+          <ListButton onClick={handleButtonClick}>지금 시작하기</ListButton>
+        </Link>
       </Title>
       <Intro>
         <IntroDeco />
@@ -227,22 +230,22 @@ export default function Index() {
           title={"후원하기"}
           text={"좋아하는 아이돌에게 \n 쉽게 조공해 보세요"}
           img={home01}
-          bgImg={homeBg01}
-          sortDir={true}
+          $bgImg={homeBg01}
+          $sortDir={true}
         />
         <IntroSection
           title={"이달의 아티스트"}
           text={"내 아티스트에게 1등의 \n 영예를 선물하세요"}
           img={home02}
-          bgImg={homeBg02}
-          sortDir={false}
+          $bgImg={homeBg02}
+          $sortDir={false}
         />
         <IntroSection
           title={"나만의 아티스트"}
           text={"좋아하는 아티스트들의 \n 소식을 모아보세요"}
           img={home03}
-          bgImg={homeBg03}
-          sortDir={true}
+          $bgImg={homeBg03}
+          $sortDir={true}
         />
       </Intro>
     </main>
