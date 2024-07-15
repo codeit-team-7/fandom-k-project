@@ -192,9 +192,9 @@ const IntroDeco = styled.div`
 
 function IntroSection({ title, text, img, bgImg, sortDir }) {
   return (
-    <IntroBgContainer bgimg={bgImg}>
+    <IntroBgContainer $bgImg={bgImg}>
       <IntroSectionContainer>
-        <IntroTextContainer sortdir={sortDir}>
+        <IntroTextContainer $sortDir={sortDir}>
           <IntroTitle>{title}</IntroTitle>
           <IntroText>{text}</IntroText>
         </IntroTextContainer>
@@ -230,22 +230,22 @@ export default function Index() {
           title={"후원하기"}
           text={"좋아하는 아이돌에게 \n 쉽게 조공해 보세요"}
           img={home01}
-          bgimg={homeBg01}
-          sortdir={true}
+          $bgImg={homeBg01}
+          $sortDir={true}
         />
         <IntroSection
           title={"이달의 아티스트"}
           text={"내 아티스트에게 1등의 \n 영예를 선물하세요"}
           img={home02}
-          bgimg={homeBg02}
-          sortdir={false}
+          $bgImg={homeBg02}
+          $sortDir={false}
         />
         <IntroSection
           title={"나만의 아티스트"}
           text={"좋아하는 아티스트들의 \n 소식을 모아보세요"}
           img={home03}
-          bgimg={homeBg03}
-          sortdir={true}
+          $bgImg={homeBg03}
+          $sortDir={true}
         />
       </Intro>
     </main>
