@@ -25,6 +25,5 @@ export const postVote = async (idolId) => {
         idolId: idolId,
       }),
     });
-    console.log(response);
   } catch (err) {}
 };
