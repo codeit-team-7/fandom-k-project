@@ -1,11 +1,13 @@
+const API_URL = import.meta.env.VITE_API_URL;
 export const getIdolList = async ({
   cursor = 0,
   gender = "female",
   pageSize = 10,
 }) => {
+  cursor = gender === "female" ? cursor.female : cursor.male;
   try {
     const response = await fetch(
-      `https://fandom-k-api.vercel.app/8-7/charts/{gender}?gender=${gender}&pageSize=${pageSize}&cursor=${cursor}`
+      `${API_URL}/charts/{gender}?gender=${gender}&pageSize=${pageSize}&cursor=${cursor}`
     );
     const idolList = await response.json();
     return idolList;
@@ -16,7 +18,7 @@ export const getIdolList = async ({
 
 export const postVote = async (idolId) => {
   try {
-    const response = await fetch(`https://fandom-k-api.vercel.app/8-7/votes`, {
+    await fetch(`${API_URL}/votes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

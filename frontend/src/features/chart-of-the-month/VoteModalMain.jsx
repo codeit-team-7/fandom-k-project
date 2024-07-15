@@ -12,7 +12,13 @@ export default function VoteModalMain({
       {!idolList.length ||
         idolList.map((idol, index) => {
           return (
-            <li key={Date.now() * index} className="list-item">
+            <li
+              key={Date.now() * index}
+              className="list-item"
+              onClick={() => {
+                onClickCheck(idol.id);
+              }}
+            >
               <div className="idol">
                 <span className="img">
                   <img src={idol.profilePicture} />
@@ -26,12 +32,7 @@ export default function VoteModalMain({
                   <span className="votes">{idol.totalVotes}표</span>
                 </div>
               </div>
-              <button
-                className="check"
-                onClick={() => {
-                  onClickCheck(idol.id);
-                }}
-              >
+              <button className="check">
                 <img
                   src={checkedId === idol.id ? icCheckboxActive : icCheckbox}
                 />

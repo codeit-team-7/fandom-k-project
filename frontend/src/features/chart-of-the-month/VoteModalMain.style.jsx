@@ -23,9 +23,10 @@ export const VoteModalMainBox = styled.ul`
       padding: 8px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       align-items: center;
+      cursor: pointer;
         .check {
         background-color: inherit;
-        cursor: pointer;
+        
         }
       }
       .idol {

@@ -335,7 +335,7 @@ export default function Index({ onFundingClick }) {
     setItemNum(nextItemNum);
     if (itemRefs.current[nextItemNum]) {
       itemRefs.current[nextItemNum].scrollIntoView({
-        block: "start",
+        block: "nearest",
         behavior: "smooth",
         inline: "start",
       });

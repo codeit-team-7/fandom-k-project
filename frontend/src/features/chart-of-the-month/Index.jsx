@@ -14,26 +14,37 @@ const INITIAL_LIST = {
   female: [],
   male: [],
 };
+const INITIAL_CURSOR = {
+  female: 0,
+  male: 0,
+};
 export default function Index() {
-  const [gender, setGender] = useState("female");
   const [idolList, setIdolList] = useState(INITIAL_LIST);
-  const [cursor, setCursor] = useState(0);
+  const [cursor, setCursor] = useState(INITIAL_CURSOR);
+  const [gender, setGender] = useState("female");
+  const [showItemNum, setShowItemNum] = useState(0);
   const [isOpenVote, setIsOpenVote] = useState(false);
 
-  const loadIdols = async ({ cursor = cursor, gender = gender }) => {
-    if (cursor === null) {
+  const loadIdols = async () => {
+    if (gender === "female" && cursor.female === null) {
       return;
     }
-    const pageSize = window.innerHeight > 1024 ? 10 : 5;
-
+    if (gender === "male" && cursor.male === null) {
+      return;
+    }
+    const pageSize = window.innerWidth > 1024 ? 10 : 5;
+    if (showItemNum === 0) {
+      setShowItemNum(pageSize);
+    }
     const { idols, nextCursor } = await getIdolList({
       cursor,
       gender,
       pageSize,
     });
-    if (idols.length <= 0) {
+    if (!idols?.length) {
       return;
     }
+
     if (gender === "female") {
       setIdolList((prev) => ({
         ...prev,
@@ -45,17 +56,27 @@ export default function Index() {
         male: [...prev.male, ...idols],
       }));
     }
-    setCursor(nextCursor);
+    setCursor((prev) =>
+      gender === "female"
+        ? { ...prev, female: nextCursor }
+        : { ...prev, male: nextCursor }
+    );
   };
+  const handleViewMoreButton = async () => {
+    const pageSize = window.innerWidth > 1024 ? 10 : 5;
+    const hasItemNum =
+      gender === "female" ? idolList.female.length : idolList.male.length;
 
-  const handleViewMoreButton = () => {
-    loadIdols({ cursor, gender });
+    if (hasItemNum < showItemNum + pageSize) {
+      loadIdols({ gender, cursor });
+    }
+    setShowItemNum((prev) => prev + pageSize);
   };
 
   const handleGenderChange = (gender) => {
-    setCursor(0);
-    setIdolList(INITIAL_LIST);
+    const pageSize = window.innerWidth > 1024 ? 10 : 5;
     setGender(gender);
+    setShowItemNum(pageSize);
   };
 
   const handleModal = () => {
@@ -68,12 +89,24 @@ export default function Index() {
   };
 
   const handleVoteButton = async (id) => {
-    await postVote(id);
+    try {
+      await postVote(id);
+      setIdolList((prev) => {
+        const updateList = prev[gender].map((item) => {
+          return item.id === id
+            ? { ...item, totalVotes: item.totalVotes + 1 }
+            : item;
+        });
+        updateList.sort((a, b) => b.totalVotes - a.totalVotes);
+        return { ...prev, [gender]: updateList };
+      });
+    } catch (err) {
+      console.log("Vote post 실패", err);
+    }
   };
-
   useEffect(() => {
     loadIdols({ cursor, gender });
-  }, [gender]);
+  }, []);
 
   return (
     <>
@@ -83,8 +116,8 @@ export default function Index() {
           idolList={gender === "female" ? idolList.female : idolList.male}
           onClickGender={handleGenderChange}
           onClickViewMore={handleViewMoreButton}
-          cursor={cursor}
           gender={gender}
+          showItemNum={showItemNum}
         />
       </ChartLayout>
 
@@ -92,7 +125,7 @@ export default function Index() {
         <>
           <ModalBg />
           <VoteModal
-            idolList={idolList.female}
+            idolList={gender === "female" ? idolList.female : idolList.male}
             handleModal={handleModal}
             handleVote={handleVoteButton}
           />
