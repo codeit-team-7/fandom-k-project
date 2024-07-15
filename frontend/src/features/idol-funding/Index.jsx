@@ -128,6 +128,7 @@ const FundingButton = styled(Button)`
   justify-content: center;
   align-items: center;
   border-radius: 3px;
+  cursor: pointer;
   ${media.base`
     width: calc(100% - 16px);
     font-size: ${13};
@@ -236,14 +237,14 @@ const FundingMeter = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: ${({ percentage }) => percentage};
+    width: ${({ percentage }) => (percentage ? percentage : "0%")};
     height: 100%;
     border-radius: 5px;
     background-color: ${({ theme }) => theme.colors.BRAND[100]};
   }
 `;
 
-function FundingItem({ item }) {
+function FundingItem({ item, onFundingClick }) {
   const {
     deadline,
     subtitle,
@@ -253,12 +254,16 @@ function FundingItem({ item }) {
     profilePicture = item.idol.profilePicture,
   } = item;
 
+  // 목표금액, 모인 금액을 %로 바꿈
   const calculatePercentage = (part, whole) => {
     return Math.round((part / whole) * 100);
   };
   const percentage = calculatePercentage(receivedDonations, targetDonation);
+
+  // 모인 금액을 원단위로 바꿈
   const korReceivedDonations = receivedDonations.toLocaleString();
 
+  // 데드라인(모금 종료)까지 남은 기한 계산
   const getTimegap = (deadTime) => {
     const nowTimeDate = new Date();
     const nowTimeStamp = nowTimeDate.getTime();
@@ -291,7 +296,9 @@ function FundingItem({ item }) {
             width="158px"
             height="206px"
           />
-          <FundingButton>후원하기</FundingButton>
+          <FundingButton onClick={onFundingClick} as="button">
+            후원하기
+          </FundingButton>
         </ImageButtonBox>
         <InfoContainer>
           <ItemTag>{subtitle}</ItemTag>
@@ -304,7 +311,7 @@ function FundingItem({ item }) {
               </DonationAmount>
               <DaysRemaining>{getTimegap(deadline)}</DaysRemaining>
             </InfoBox>
-            <FundingMeter percentage={`${percentage}%`} />
+            <FundingMeter $percentage={`${percentage}%`} />
           </DonationGoalContainer>
         </InfoContainer>
       </ItemBox>
@@ -312,12 +319,13 @@ function FundingItem({ item }) {
   );
 }
 
-export default function Index() {
+export default function Index({ onFundingClick }) {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [itemNum, setItemNum] = useState(0);
   const itemRefs = useRef([]);
 
+  // 받아온 값만큼 지정한 item으로 scrollIntoView 합니다.
   const scrollItem = (nextItemNum) => {
     setItemNum(nextItemNum);
     if (itemRefs.current[nextItemNum]) {
@@ -360,6 +368,7 @@ export default function Index() {
     return <div>Loading...</div>;
   }
   const cutItems = [...items.list];
+
   return (
     <Container>
       <Title>후원을 기다리는 조공</Title>
@@ -370,7 +379,7 @@ export default function Index() {
             .filter((item) => item.status)
             .map((item, i) => (
               <li key={item.id} ref={(el) => (itemRefs.current[i] = el)}>
-                <FundingItem id={`content${i}`} item={item} />
+                <FundingItem id={`content${i}`} item={item} onFundingClick={onFundingClick} />
               </li>
             ))}
         </FundingItems>
