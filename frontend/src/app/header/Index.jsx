@@ -8,13 +8,6 @@ const StyledHeader = styled.header`
       color: ${theme.colors.BRAND[200]};
     `}
 
-    ${media.sm`
-      font-size: ${85};
-    `}
-
-    ${media.md`
-      font-size: ${320};
-    `}
   `}
 `;
 
