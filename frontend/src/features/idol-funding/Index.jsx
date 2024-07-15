@@ -1,4 +1,4 @@
-import CreditSVG from "../../assets/icons/credit.svg";
+import CreditSVG from "../../assets/icons/ic_credit.svg";
 import { styled } from "styled-components";
 import { media } from "@utils";
 import { Button } from "../../shared/styles/Button";
@@ -306,7 +306,12 @@ function FundingItem({ item, onFundingClick }) {
           <DonationGoalContainer>
             <InfoBox>
               <DonationAmount>
-                <img src={CreditSVG} alt="크레딧 아이콘 이미지" width={12} height={12} />
+                <img
+                  src={CreditSVG}
+                  alt="크레딧 아이콘 이미지"
+                  width={12}
+                  height={12}
+                />
                 {korReceivedDonations}
               </DonationAmount>
               <DaysRemaining>{getTimegap(deadline)}</DaysRemaining>
@@ -379,7 +384,11 @@ export default function Index({ onFundingClick }) {
             .filter((item) => item.status)
             .map((item, i) => (
               <li key={item.id} ref={(el) => (itemRefs.current[i] = el)}>
-                <FundingItem id={`content${i}`} item={item} onFundingClick={onFundingClick} />
+                <FundingItem
+                  id={`content${i}`}
+                  item={item}
+                  onFundingClick={onFundingClick}
+                />
               </li>
             ))}
         </FundingItems>
