@@ -25,6 +25,7 @@ export default function Index() {
       return;
     }
     const pageSize = window.innerHeight > 1024 ? 10 : 5;
+
     const { idols, nextCursor } = await getIdolList({
       cursor,
       gender,
