@@ -5,9 +5,10 @@ import AddYourFavoriteIdol from "./add-your-favorite-idol/Index";
 import Credit from "./credit/Index";
 import ChargeCredit from "./charge-credit/Index";
 import Header from "./header/Index";
-
+import IdolFundingModal from "./idol-funding/IdolFundingModal";
 export {
   FavoriteIdol,
+  IdolFundingModal,
   IdolFunding,
   ChartOfTheMonth,
   AddYourFavoriteIdol,
