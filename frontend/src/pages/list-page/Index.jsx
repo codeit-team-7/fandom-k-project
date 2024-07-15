@@ -1,4 +1,4 @@
-import { FavoriteIdol, Credit, ChargeCredit } from "@features";
+import { Credit, ChargeCredit, ChartOfTheMonth } from "@features";
 import { useState } from "react";
 import { Header } from "../../features";
 
@@ -16,8 +16,7 @@ export default function Index() {
       {chargeModal && <ChargeCredit onChargeClick={handleChargeModal} />}
       <Header />
       <Credit onChargeClick={handleChargeModal} />
-      <FavoriteIdol />
-      <section>리스트</section>
+      <ChartOfTheMonth></ChartOfTheMonth>
     </main>
   );
 }
