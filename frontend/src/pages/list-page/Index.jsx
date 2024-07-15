@@ -7,6 +7,8 @@ export default function Index() {
 
   const handleChargeModal = () => {
     setChargeModal(chargeModal ? false : true);
+
+    document.body.style.overflow = chargeModal ? "auto" : "hidden";
   };
 
   return (
