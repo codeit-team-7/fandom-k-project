@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import creditIcon from "@assets/icons/credit.svg";
+import creditIcon from "@assets/icons/ic_credit.svg";
 import creditWhiteIcon from "@assets/icons/credit_white.svg";
 import deleteBtn24 from "@assets/icons/btn_delete_24px.svg";
 import { ModalBg } from "@shared/styles/ModalBg";

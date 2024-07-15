@@ -1,4 +1,4 @@
-import creditIcon from "@assets/icons/credit.svg";
+import creditIcon from "@assets/icons/ic_credit.svg";
 import styled from "styled-components";
 
 const CreditConainer = styled.div`

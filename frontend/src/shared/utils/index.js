@@ -1,4 +1,5 @@
-import { pxr, pxe, px } from "./pxcel-calculator/index";
 import { media } from "./media-query/index";
+import { pxr, pxe, px } from "./pxcel-calculator/index";
+import { debounce } from "./debounce/index";
 
-export { pxr, pxe, px, media };
+export { media, pxr, pxe, px, debounce };
