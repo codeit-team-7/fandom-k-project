@@ -190,6 +190,7 @@ const IntroDeco = styled.div`
   }
 `;
 
+// eslint-disable-next-line react/prop-types
 function IntroSection({ title, text, img, bgImg, sortDir }) {
   return (
     <IntroBgContainer $bgImg={bgImg}>
