@@ -17,7 +17,7 @@ export default function Index() {
       {chargeModal && <ChargeCredit onChargeClick={handleChargeModal} />}
       <Header />
       <Credit onChargeClick={handleChargeModal} />
-      <IdolFunding />
+      <IdolFunding onFundingClick={handleIdolFundingModal} />
       {idolFundingModal && <IdolFundingModal onFundingClick={handleIdolFundingModal} />}
       <ChartOfTheMonth></ChartOfTheMonth>
     </main>
