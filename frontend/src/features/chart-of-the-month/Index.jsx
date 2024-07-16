@@ -24,27 +24,42 @@ export default function Index() {
   const [gender, setGender] = useState("female");
   const [showItemNum, setShowItemNum] = useState(0);
   const [isOpenVote, setIsOpenVote] = useState(false);
+  const observerRef = useRef();
+  const cursorRef = useRef(cursor);
 
-  const loadIdols = async () => {
-    if (gender === "female" && cursor.female === null) {
-      return;
-    }
-    if (gender === "male" && cursor.male === null) {
+  const loadIdols = async ({ retry = 3 } = {}) => {
+    const genderCursor =
+      gender === "female" ? cursorRef.current.female : cursorRef.current.male;
+    if (genderCursor === null) {
       return;
     }
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
     if (showItemNum === 0) {
       setShowItemNum(pageSize);
     }
+
     const { idols, nextCursor } = await getIdolList({
-      cursor,
+      cursor: genderCursor,
       gender,
       pageSize,
+    });
+    if (idols === null && retry) {
+      loadIdols({ retry: retry - 1 });
+      return;
+    }
+    if (idols === null) {
+      return;
+    }
+    setCursor((prev) => {
+      cursorRef.current =
+        gender === "female"
+          ? { ...prev, female: nextCursor }
+          : { ...prev, male: nextCursor };
+      return cursorRef.current;
     });
     if (!idols?.length) {
       return;
     }
-
     if (gender === "female") {
       setIdolList((prev) => ({
         ...prev,
@@ -56,19 +71,15 @@ export default function Index() {
         male: [...prev.male, ...idols],
       }));
     }
-    setCursor((prev) =>
-      gender === "female"
-        ? { ...prev, female: nextCursor }
-        : { ...prev, male: nextCursor }
-    );
   };
-  const handleViewMoreButton = async () => {
+
+  const handleViewMoreButton = () => {
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
     const hasItemNum =
       gender === "female" ? idolList.female.length : idolList.male.length;
 
     if (hasItemNum < showItemNum + pageSize) {
-      loadIdols({ gender, cursor });
+      loadIdols();
     }
     setShowItemNum((prev) => prev + pageSize);
   };
@@ -88,24 +99,50 @@ export default function Index() {
     setIsOpenVote(!isOpenVote);
   };
 
-  const handleVoteButton = async (id) => {
-    try {
-      await postVote(id);
-      setIdolList((prev) => {
-        const updateList = prev[gender].map((item) => {
-          return item.id === id
-            ? { ...item, totalVotes: item.totalVotes + 1 }
-            : item;
-        });
-        updateList.sort((a, b) => b.totalVotes - a.totalVotes);
-        return { ...prev, [gender]: updateList };
-      });
-    } catch (err) {
-      console.log("Vote post 실패", err);
+  const handleVoteButton = async (id, { retry = 3 } = {}) => {
+    const credit = localStorage.getItem("credit");
+    if (credit < 1000) {
+      console.log("크레딧부족");
+      return;
     }
+    const voteResult = await postVote(id);
+    setIdolList((prev) => {
+      const updateList = prev[gender].map((item) => {
+        return item.id === id
+          ? { ...item, totalVotes: item.totalVotes + 1 }
+          : item;
+      });
+      updateList.sort((a, b) => b.totalVotes - a.totalVotes);
+      return { ...prev, [gender]: updateList };
+    });
+    if (!voteResult && retry) {
+      console.log(`투표재요청 남은횟수${retry}`);
+      handleVoteButton({ id, retry: retry - 1 });
+      return;
+    }
+    if (!voteResult) {
+      console.log("투표 실패");
+      return;
+    }
+    localStorage.setItem("credit", credit - 1);
+    console.log("실행");
+    setIsOpenVote(false);
   };
+
   useEffect(() => {
-    loadIdols({ cursor, gender });
+    loadIdols();
+  }, []);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && cursor[gender] !== null) {
+        loadIdols();
+      }
+    });
+
+    return () => {
+      observerRef.current.disconnect();
+    };
   }, []);
 
   return (
@@ -128,6 +165,8 @@ export default function Index() {
             idolList={gender === "female" ? idolList.female : idolList.male}
             handleModal={handleModal}
             handleVote={handleVoteButton}
+            observer={observerRef.current}
+            gender={gender}
           />
         </>
       )}

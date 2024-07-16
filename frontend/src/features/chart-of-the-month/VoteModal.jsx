@@ -9,7 +9,8 @@ export default function VoteModal({
   idolList,
   handleModal,
   handleVote,
-  observerRef,
+  observer,
+  gender,
 }) {
   const [checkedId, setCheckedId] = useState();
 
@@ -26,12 +27,12 @@ export default function VoteModal({
 
   return (
     <VoteModalLayout>
-      <VoteModalTop handleModal={handleModal} />
+      <VoteModalTop handleModal={handleModal} gender={gender} />
       <VoteModalMain
         idolList={idolList}
         onClickCheck={handleChecked}
         checkedId={checkedId}
-        observerRef={observerRef}
+        observer={observer}
       />
       <VoteModalBottom onClick={onClickVote} />
     </VoteModalLayout>

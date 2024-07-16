@@ -55,6 +55,10 @@ export const VoteModalMainBox = styled.ul`
       flex-direction: column;
       justify-content: center;
       }
+      .observer {
+      width:100px;
+      height:100px;
+      }
   `}
   ${media.md`
     height: 540px`}

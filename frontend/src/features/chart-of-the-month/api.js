@@ -1,10 +1,10 @@
 const API_URL = import.meta.env.VITE_API_URL;
+
 export const getIdolList = async ({
-  cursor = 0,
+  cursor,
   gender = "female",
   pageSize = 10,
 }) => {
-  cursor = gender === "female" ? cursor.female : cursor.male;
   try {
     const response = await fetch(
       `${API_URL}/charts/{gender}?gender=${gender}&pageSize=${pageSize}&cursor=${cursor}`
@@ -12,11 +12,11 @@ export const getIdolList = async ({
     const idolList = await response.json();
     return idolList;
   } catch (err) {
-    console.log("패치에러", err);
+    return { idols: null, nextCursor: null };
   }
 };
 
-export const postVote = async (idolId) => {
+export const postVote = async (idolId, retry = 3) => {
   try {
     await fetch(`${API_URL}/votes`, {
       method: "POST",
@@ -27,5 +27,8 @@ export const postVote = async (idolId) => {
         idolId: idolId,
       }),
     });
-  } catch (err) {}
+    return true;
+  } catch (err) {
+    return false;
+  }
 };

@@ -1,12 +1,27 @@
+import { useEffect, useRef } from "react";
+
 import { VoteModalMainBox } from "./VoteModalMain.style";
+
 import icCheckbox from "@assets/icons/ic_checkbox.svg";
 import icCheckboxActive from "@assets/icons/ic_checkbox_active.svg";
 export default function VoteModalMain({
   idolList,
   onClickCheck,
   checkedId,
-  observerRef,
+  observer,
 }) {
+  const targetRef = useRef(null);
+  useEffect(() => {
+    if (observer && targetRef.current) {
+      observer.observe(targetRef.current);
+    }
+
+    return () => {
+      if (observer && targetRef.current) {
+        observer.unobserve(targetRef.current);
+      }
+    };
+  }, [observer]);
   return (
     <VoteModalMainBox>
       {!idolList.length ||
@@ -40,7 +55,7 @@ export default function VoteModalMain({
             </li>
           );
         })}
-      <div ref={observerRef}>옵저버</div>
+      <div ref={targetRef} className="observer"></div>
     </VoteModalMainBox>
   );
 }
