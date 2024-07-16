@@ -74,7 +74,7 @@ const MainLogo = styled.img`
 `;
 
 const BackgroundImg = styled.div`
-  width: 425px;
+  width: 100%;
   margin: 0 auto;
   height: 330px;
   background: radial-gradient(circle, transparent, #02000e), url(${titleImg});
@@ -100,7 +100,7 @@ const IntroBgContainer = styled.div`
   height: 812px;
   width: 100%;
   margin: 0 auto;
-  background-image: url(${(props) => props.bgImg});
+  background-image: ${({ $bgImg }) => `url(${$bgImg})`};
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -113,7 +113,7 @@ const IntroBgContainer = styled.div`
 `;
 
 const IntroSectionContainer = styled.div`
-  width: 375px;
+  width: 100%;
   margin: 0 auto;
   z-index: 5;
 `;
@@ -123,9 +123,8 @@ const IntroTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 5;
-  align-items: ${({ sortDir }) => (sortDir ? "flex-start" : "flex-end")};
-
-  text-align: ${({ sortDir }) => (sortDir ? "left" : "right")};
+  align-items: ${({ $sortDir }) => ($sortDir ? "flex-start" : "flex-end")};
+  text-align: ${({ $sortDir }) => ($sortDir ? "left" : "right")};
   @media (min-width: 728px) {
     align-items: center;
   }
@@ -175,27 +174,26 @@ const IntroDeco = styled.div`
   background-color: #14c3fe;
   position: absolute;
   left: 50%;
-  top: 130%;
+  top: 1200px;
   transform: translate(-50%, 0);
   opacity: 10%;
   @media (min-width: 728px) {
-    top: 170%;
+    top: 1600px;
     height: 2000px;
   }
   @media (min-width: 1024px) {
     width: 187px;
-
     height: 2133px;
-    top: 200%;
+    top: 2000px;
   }
 `;
 
 // eslint-disable-next-line react/prop-types
-function IntroSection({ title, text, img, bgImg, sortDir }) {
+function IntroSection({ title, text, img, $bgImg, $sortDir }) {
   return (
-    <IntroBgContainer $bgImg={bgImg}>
+    <IntroBgContainer $bgImg={$bgImg}>
       <IntroSectionContainer>
-        <IntroTextContainer $sortDir={sortDir}>
+        <IntroTextContainer $sortDir={$sortDir}>
           <IntroTitle>{title}</IntroTitle>
           <IntroText>{text}</IntroText>
         </IntroTextContainer>
@@ -221,7 +219,7 @@ export default function Index() {
           <MainLogo src={mainLogo}></MainLogo>
           <BackgroundImg />
         </TitleSection>
-        <Link to="list">
+        <Link to="list" style={{ textDecoration: "none" }}>
           <ListButton onClick={handleButtonClick}>지금 시작하기</ListButton>
         </Link>
       </Title>
