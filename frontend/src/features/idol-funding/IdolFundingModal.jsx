@@ -130,7 +130,7 @@ const ModalFundingButton = styled(Button)`
     font-size: ${14};
   `}
 `;
-export default function IdolFundingModal({ item, onFundingClick, myCredit, setIsReRendering }) {
+export default function IdolFundingModal({ item, onFundingClick, setIsReRendering }) {
   const {
     id,
     status,
@@ -144,6 +144,11 @@ export default function IdolFundingModal({ item, onFundingClick, myCredit, setIs
   const [isInValid, setIsInValid] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isOverCredit, setIsOverCredit] = useState(false);
+
+  const getCharge = () => {
+    return Number(localStorage.getItem("credit"));
+  };
+  const myCredit = getCharge();
 
   const deductCredit = () => {
     const resultCredit = myCredit - Number(creditUse);

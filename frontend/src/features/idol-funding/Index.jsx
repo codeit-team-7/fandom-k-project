@@ -249,7 +249,7 @@ const FundingMeter = styled.div`
   }
 `;
 
-function FundingItem({ item, myCredit, setIsReRendering }) {
+function FundingItem({ item, setIsReRendering }) {
   const {
     deadline,
     subtitle,
@@ -298,7 +298,6 @@ function FundingItem({ item, myCredit, setIsReRendering }) {
         <IdolFundingModal
           item={item}
           onFundingClick={handleIdolFundingModal}
-          myCredit={myCredit}
           setIsReRendering={setIsReRendering}
         />
       )}
@@ -339,10 +338,6 @@ export default function Index() {
   const [itemNum, setItemNum] = useState(0);
   const [isReRendering, setIsReRendering] = useState(false);
   const itemRefs = useRef([]);
-  const getCharge = () => {
-    return Number(localStorage.getItem("credit"));
-  };
-  const myCredit = getCharge();
   // 카드의 처음과 마지막은 화살표 버튼 안 보이게 설정
   const showArrowButton = (direction) => {
     const lastNum = items.length - 1;
@@ -412,12 +407,7 @@ export default function Index() {
             // .filter((item) => item.status)
             .map((item, i) => (
               <li key={item.id} ref={(el) => (itemRefs.current[i] = el)}>
-                <FundingItem
-                  id={`content${i}`}
-                  item={item}
-                  myCredit={myCredit}
-                  setIsReRendering={setIsReRendering}
-                />
+                <FundingItem id={`content${i}`} item={item} setIsReRendering={setIsReRendering} />
               </li>
             ))}
         </FundingItems>
