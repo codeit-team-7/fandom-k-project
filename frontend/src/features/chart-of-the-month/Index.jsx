@@ -26,14 +26,18 @@ export default function Index() {
   const [showItemNum, setShowItemNum] = useState(0);
   const [isOpenVote, setIsOpenVote] = useState(false);
   const [isNotEnough, setIsNotEnough] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const observerRef = useRef();
   const cursorRef = useRef(cursor);
+  const lastItemRef = useRef();
 
   const loadIdols = async ({ retry = 3 } = {}) => {
+    setIsLoading(true);
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
     const genderCursor =
       gender === "female" ? cursorRef.current.female : cursorRef.current.male;
     if (genderCursor === null) {
+      setIsLoading(false);
       return;
     }
     if (showItemNum === 0) {
@@ -60,6 +64,7 @@ export default function Index() {
       return cursorRef.current;
     });
     if (!idols?.length) {
+      setIsLoading(false);
       return;
     }
     if (gender === "female") {
@@ -73,7 +78,12 @@ export default function Index() {
         male: [...prev.male, ...idols],
       }));
     }
+    setIsLoading(false);
   };
+
+  useEffect(() => {
+    loadIdols();
+  }, []);
 
   const handleViewMoreButton = () => {
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
@@ -137,8 +147,13 @@ export default function Index() {
     document.body.style.overflow = "auto";
   };
   useEffect(() => {
-    loadIdols();
-  }, []);
+    if (lastItemRef.current) {
+      lastItemRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [lastItemRef.current]);
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver((entries) => {
@@ -151,6 +166,11 @@ export default function Index() {
       observerRef.current.disconnect();
     };
   }, []);
+  useEffect(() => {
+    if (cursorRef.current[gender] === null) {
+      observerRef.current.disconnect();
+    }
+  }, [cursorRef.current[gender]]);
 
   return (
     <>
@@ -162,6 +182,8 @@ export default function Index() {
           onClickViewMore={handleViewMoreButton}
           gender={gender}
           showItemNum={showItemNum}
+          lastItemRef={lastItemRef}
+          isLoading={isLoading}
         />
       </ChartLayout>
 
@@ -174,6 +196,7 @@ export default function Index() {
             handleVote={handleVoteButton}
             observer={observerRef.current}
             gender={gender}
+            isLoading={isLoading}
           />
         </>
       )}

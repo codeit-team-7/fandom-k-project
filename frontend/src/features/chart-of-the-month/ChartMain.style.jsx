@@ -2,6 +2,8 @@ import styled, { keyframes, css } from "styled-components";
 
 import { media } from "@utils";
 
+import { LoadingSpinner } from "@styles/LoadingSpinner";
+
 const moveRight = keyframes`
   from{ left : 0; }
   to { left : 50%; }
@@ -82,3 +84,10 @@ export const ViewMoreBox = styled.div`
         }
 `}`}
 `;
+
+const rotate = keyframes`
+  from{ transform: rotate(0deg);}
+  to { transform: rotate(360deg); }
+`;
+
+export const LoadingItem = styled(LoadingSpinner)``;
