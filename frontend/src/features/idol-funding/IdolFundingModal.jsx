@@ -117,6 +117,7 @@ const ModalFundingWaring = styled.p`
   font-weight: 500;
   margin-top: 6px;
 `;
+
 const ModalFundingButton = styled(Button)`
   display: inline-flex;
   justify-content: center;
@@ -130,6 +131,7 @@ const ModalFundingButton = styled(Button)`
     font-size: ${14};
   `}
 `;
+
 export default function IdolFundingModal({ item, onFundingClick, setIsReRendering }) {
   const {
     id,

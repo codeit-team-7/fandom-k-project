@@ -268,12 +268,13 @@ function FundingItem({ item, setIsReRendering }) {
   } = item;
   const [idolFundingModal, setIdolFundingModal] = useState(false);
   const handleIdolFundingModal = () => setIdolFundingModal((prev) => !prev);
+
   // 목표금액, 모인 금액을 %로 바꿈
   const calculatePercentage = (part, whole) => {
     return Math.round((part / whole) * 100);
   };
   const percentage = calculatePercentage(receivedDonations, targetDonation);
-  console.log(percentage);
+
   // 모인 금액을 원단위로 바꿈
   const korReceivedDonations = receivedDonations.toLocaleString();
 
