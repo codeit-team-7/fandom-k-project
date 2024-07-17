@@ -1,5 +1,7 @@
 import creditIcon from "@assets/icons/ic_credit.svg";
+import { useState } from "react";
 import styled from "styled-components";
+import { ChargeCredit } from "@features";
 
 const CreditConainer = styled.div`
   padding: 0 24px;
@@ -75,20 +77,29 @@ const getCharge = () => {
   return Number(localStorage.getItem("credit"));
 };
 
-export default function Index({ onChargeClick }) {
+export default function Index() {
+  const [chargeModal, setChargeModal] = useState(false);
+  const handleChargeModal = () => {
+    setChargeModal(chargeModal ? false : true);
+
+    document.body.style.overflow = chargeModal ? "auto" : "hidden";
+  };
   const credit = getCharge();
   return (
-    <CreditConainer>
-      <CreditBox>
-        <div>
-          <MyCredit>내 크레딧</MyCredit>
-          <CreditAmountContainer>
-            <CreditIcon src={creditIcon} alt="크레딧 아이콘" />
-            <CreditAmount>{credit.toLocaleString("ko-kr")}</CreditAmount>
-          </CreditAmountContainer>
-        </div>
-        <Charge onClick={onChargeClick}>충전하기</Charge>
-      </CreditBox>
-    </CreditConainer>
+    <>
+      {chargeModal && <ChargeCredit onChargeClick={handleChargeModal} />}
+      <CreditConainer>
+        <CreditBox>
+          <div>
+            <MyCredit>내 크레딧</MyCredit>
+            <CreditAmountContainer>
+              <CreditIcon src={creditIcon} alt="크레딧 아이콘" />
+              <CreditAmount>{credit.toLocaleString("ko-kr")}</CreditAmount>
+            </CreditAmountContainer>
+          </div>
+          <Charge onClick={handleChargeModal}>충전하기</Charge>
+        </CreditBox>
+      </CreditConainer>
+    </>
   );
 }

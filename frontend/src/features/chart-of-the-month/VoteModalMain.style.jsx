@@ -23,9 +23,10 @@ export const VoteModalMainBox = styled.ul`
       padding: 8px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       align-items: center;
+      cursor: pointer;
         .check {
         background-color: inherit;
-        cursor: pointer;
+        
         }
       }
       .idol {
@@ -41,10 +42,18 @@ export const VoteModalMainBox = styled.ul`
       .rank{
       color: ${theme.colors.BRAND[100]};
       }
-      .img{
-      width: 70px;
-      height: 70px;
-      }
+        .img{
+          width: 70px;
+          height: 70px;
+          padding : 5px;
+          border: 1px solid ${theme.colors.BRAND[100]};
+          border-radius: 50%;
+          overflow:hidden;
+          img {
+          border-radius : 50%;
+          object-fit: cover;
+          }
+        }
       .votes {
       color: #fff;
       opacity: 0.6;
@@ -53,6 +62,10 @@ export const VoteModalMainBox = styled.ul`
       display: flex;
       flex-direction: column;
       justify-content: center;
+      }
+      .observer {
+      width:100px;
+      height:100px;
       }
   `}
   ${media.md`

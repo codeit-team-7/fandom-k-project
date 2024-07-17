@@ -1,5 +1,6 @@
 import MainLogo from "@assets/icons/logo.svg";
 import UserIcon from "@assets/images/Frame-28.png";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HeaderMargin = styled.div`
@@ -43,7 +44,9 @@ export default function Index() {
         <div></div>
         <HeaderLogo src={MainLogo} alt="MainLogo" />
         <div>
-          <HeaderIcon src={UserIcon} alt="UserIcon" />
+          <Link to="/mypage">
+            <HeaderIcon src={UserIcon} alt="UserIcon" />
+          </Link>
         </div>
       </HeaderContainer>
     </HeaderMargin>

@@ -1,22 +1,24 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const getIdolList = async ({
-  cursor = 0,
+  cursor,
   gender = "female",
   pageSize = 10,
 }) => {
   try {
     const response = await fetch(
-      `https://fandom-k-api.vercel.app/8-7/charts/{gender}?gender=${gender}&pageSize=${pageSize}&cursor=${cursor}`
+      `${API_URL}/charts/{gender}?gender=${gender}&pageSize=${pageSize}&cursor=${cursor}`
     );
     const idolList = await response.json();
     return idolList;
   } catch (err) {
-    console.log("패치에러", err);
+    return { idols: null, nextCursor: null };
   }
 };
 
-export const postVote = async (idolId) => {
+export const postVote = async (idolId, retry = 3) => {
   try {
-    const response = await fetch(`https://fandom-k-api.vercel.app/8-7/votes`, {
+    await fetch(`${API_URL}/votes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,5 +27,8 @@ export const postVote = async (idolId) => {
         idolId: idolId,
       }),
     });
-  } catch (err) {}
+    return true;
+  } catch (err) {
+    return false;
+  }
 };
