@@ -1,11 +1,12 @@
-import CreditSVG from "@assets/icons/ic_credit.svg";
 import { styled } from "styled-components";
+import { useEffect, useRef, useState } from "react";
 import { media } from "@utils";
 import { Button } from "@shared/styles/Button";
-import { useEffect, useRef, useState } from "react";
-import { getFundingApi } from "./api";
 import { ArrowBtn } from "@shared/styles/ArrowBtn";
+import CreditSVG from "@assets/icons/ic_credit.svg";
+import { LoadingSpinner } from "@shared/styles/LoadingSpinner";
 import IdolFundingModal from "./IdolFundingModal";
+import { getFundingApi } from "./api";
 
 const Container = styled.section`
   ${media.base`
@@ -249,6 +250,13 @@ const FundingMeter = styled.div`
   }
 `;
 
+const MyLoadingSpinner = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+`;
+
 function FundingItem({ item, setIsReRendering }) {
   const {
     deadline,
@@ -389,7 +397,11 @@ export default function Index() {
   }, [isReRendering]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <MyLoadingSpinner>
+        <LoadingSpinner />
+      </MyLoadingSpinner>
+    );
   }
   const cutItems = [...items];
 

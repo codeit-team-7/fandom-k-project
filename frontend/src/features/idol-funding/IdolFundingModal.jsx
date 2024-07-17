@@ -1,11 +1,11 @@
 import styled from "styled-components";
+import { useState } from "react";
 import DeleteBtn24 from "@assets/icons/btn_delete_24px.svg";
 import Cedit from "@assets/icons/ic_credit.svg";
 import { ModalBg } from "@shared/styles/ModalBg";
 import { ModalLayout } from "@shared/styles/ModalLayout";
 import { Button } from "@shared/styles/Button";
 import { media } from "@shared/utils/media-query/index";
-import { useState } from "react";
 import { getRecheckApi, putDonationsApi } from "./api";
 
 const FundingModal = styled(ModalLayout)`
