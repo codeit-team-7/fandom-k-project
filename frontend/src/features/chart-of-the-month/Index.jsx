@@ -9,6 +9,7 @@ import { postVote } from "./api";
 import { ChartLayout } from "./Index.style";
 import { ModalBg } from "@styles/ModalBg";
 import VoteModal from "./VoteModal";
+import NotEnoughModal from "./NotEnoughModal";
 
 const INITIAL_LIST = {
   female: [],
@@ -24,16 +25,17 @@ export default function Index() {
   const [gender, setGender] = useState("female");
   const [showItemNum, setShowItemNum] = useState(0);
   const [isOpenVote, setIsOpenVote] = useState(false);
+  const [isNotEnough, setIsNotEnough] = useState(false);
   const observerRef = useRef();
   const cursorRef = useRef(cursor);
 
   const loadIdols = async ({ retry = 3 } = {}) => {
+    const pageSize = window.innerWidth > 1024 ? 10 : 5;
     const genderCursor =
       gender === "female" ? cursorRef.current.female : cursorRef.current.male;
     if (genderCursor === null) {
       return;
     }
-    const pageSize = window.innerWidth > 1024 ? 10 : 5;
     if (showItemNum === 0) {
       setShowItemNum(pageSize);
     }
@@ -90,7 +92,7 @@ export default function Index() {
     setShowItemNum(pageSize);
   };
 
-  const handleModal = () => {
+  const handleVoteModal = () => {
     if (!isOpenVote) {
       document.body.style.overflow = "hidden";
     } else {
@@ -102,7 +104,8 @@ export default function Index() {
   const handleVoteButton = async (id, { retry = 3 } = {}) => {
     const credit = localStorage.getItem("credit");
     if (credit < 1000) {
-      console.log("크레딧부족");
+      setIsOpenVote(false);
+      setIsNotEnough(true);
       return;
     }
     const voteResult = await postVote(id);
@@ -124,11 +127,15 @@ export default function Index() {
       console.log("투표 실패");
       return;
     }
-    localStorage.setItem("credit", credit - 1);
+    localStorage.setItem("credit", credit - 1000);
     console.log("실행");
     setIsOpenVote(false);
   };
 
+  const handleNotEnough = () => {
+    setIsNotEnough(false);
+    document.body.style.overflow = "auto";
+  };
   useEffect(() => {
     loadIdols();
   }, []);
@@ -148,7 +155,7 @@ export default function Index() {
   return (
     <>
       <ChartLayout>
-        <ChartTop onClick={handleModal} />
+        <ChartTop onClick={handleVoteModal} />
         <ChartMain
           idolList={gender === "female" ? idolList.female : idolList.male}
           onClickGender={handleGenderChange}
@@ -163,11 +170,17 @@ export default function Index() {
           <ModalBg />
           <VoteModal
             idolList={gender === "female" ? idolList.female : idolList.male}
-            handleModal={handleModal}
+            handleModal={handleVoteModal}
             handleVote={handleVoteButton}
             observer={observerRef.current}
             gender={gender}
           />
+        </>
+      )}
+      {isNotEnough && (
+        <>
+          <ModalBg />
+          <NotEnoughModal onClick={handleNotEnough} />
         </>
       )}
     </>
