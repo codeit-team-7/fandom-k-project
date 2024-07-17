@@ -242,7 +242,7 @@ const FundingMeter = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: ${({ percentage }) => (percentage ? `${percentage}%` : "0%")};
+    width: ${({ $percentage }) => ($percentage ? `${$percentage}%` : "0%")};
     height: 100%;
     border-radius: 5px;
     background-color: ${({ theme }) => theme.colors.BRAND[100]};
@@ -265,7 +265,7 @@ function FundingItem({ item, setIsReRendering }) {
     return Math.round((part / whole) * 100);
   };
   const percentage = calculatePercentage(receivedDonations, targetDonation);
-
+  console.log(percentage);
   // 모인 금액을 원단위로 바꿈
   const korReceivedDonations = receivedDonations.toLocaleString();
 
