@@ -1,5 +1,5 @@
-import ChartIdolList from "./ChartIdolList";
-import { ChartMainBox, GenderSelectBox, ViewMoreBox } from "./ChartMain.style";
+import ChartIdolList from './ChartIdolList';
+import { ChartMainBox, GenderSelectBox, ViewMoreBox } from './ChartMain.style';
 
 export default function ChartMain({
   idolList,
@@ -8,27 +8,25 @@ export default function ChartMain({
   gender,
   showItemNum,
 }) {
-  const isMale = gender === "male" ? true : false;
+  const isMale = gender === 'male' ? true : false;
 
   return (
     <>
       <ChartMainBox>
         <GenderSelectBox $isMale={isMale}>
           <button
-            className="gender female"
+            className='gender female'
             onClick={() => {
-              onClickGender("female");
-            }}
-          >
+              onClickGender('female');
+            }}>
             이달의 여자 아이돌
           </button>
-          <div className="gender-selector" />
+          <div className='gender-selector' />
           <button
-            className="gender male"
+            className='gender male'
             onClick={() => {
-              onClickGender("male");
-            }}
-          >
+              onClickGender('male');
+            }}>
             이달의 남자 아이돌
           </button>
         </GenderSelectBox>

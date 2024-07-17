@@ -1,6 +1,6 @@
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes, css } from 'styled-components';
 
-import { media } from "@utils";
+import { media } from '@utils';
 
 const moveRight = keyframes`
   from{ left : 0; }

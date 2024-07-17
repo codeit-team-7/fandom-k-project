@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { media } from "@utils";
+import { media } from '@utils';
 
-import { ModalLayout } from "@styles/ModalLayout";
+import { ModalLayout } from '@styles/ModalLayout';
 
 export const VoteModalLayout = styled(ModalLayout)`
   ${({ theme }) =>

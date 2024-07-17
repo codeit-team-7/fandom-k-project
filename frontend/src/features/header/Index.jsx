@@ -1,7 +1,7 @@
-import MainLogo from "@assets/icons/logo.svg";
-import UserIcon from "@assets/images/Frame-28.png";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import MainLogo from '@assets/icons/logo.svg';
+import UserIcon from '@assets/images/Frame-28.png';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const HeaderMargin = styled.div`
   padding: 0 24px;
@@ -42,10 +42,10 @@ export default function Index() {
     <HeaderMargin>
       <HeaderContainer>
         <div></div>
-        <HeaderLogo src={MainLogo} alt="MainLogo" />
+        <HeaderLogo src={MainLogo} alt='MainLogo' />
         <div>
-          <Link to="/mypage">
-            <HeaderIcon src={UserIcon} alt="UserIcon" />
+          <Link to='/mypage'>
+            <HeaderIcon src={UserIcon} alt='UserIcon' />
           </Link>
         </div>
       </HeaderContainer>

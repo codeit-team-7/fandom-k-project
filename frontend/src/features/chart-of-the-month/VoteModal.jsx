@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import { VoteModalLayout } from "./VoteModal.style";
-import VoteModalTop from "./VoteModalTop";
-import VoteModalMain from "./VoteModalMain";
-import VoteModalBottom from "./VoteModalBottom";
+import { VoteModalLayout } from './VoteModal.style';
+import VoteModalTop from './VoteModalTop';
+import VoteModalMain from './VoteModalMain';
+import VoteModalBottom from './VoteModalBottom';
 
 export default function VoteModal({
   idolList,
@@ -14,7 +14,7 @@ export default function VoteModal({
 }) {
   const [checkedId, setCheckedId] = useState();
 
-  const handleChecked = (id) => {
+  const handleChecked = id => {
     setCheckedId(id);
   };
   const onClickVote = () => {

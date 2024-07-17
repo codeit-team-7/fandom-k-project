@@ -1,5 +1,5 @@
-import { media } from "@utils";
-import styled from "styled-components";
+import { media } from '@utils';
+import styled from 'styled-components';
 
 export const StyledSection = styled.section`
   ${({ theme }) => `
@@ -34,6 +34,10 @@ export const StyledSection = styled.section`
         background: #transparent;
       }
 
+      .item {
+        position: relative;
+      }
+
       .item-picture {
         overflow: hidden;
         width: ${115};
@@ -44,15 +48,17 @@ export const StyledSection = styled.section`
       }
 
       .item-img {
-        position: relative;
         border: none;
         border-radius: inherit;
         object-fit: cover;
       }
-    `}
 
-    ${media.md`
-    
+      .item-delete {
+        cursor: pointer;
+        position: absolute; 
+        transform: translate(${70}, ${8});
+        scale: 1.3;
+      }
     `}
   `}
 `;

@@ -1,7 +1,7 @@
-import creditIcon from "@assets/icons/ic_credit.svg";
-import { useState } from "react";
-import styled from "styled-components";
-import { ChargeCredit } from "@features";
+import creditIcon from '@assets/icons/ic_credit.svg';
+import { useState } from 'react';
+import styled from 'styled-components';
+import { ChargeCredit } from '@features';
 
 const CreditConainer = styled.div`
   padding: 0 24px;
@@ -30,7 +30,7 @@ const CreditBox = styled.div`
 
 const MyCredit = styled.span`
   ${({ theme }) => `
-  font-size: ${theme.fontSize["3xSM"]}px;
+  font-size: ${theme.fontSize['3xSM']}px;
   color: #ffffff;
   `}
   @media (min-width: 728px) {
@@ -46,7 +46,7 @@ const CreditAmountContainer = styled.div`
 
 const CreditAmount = styled.div`
   ${({ theme }) => `
-  font-size: ${theme.fontSize["XLG"]}px;
+  font-size: ${theme.fontSize['XLG']}px;
   
   `}
   color: #ffffff;
@@ -58,7 +58,7 @@ const CreditAmount = styled.div`
 const Charge = styled.div`
   ${({ theme }) => `
   color: ${theme.colors.BRAND[100]};
-  font-size: ${theme.fontSize["2xSM"]}px;
+  font-size: ${theme.fontSize['2xSM']}px;
   
   `}
   cursor: pointer;
@@ -74,7 +74,7 @@ const CreditIcon = styled.img`
 `;
 
 const getCharge = () => {
-  return Number(localStorage.getItem("credit"));
+  return Number(localStorage.getItem('credit'));
 };
 
 export default function Index() {
@@ -82,7 +82,7 @@ export default function Index() {
   const handleChargeModal = () => {
     setChargeModal(chargeModal ? false : true);
 
-    document.body.style.overflow = chargeModal ? "auto" : "hidden";
+    document.body.style.overflow = chargeModal ? 'auto' : 'hidden';
   };
   const credit = getCharge();
   return (
@@ -93,8 +93,8 @@ export default function Index() {
           <div>
             <MyCredit>내 크레딧</MyCredit>
             <CreditAmountContainer>
-              <CreditIcon src={creditIcon} alt="크레딧 아이콘" />
-              <CreditAmount>{credit.toLocaleString("ko-kr")}</CreditAmount>
+              <CreditIcon src={creditIcon} alt='크레딧 아이콘' />
+              <CreditAmount>{credit.toLocaleString('ko-kr')}</CreditAmount>
             </CreditAmountContainer>
           </div>
           <Charge onClick={handleChargeModal}>충전하기</Charge>
