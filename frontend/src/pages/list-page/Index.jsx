@@ -1,4 +1,10 @@
-import { IdolFunding, IdolFundingModal, Credit, ChargeCredit, ChartOfTheMonth } from "@features";
+import {
+  IdolFunding,
+  IdolFundingModal,
+  Credit,
+  ChargeCredit,
+  ChartOfTheMonth,
+} from "@features";
 import { useState } from "react";
 import { Header } from "../../features";
 
@@ -16,9 +22,11 @@ export default function Index() {
     <main>
       {chargeModal && <ChargeCredit onChargeClick={handleChargeModal} />}
       <Header />
-      <Credit onChargeClick={handleChargeModal} />
+      <Credit onChargeClicknpm={handleChargeModal} />
       <IdolFunding onFundingClick={handleIdolFundingModal} />
-      {idolFundingModal && <IdolFundingModal onFundingClick={handleIdolFundingModal} />}
+      {idolFundingModal && (
+        <IdolFundingModal onFundingClick={handleIdolFundingModal} />
+      )}
       <ChartOfTheMonth></ChartOfTheMonth>
     </main>
   );

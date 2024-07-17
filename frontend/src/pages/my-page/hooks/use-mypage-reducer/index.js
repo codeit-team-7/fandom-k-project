@@ -33,33 +33,24 @@ const reducer = (state, action) => {
       let newItems = null;
 
       if (action.reset) {
-        {
-          newCurrentCursorIndex = 0;
-          newCursors = [0];
-          newCursors.push(action.payload.cursor);
-        }
+        newCurrentCursorIndex = 0;
+        newCursors = [0];
+        newCursors.push(action.payload.cursor);
       } else if (action.scroll) {
-        {
-          if (
-            !newCursors.some((newCursor) => newCursor === action.payload.cursor)
-          ) {
-            newCursors.push(action.payload.cursor);
-          }
-          newItems = newItems
-            ? action.payload.items.filter(
-                (newItem) => !state.items.some((item) => newItem.id === item.id)
-              )
-            : [];
-          newItems = [...state.items, ...newItems];
-        }
-      } else if (action.direction === "next") {
-        {
+        if (
+          action.payload.cursor &&
+          !newCursors.some((newCursor) => newCursor === action.payload.cursor)
+        ) {
           newCursors.push(action.payload.cursor);
         }
+        newItems = action.payload.items.filter(
+          (newItem) => !state.items.some((item) => newItem.id === item.id)
+        );
+        newItems = [...state.items, ...newItems];
+      } else if (action.direction === "next") {
+        newCursors.push(action.payload.cursor);
       } else if (action.direction === "prev") {
-        {
-          newCursors.length > 2 && newCursors.pop();
-        }
+        newCursors.length > 2 && newCursors.pop();
       }
 
       return {
@@ -86,14 +77,12 @@ export const useMyPageReducer = () => {
     const pageSize = addedPageSize || calculatePageSize(innerWidth);
     let cursorIndex = state.currentCursorIndex;
 
-    {
-      if (reset) {
-        cursorIndex = 0;
-      } else if (scroll || direction === "next") {
-        cursorIndex = Math.min(cursorIndex + 1, state.cursors.length - 1);
-      } else if (direction === "prev") {
-        cursorIndex = Math.max(cursorIndex - 1, 0);
-      }
+    if (reset) {
+      cursorIndex = 0;
+    } else if (scroll || direction === "next") {
+      cursorIndex = Math.min(cursorIndex + 1, state.cursors.length - 1);
+    } else if (direction === "prev") {
+      cursorIndex = Math.max(cursorIndex - 1, 0);
     }
 
     const cursor = state.cursors[cursorIndex];
@@ -109,7 +98,7 @@ export const useMyPageReducer = () => {
         scroll,
         direction,
         payload: {
-          items: data.list,
+          items: data.list || [],
           cursor: data.nextCursor,
           cursorIndex,
           pageSize,

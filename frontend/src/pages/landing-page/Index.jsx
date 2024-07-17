@@ -100,10 +100,12 @@ const IntroBgContainer = styled.div`
   height: 812px;
   width: 100%;
   margin: 0 auto;
-  background-image: url(${(props) => props.bgImg});
+
+  background-image: url(${(props) => props.$bgImg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
   @media (min-width: 728px) {
     height: 744px;
   }
@@ -231,7 +233,7 @@ export default function Index() {
           title={"후원하기"}
           text={"좋아하는 아이돌에게 \n 쉽게 조공해 보세요"}
           img={home01}
-          $bgImg={homeBg01}
+          bgImg={homeBg01}
           $sortDir={true}
         />
         <IntroSection
