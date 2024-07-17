@@ -85,9 +85,6 @@ export const ViewMoreBox = styled.div`
 `}`}
 `;
 
-const rotate = keyframes`
-  from{ transform: rotate(0deg);}
-  to { transform: rotate(360deg); }
+export const LoadingItem = styled(LoadingSpinner)`
+  margin: 0 auto;
 `;
-
-export const LoadingItem = styled(LoadingSpinner)``;

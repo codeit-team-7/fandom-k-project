@@ -10,7 +10,6 @@ const rotate = keyframes`
 export const LoadingSpinner = styled.div`
   ${({ theme }) =>
     `${media.base`
-      margin: 0 auto;
       width:70px;
       height:70px;
       border:7px solid rgba(249, 109, 105, 0.2);
