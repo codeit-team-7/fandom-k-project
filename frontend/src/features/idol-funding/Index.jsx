@@ -1,17 +1,22 @@
-import CreditSVG from "../../assets/icons/credit.svg";
+import CreditSVG from "@assets/icons/ic_credit.svg";
 import { styled } from "styled-components";
 import { media } from "@utils";
-import { Button } from "../../shared/styles/Button";
+import { Button } from "@shared/styles/Button";
 import { useEffect, useRef, useState } from "react";
 import { getFundingApi } from "./api";
-import { ArrowBtn } from "../../shared/styles/ArrowBtn";
+import { ArrowBtn } from "@shared/styles/ArrowBtn";
+import IdolFundingModal from "./IdolFundingModal";
 
 const Container = styled.section`
   ${media.base`
     padding-left: 24px;
+    margin: 40px 0;
+  `}
+  ${media.md`
+    margin: 64px 0 60px;
   `}
   ${media.lg`
-    margin: auto;
+    margin: 50px auto 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -237,14 +242,14 @@ const FundingMeter = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: ${({ percentage }) => (percentage ? percentage : "0%")};
+    width: ${({ percentage }) => (percentage ? `${percentage}%` : "0%")};
     height: 100%;
     border-radius: 5px;
     background-color: ${({ theme }) => theme.colors.BRAND[100]};
   }
 `;
 
-function FundingItem({ item, onFundingClick }) {
+function FundingItem({ item, myCredit, setIsReRendering }) {
   const {
     deadline,
     subtitle,
@@ -253,7 +258,8 @@ function FundingItem({ item, onFundingClick }) {
     targetDonation,
     profilePicture = item.idol.profilePicture,
   } = item;
-
+  const [idolFundingModal, setIdolFundingModal] = useState(false);
+  const handleIdolFundingModal = () => setIdolFundingModal((prev) => !prev);
   // 목표금액, 모인 금액을 %로 바꿈
   const calculatePercentage = (part, whole) => {
     return Math.round((part / whole) * 100);
@@ -288,6 +294,14 @@ function FundingItem({ item, onFundingClick }) {
 
   return (
     <IdolFundingContainer>
+      {idolFundingModal && (
+        <IdolFundingModal
+          item={item}
+          onFundingClick={handleIdolFundingModal}
+          myCredit={myCredit}
+          setIsReRendering={setIsReRendering}
+        />
+      )}
       <ItemBox>
         <ImageButtonBox>
           <IdolImage
@@ -296,7 +310,7 @@ function FundingItem({ item, onFundingClick }) {
             width="158px"
             height="206px"
           />
-          <FundingButton onClick={onFundingClick} as="button">
+          <FundingButton onClick={handleIdolFundingModal} as="button">
             후원하기
           </FundingButton>
         </ImageButtonBox>
@@ -311,7 +325,7 @@ function FundingItem({ item, onFundingClick }) {
               </DonationAmount>
               <DaysRemaining>{getTimegap(deadline)}</DaysRemaining>
             </InfoBox>
-            <FundingMeter $percentage={`${percentage}%`} />
+            <FundingMeter $percentage={percentage} />
           </DonationGoalContainer>
         </InfoContainer>
       </ItemBox>
@@ -319,18 +333,32 @@ function FundingItem({ item, onFundingClick }) {
   );
 }
 
-export default function Index({ onFundingClick }) {
+export default function Index() {
   const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [itemNum, setItemNum] = useState(0);
+  const [isReRendering, setIsReRendering] = useState(false);
   const itemRefs = useRef([]);
+  const getCharge = () => {
+    return Number(localStorage.getItem("credit"));
+  };
+  const myCredit = getCharge();
+  // 카드의 처음과 마지막은 화살표 버튼 안 보이게 설정
+  const showArrowButton = (direction) => {
+    const lastNum = items.length - 1;
+    if (direction === "left") {
+      return itemNum === 0;
+    } else if (direction === "right") {
+      return lastNum - 3 === itemNum;
+    }
+  };
 
   // 받아온 값만큼 지정한 item으로 scrollIntoView 합니다.
   const scrollItem = (nextItemNum) => {
     setItemNum(nextItemNum);
     if (itemRefs.current[nextItemNum]) {
       itemRefs.current[nextItemNum].scrollIntoView({
-        block: "start",
+        block: "nearest",
         behavior: "smooth",
         inline: "start",
       });
@@ -338,7 +366,7 @@ export default function Index({ onFundingClick }) {
   };
 
   const onClickRight = () => {
-    const lastNum = items.list.length - 1;
+    const lastNum = items.length - 1;
     if (lastNum - 3 <= itemNum) return;
     const nextItemNum = itemNum + 1;
     scrollItem(nextItemNum);
@@ -362,28 +390,42 @@ export default function Index({ onFundingClick }) {
 
   useEffect(() => {
     fetchItemData();
-  }, []);
+    setIsReRendering(false);
+  }, [isReRendering]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
-  const cutItems = [...items.list];
+  const cutItems = [...items];
 
   return (
     <Container>
       <Title>후원을 기다리는 조공</Title>
       <Box>
-        <LgArrowBtnLeft direction="left" onClick={onClickLeft} />
+        {showArrowButton("left") ? (
+          <></>
+        ) : (
+          <LgArrowBtnLeft direction="left" onClick={onClickLeft} />
+        )}
         <FundingItems>
           {cutItems
-            .filter((item) => item.status)
+            // .filter((item) => item.status)
             .map((item, i) => (
               <li key={item.id} ref={(el) => (itemRefs.current[i] = el)}>
-                <FundingItem id={`content${i}`} item={item} onFundingClick={onFundingClick} />
+                <FundingItem
+                  id={`content${i}`}
+                  item={item}
+                  myCredit={myCredit}
+                  setIsReRendering={setIsReRendering}
+                />
               </li>
             ))}
         </FundingItems>
-        <LgArrowBtnRight direction="right" onClick={onClickRight} />
+        {showArrowButton("right") ? (
+          <></>
+        ) : (
+          <LgArrowBtnRight direction="right" onClick={onClickRight} />
+        )}
       </Box>
     </Container>
   );
