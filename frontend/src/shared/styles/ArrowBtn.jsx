@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import ArrowLeft from "../../assets/icons/btn_pagination_arrow_left.svg";
-import ArrowRight from "../../assets/icons/btn_pagination_arrow_right.svg";
+import styled from 'styled-components';
+import ArrowLeft from '../../assets/icons/btn_pagination_arrow_left.svg';
+import ArrowRight from '../../assets/icons/btn_pagination_arrow_right.svg';
 
 /** props로 left, right 방향을 지정해 주면 방향 아이콘이 나타납니다 아래는 예시
 <ArrowBtn direction="left" />

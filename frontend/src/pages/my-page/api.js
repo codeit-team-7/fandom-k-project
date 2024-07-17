@@ -1,4 +1,4 @@
-const STORAGE_NAME = "FAVORITE-IDOLS";
+const STORAGE_NAME = 'FAVORITE-IDOLS';
 
 export const fetchIdols = () => {
   const storedValue = localStorage.getItem(STORAGE_NAME);
@@ -15,6 +15,6 @@ export const fetchIdols = () => {
   }
 };
 
-export const updateIdols = (store) => {
+export const updateIdols = store => {
   localStorage.setItem(STORAGE_NAME, JSON.stringify(store));
 };

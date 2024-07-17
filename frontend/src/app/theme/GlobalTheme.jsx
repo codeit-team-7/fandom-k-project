@@ -1,6 +1,6 @@
-import reset from "styled-reset";
-import { createGlobalStyle } from "styled-components";
-import { media } from "@utils";
+import reset from 'styled-reset';
+import { createGlobalStyle } from 'styled-components';
+import { media } from '@utils';
 
 // 전역 CSS 설정
 const GlobalTheme = createGlobalStyle`

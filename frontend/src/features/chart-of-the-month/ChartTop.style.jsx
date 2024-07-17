@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { media } from "@utils";
+import { media } from '@utils';
 
-import { Button } from "@styles/Button";
+import { Button } from '@styles/Button';
 
 export const ChartTopBox = styled.div`
   ${({ theme }) =>
@@ -22,7 +22,7 @@ export const OpenVoteButton = styled(Button)`
     `${media.base`
       width: 128px;
       height: 32px;
-      font-size: ${theme.fontSize["2xSM"]};
+      font-size: ${theme.fontSize['2xSM']};
       gap: 4px;
       cursor: pointer;
   `}`}

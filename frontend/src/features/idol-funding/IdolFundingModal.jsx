@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import DeleteBtn24 from "@assets/icons/btn_delete_24px.svg";
-import Cedit from "@assets/icons/ic_credit.svg";
-import { ModalBg } from "../../shared/styles/ModalBg";
-import { ModalLayout } from "./../../shared/styles/ModalLayout";
-import { Button } from "../../shared/styles/Button";
-import { media } from "./../../shared/utils/media-query/index";
-import { useState } from "react";
+import styled from 'styled-components';
+import DeleteBtn24 from '@assets/icons/btn_delete_24px.svg';
+import Cedit from '@assets/icons/ic_credit.svg';
+import { ModalBg } from '../../shared/styles/ModalBg';
+import { ModalLayout } from './../../shared/styles/ModalLayout';
+import { Button } from '../../shared/styles/Button';
+import { media } from './../../shared/utils/media-query/index';
+import { useState } from 'react';
 
 const FundingMoadl = styled(ModalLayout)`
   padding: 24px 16px 32px 16px;
@@ -86,7 +86,7 @@ const ModalFundingInput = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-  &[type="number"] {
+  &[type='number'] {
     -moz-appearance: textfield;
   }
   ${({ theme }) => `
@@ -120,6 +120,7 @@ const ModalFundingButton = styled(Button)`
     font-size: ${14};
   `}
 `;
+
 export default function IdolFundingModal({ onFundingClick }) {
   const [isInValid, setIsInValid] = useState(true);
 
@@ -131,21 +132,20 @@ export default function IdolFundingModal({ onFundingClick }) {
           <ModalFundingTitle>후원하기</ModalFundingTitle>
           <ModalCloseBtn
             src={DeleteBtn24}
-            alt="모달창 닫기 버튼"
+            alt='모달창 닫기 버튼'
             onClick={onFundingClick}
           />
         </ModalHeader>
         <ModalInfoContainer>
-          <ModalImg src={Cedit} alt="후원할 아이돌 이미지" />
+          <ModalImg src={Cedit} alt='후원할 아이돌 이미지' />
           <ModalInfo>
             <ModalTag>태그 이름</ModalTag>
             <ModalTitle>타이틀 이름</ModalTitle>
           </ModalInfo>
         </ModalInfoContainer>
         <ModalFundingInput
-          type="number"
-          placeholder="크레딧 입력"
-        ></ModalFundingInput>
+          type='number'
+          placeholder='크레딧 입력'></ModalFundingInput>
         <ModalFundingButton $activable={isInValid}>후원하기</ModalFundingButton>
       </FundingMoadl>
     </>

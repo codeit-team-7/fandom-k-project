@@ -1,21 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-import ChartTop from "./ChartTop";
-import ChartMain from "./ChartMain";
+import ChartTop from './ChartTop';
+import ChartMain from './ChartMain';
 
-import { getIdolList } from "./api";
-import { postVote } from "./api";
+import { getIdolList } from './api';
+import { postVote } from './api';
 
-import { ChartLayout } from "./Index.style";
-import { ModalBg } from "@styles/ModalBg";
-import VoteModal from "./VoteModal";
+import { ChartLayout } from './Index.style';
+import { ModalBg } from '@styles/ModalBg';
+import VoteModal from './VoteModal';
 
 const INITIAL_LIST = {
   female: [],
   male: [],
 };
 export default function Index() {
-  const [gender, setGender] = useState("female");
+  const [gender, setGender] = useState('female');
   const [idolList, setIdolList] = useState(INITIAL_LIST);
   const [cursor, setCursor] = useState(0);
   const [isOpenVote, setIsOpenVote] = useState(false);
@@ -34,13 +34,13 @@ export default function Index() {
     if (idols.length <= 0) {
       return;
     }
-    if (gender === "female") {
-      setIdolList((prev) => ({
+    if (gender === 'female') {
+      setIdolList(prev => ({
         ...prev,
         female: [...prev.female, ...idols],
       }));
     } else {
-      setIdolList((prev) => ({
+      setIdolList(prev => ({
         ...prev,
         male: [...prev.male, ...idols],
       }));
@@ -52,7 +52,7 @@ export default function Index() {
     loadIdols({ cursor, gender });
   };
 
-  const handleGenderChange = (gender) => {
+  const handleGenderChange = gender => {
     setCursor(0);
     setIdolList(INITIAL_LIST);
     setGender(gender);
@@ -60,14 +60,14 @@ export default function Index() {
 
   const handleModal = () => {
     if (!isOpenVote) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = 'auto';
     }
     setIsOpenVote(!isOpenVote);
   };
 
-  const handleVoteButton = async (id) => {
+  const handleVoteButton = async id => {
     await postVote(id);
   };
 
@@ -80,7 +80,7 @@ export default function Index() {
       <ChartLayout>
         <ChartTop onClick={handleModal} />
         <ChartMain
-          idolList={gender === "female" ? idolList.female : idolList.male}
+          idolList={gender === 'female' ? idolList.female : idolList.male}
           onClickGender={handleGenderChange}
           onClickViewMore={handleViewMoreButton}
           cursor={cursor}

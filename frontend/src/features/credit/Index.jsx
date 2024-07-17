@@ -1,5 +1,5 @@
-import creditIcon from "@assets/icons/ic_credit.svg";
-import styled from "styled-components";
+import creditIcon from '@assets/icons/ic_credit.svg';
+import styled from 'styled-components';
 
 const CreditConainer = styled.div`
   padding: 0 24px;
@@ -28,7 +28,7 @@ const CreditBox = styled.div`
 
 const MyCredit = styled.span`
   ${({ theme }) => `
-  font-size: ${theme.fontSize["3xSM"]}px;
+  font-size: ${theme.fontSize['3xSM']}px;
   color: #ffffff;
   `}
   @media (min-width: 728px) {
@@ -44,7 +44,7 @@ const CreditAmountContainer = styled.div`
 
 const CreditAmount = styled.div`
   ${({ theme }) => `
-  font-size: ${theme.fontSize["XLG"]}px;
+  font-size: ${theme.fontSize['XLG']}px;
   
   `}
   color: #ffffff;
@@ -56,7 +56,7 @@ const CreditAmount = styled.div`
 const Charge = styled.div`
   ${({ theme }) => `
   color: ${theme.colors.BRAND[100]};
-  font-size: ${theme.fontSize["2xSM"]}px;
+  font-size: ${theme.fontSize['2xSM']}px;
   
   `}
   cursor: pointer;
@@ -72,7 +72,7 @@ const CreditIcon = styled.img`
 `;
 
 const getCharge = () => {
-  return Number(localStorage.getItem("credit"));
+  return Number(localStorage.getItem('credit'));
 };
 
 export default function Index({ onChargeClick }) {
@@ -83,8 +83,8 @@ export default function Index({ onChargeClick }) {
         <div>
           <MyCredit>내 크레딧</MyCredit>
           <CreditAmountContainer>
-            <CreditIcon src={creditIcon} alt="크레딧 아이콘" />
-            <CreditAmount>{credit.toLocaleString("ko-kr")}</CreditAmount>
+            <CreditIcon src={creditIcon} alt='크레딧 아이콘' />
+            <CreditAmount>{credit.toLocaleString('ko-kr')}</CreditAmount>
           </CreditAmountContainer>
         </div>
         <Charge onClick={onChargeClick}>충전하기</Charge>

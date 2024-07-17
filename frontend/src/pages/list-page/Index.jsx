@@ -4,9 +4,9 @@ import {
   Credit,
   ChargeCredit,
   ChartOfTheMonth,
-} from "@features";
-import { useState } from "react";
-import { Header } from "../../features";
+} from '@features';
+import { useState } from 'react';
+import { Header } from '../../features';
 
 export default function Index() {
   const [chargeModal, setChargeModal] = useState(false);
@@ -14,9 +14,9 @@ export default function Index() {
   const handleChargeModal = () => {
     setChargeModal(chargeModal ? false : true);
 
-    document.body.style.overflow = chargeModal ? "auto" : "hidden";
+    document.body.style.overflow = chargeModal ? 'auto' : 'hidden';
   };
-  const handleIdolFundingModal = () => setIdolFundingModal((prev) => !prev);
+  const handleIdolFundingModal = () => setIdolFundingModal(prev => !prev);
 
   return (
     <main>

@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { media } from "@utils";
+import { media } from '@utils';
 
 export const VoteModalBottomBox = styled.div`
   ${({ theme }) =>
@@ -14,7 +14,7 @@ export const VoteModalBottomBox = styled.div`
       }
       p {
       font-weight: 500;
-      font-size: ${theme.fontSize["3xSM"]}
+      font-size: ${theme.fontSize['3xSM']}
       }
       .info {
       display: flex;

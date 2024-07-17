@@ -1,14 +1,14 @@
-import { Button } from "@shared/styles/Button";
-import titleImg from "@assets/images/img_title.png";
-import mainLogo from "@assets/icons/logo.svg";
-import home01 from "@assets/images/Home-1.png";
-import home02 from "@assets/images/Home-2.png";
-import home03 from "@assets/images/Home-3.png";
-import homeBg01 from "@assets/images/Img_web_01.png";
-import homeBg02 from "@assets/images/Img_web_02.png";
-import homeBg03 from "@assets/images/Img_web_03.png";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Button } from '@shared/styles/Button';
+import titleImg from '@assets/images/img_title.png';
+import mainLogo from '@assets/icons/logo.svg';
+import home01 from '@assets/images/Home-1.png';
+import home02 from '@assets/images/Home-2.png';
+import home03 from '@assets/images/Home-3.png';
+import homeBg01 from '@assets/images/Img_web_01.png';
+import homeBg02 from '@assets/images/Img_web_02.png';
+import homeBg03 from '@assets/images/Img_web_03.png';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const ListButton = styled(Button)`
   width: 230px;
@@ -37,7 +37,7 @@ const TitleSection = styled.div`
 
 const TitleText = styled.span`
   ${({ theme }) => `
-  font-size: ${theme.fontSize["XLG"]}px;
+  font-size: ${theme.fontSize['XLG']}px;
   `}
   display:block;
   margin: 0 auto;
@@ -101,7 +101,7 @@ const IntroBgContainer = styled.div`
   width: 100%;
   margin: 0 auto;
 
-  background-image: url(${(props) => props.$bgImg});
+  background-image: url(${props => props.$bgImg});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -125,9 +125,9 @@ const IntroTextContainer = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 5;
-  align-items: ${({ sortDir }) => (sortDir ? "flex-start" : "flex-end")};
+  align-items: ${({ sortDir }) => (sortDir ? 'flex-start' : 'flex-end')};
 
-  text-align: ${({ sortDir }) => (sortDir ? "left" : "right")};
+  text-align: ${({ sortDir }) => (sortDir ? 'left' : 'right')};
   @media (min-width: 728px) {
     align-items: center;
   }
@@ -192,7 +192,6 @@ const IntroDeco = styled.div`
   }
 `;
 
-// eslint-disable-next-line react/prop-types
 function IntroSection({ title, text, img, bgImg, sortDir }) {
   return (
     <IntroBgContainer $bgImg={bgImg}>
@@ -209,7 +208,7 @@ function IntroSection({ title, text, img, bgImg, sortDir }) {
 
 export default function Index() {
   const handleButtonClick = () => {
-    localStorage.setItem("credit", 0);
+    localStorage.setItem('credit', 0);
   };
 
   return (
@@ -223,29 +222,29 @@ export default function Index() {
           <MainLogo src={mainLogo}></MainLogo>
           <BackgroundImg />
         </TitleSection>
-        <Link to="list">
+        <Link to='list'>
           <ListButton onClick={handleButtonClick}>지금 시작하기</ListButton>
         </Link>
       </Title>
       <Intro>
         <IntroDeco />
         <IntroSection
-          title={"후원하기"}
-          text={"좋아하는 아이돌에게 \n 쉽게 조공해 보세요"}
+          title={'후원하기'}
+          text={'좋아하는 아이돌에게 \n 쉽게 조공해 보세요'}
           img={home01}
           bgImg={homeBg01}
           $sortDir={true}
         />
         <IntroSection
-          title={"이달의 아티스트"}
-          text={"내 아티스트에게 1등의 \n 영예를 선물하세요"}
+          title={'이달의 아티스트'}
+          text={'내 아티스트에게 1등의 \n 영예를 선물하세요'}
           img={home02}
           $bgImg={homeBg02}
           $sortDir={false}
         />
         <IntroSection
-          title={"나만의 아티스트"}
-          text={"좋아하는 아티스트들의 \n 소식을 모아보세요"}
+          title={'나만의 아티스트'}
+          text={'좋아하는 아티스트들의 \n 소식을 모아보세요'}
           img={home03}
           $bgImg={homeBg03}
           $sortDir={true}

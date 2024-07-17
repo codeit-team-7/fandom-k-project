@@ -1,6 +1,6 @@
-import { VoteModalMainBox } from "./VoteModalMain.style";
-import icCheckbox from "@assets/icons/ic_checkbox.svg";
-import icCheckboxActive from "@assets/icons/ic_checkbox_active.svg";
+import { VoteModalMainBox } from './VoteModalMain.style';
+import icCheckbox from '@assets/icons/ic_checkbox.svg';
+import icCheckboxActive from '@assets/icons/ic_checkbox_active.svg';
 export default function VoteModalMain({
   idolList,
   onClickCheck,
@@ -12,26 +12,25 @@ export default function VoteModalMain({
       {!idolList.length ||
         idolList.map((idol, index) => {
           return (
-            <li key={Date.now() * index} className="list-item">
-              <div className="idol">
-                <span className="img">
+            <li key={Date.now() * index} className='list-item'>
+              <div className='idol'>
+                <span className='img'>
                   <img src={idol.profilePicture} />
                 </span>
-                <span className="rank">{index + 1}</span>
-                <div className="voteWrapper">
+                <span className='rank'>{index + 1}</span>
+                <div className='voteWrapper'>
                   <div>
-                    <span className="group">{idol.group}</span>
-                    <span className="name">{idol.name}</span>
+                    <span className='group'>{idol.group}</span>
+                    <span className='name'>{idol.name}</span>
                   </div>
-                  <span className="votes">{idol.totalVotes}표</span>
+                  <span className='votes'>{idol.totalVotes}표</span>
                 </div>
               </div>
               <button
-                className="check"
+                className='check'
                 onClick={() => {
                   onClickCheck(idol.id);
-                }}
-              >
+                }}>
                 <img
                   src={checkedId === idol.id ? icCheckboxActive : icCheckbox}
                 />

@@ -1,6 +1,6 @@
-import MainLogo from "@assets/icons/logo.svg";
-import UserIcon from "@assets/images/Frame-28.png";
-import styled from "styled-components";
+import MainLogo from '@assets/icons/logo.svg';
+import UserIcon from '@assets/images/Frame-28.png';
+import styled from 'styled-components';
 
 const HeaderMargin = styled.div`
   padding: 0 24px;
@@ -41,9 +41,9 @@ export default function Index() {
     <HeaderMargin>
       <HeaderContainer>
         <div></div>
-        <HeaderLogo src={MainLogo} alt="MainLogo" />
+        <HeaderLogo src={MainLogo} alt='MainLogo' />
         <div>
-          <HeaderIcon src={UserIcon} alt="UserIcon" />
+          <HeaderIcon src={UserIcon} alt='UserIcon' />
         </div>
       </HeaderContainer>
     </HeaderMargin>

@@ -1,16 +1,17 @@
-import { useEffect } from "react";
-import styled from "styled-components";
+import { useEffect } from 'react';
+import styled from 'styled-components';
 
-import { debounce } from "@utils";
-import { AddYourFavoriteIdol, FavoriteIdol } from "@features";
-import { Container } from "@styles/StylesByWoosung";
+import { debounce } from '@utils';
+import { AddYourFavoriteIdol, FavoriteIdol } from '@features';
+import { Container } from '@styles/StylesByWoosung';
 
-import { useMyPageReducer } from "./hooks/use-mypage-reducer";
-import { useMyPageStorageReducer } from "./hooks/use-mypage-storage-reducer";
-import { Button } from "@styles/Button";
-import { media } from "@utils";
-import { useNavigate } from "react-router-dom";
-import { updateIdols } from "./api";
+import { useMyPageReducer } from './hooks/use-mypage-reducer';
+import { useMyPageStorageReducer } from './hooks/use-mypage-storage-reducer';
+import { Button } from '@styles/Button';
+import { media } from '@utils';
+import { useNavigate } from 'react-router-dom';
+import { updateIdols } from './api';
+import { Header } from '@features';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -38,12 +39,15 @@ const StyledButton = styled(Button)`
   `}
 `;
 
+const isContains = (classesToCheck, target) =>
+  classesToCheck.some(className => target.classList.contains(className));
+
 export default function Index() {
   const navitate = useNavigate();
   const { store, chooseAnIdol } = useMyPageStorageReducer();
   const { state, fetchItems } = useMyPageReducer();
 
-  const handleScroll = debounce((e) => {
+  const handleScroll = debounce(e => {
     const { scrollLeft, scrollWidth, offsetWidth } = e.target;
     if (scrollWidth - scrollLeft === offsetWidth) {
       const addedPageSize = Math.ceil(innerWidth / 100) * 2;
@@ -57,35 +61,41 @@ export default function Index() {
     }, 200);
 
     fetchItems({ reset: true });
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     const id = e.target.id;
     fetchItems({ direction: id });
   };
 
-  const handleChoose = (e) => {
-    const { target } = e;
-    if (target.classList.contains("item-picture")) {
-      const targetId = Number(target.dataset.id);
-      const item = state.items.find((item) => item.id === targetId);
+  const handleChoose = e => {
+    const { currentTarget, target } = e;
+    const picture = currentTarget.querySelector('.item-picture');
+    const classesToCheck = ['item-picture', 'item-delete'];
+    if (isContains(classesToCheck, target)) {
+      const targetId = Number(picture.dataset.id);
+      let item = state.items.find(item => item.id === targetId);
+      if (!item) {
+        item = store.find(item => item.id, targetId);
+      }
       chooseAnIdol(item);
     }
   };
 
   const handleAdd = () => {
     updateIdols(store);
-    navitate("/list");
+    navitate('/list');
   };
 
   return (
     <main>
+      <Header />
       <StyledContainer $width={1920} $padding={360}>
-        <FavoriteIdol store={store} />
-        <div className="hr"></div>
+        <FavoriteIdol store={store} handleChoose={handleChoose} />
+        <div className='hr'></div>
         <AddYourFavoriteIdol
           store={store}
           state={state}
