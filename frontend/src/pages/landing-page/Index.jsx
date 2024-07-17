@@ -40,8 +40,7 @@ const TitleText = styled.span`
   font-size: ${theme.fontSize['XLG']}px;
   `}
   display:block;
-  margin: 0 auto;
-  margin-top: 100px;
+  padding-top: 100px;
   text-align: center;
 
   position: relative;

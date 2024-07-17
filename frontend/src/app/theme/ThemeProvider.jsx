@@ -7,6 +7,7 @@ export default function ThemeProvider({ children }) {
   return (
     <DefaultThemeProvider theme={theme}>
       <GlobalTheme />
+      <div className='overlay'></div>
       {children}
     </DefaultThemeProvider>
   );
