@@ -11,7 +11,6 @@ import { Button } from '@styles/Button';
 import { media } from '@utils';
 import { useNavigate } from 'react-router-dom';
 import { updateIdols } from './api';
-import { Header } from '@features';
 
 const StyledContainer = styled(Container)`
   display: flex;
@@ -92,7 +91,6 @@ export default function Index() {
 
   return (
     <main>
-      <Header />
       <StyledContainer $width={1920} $padding={360}>
         <FavoriteIdol store={store} handleChoose={handleChoose} />
         <div className='hr'></div>
