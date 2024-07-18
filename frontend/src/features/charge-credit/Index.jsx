@@ -126,7 +126,7 @@ export default function Index({ onChargeClick }) {
       onChargeClick();
     }
   };
-
+  const creditValue = [100, 200, 300];
   return (
     <>
       <ModalBg />

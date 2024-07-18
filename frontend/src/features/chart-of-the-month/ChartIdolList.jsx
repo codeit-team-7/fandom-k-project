@@ -1,6 +1,6 @@
 import { IdolListUl } from './ChartIdolList.style';
 
-export default function ChartIdolList({ idolList, showItemNum }) {
+export default function ChartIdolList({ idolList, showItemNum, lastItemRef }) {
   const showList = idolList.slice(0, showItemNum);
   return (
     <IdolListUl>

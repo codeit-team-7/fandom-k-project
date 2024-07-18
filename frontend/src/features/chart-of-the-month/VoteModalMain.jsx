@@ -10,6 +10,7 @@ export default function VoteModalMain({
   onClickCheck,
   checkedId,
   observer,
+  isLoading,
 }) {
   const targetRef = useRef(null);
   useEffect(() => {

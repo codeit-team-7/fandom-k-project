@@ -13,7 +13,7 @@ export default function Index() {
 
   return (
     <main>
-      <Header />
+      <Header linkName={"/list"} />
       <Credit />
       <IdolFunding onFundingClick={handleIdolFundingModal} />
       {idolFundingModal && (

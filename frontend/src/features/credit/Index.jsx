@@ -1,5 +1,5 @@
 import creditIcon from '@assets/icons/ic_credit.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ChargeCredit } from '@features';
 
@@ -78,13 +78,38 @@ const getCharge = () => {
 };
 
 export default function Index() {
+  const [credit, setCredit] = useState(getCharge());
   const [chargeModal, setChargeModal] = useState(false);
+
   const handleChargeModal = () => {
     setChargeModal(chargeModal ? false : true);
 
     document.body.style.overflow = chargeModal ? 'auto' : 'hidden';
   };
-  const credit = getCharge();
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setCredit(getCharge());
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const currentCredit = getCharge();
+      if (currentCredit !== credit) {
+        setCredit(currentCredit);
+      }
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [credit]);
+
   return (
     <>
       {chargeModal && <ChargeCredit onChargeClick={handleChargeModal} />}

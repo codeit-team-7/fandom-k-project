@@ -42,10 +42,18 @@ export const VoteModalMainBox = styled.ul`
       .rank{
       color: ${theme.colors.BRAND[100]};
       }
-      .img{
-      width: 70px;
-      height: 70px;
-      }
+        .img{
+          width: 70px;
+          height: 70px;
+          padding : 5px;
+          border: 1px solid ${theme.colors.BRAND[100]};
+          border-radius: 50%;
+          overflow:hidden;
+          img {
+          border-radius : 50%;
+          object-fit: cover;
+          }
+        }
       .votes {
       color: #fff;
       opacity: 0.6;

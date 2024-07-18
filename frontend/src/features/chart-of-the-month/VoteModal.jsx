@@ -11,6 +11,7 @@ export default function VoteModal({
   handleVote,
   observer,
   gender,
+  isLoading,
 }) {
   const [checkedId, setCheckedId] = useState();
 
@@ -33,6 +34,7 @@ export default function VoteModal({
         onClickCheck={handleChecked}
         checkedId={checkedId}
         observer={observer}
+        isLoading={isLoading}
       />
       <VoteModalBottom onClick={onClickVote} />
     </VoteModalLayout>
