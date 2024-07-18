@@ -1,6 +1,6 @@
-import reset from "styled-reset";
-import { createGlobalStyle } from "styled-components";
-import { media } from "@utils";
+import reset from 'styled-reset';
+import { createGlobalStyle } from 'styled-components';
+import { media } from '@utils';
 
 // 전역 CSS 설정
 const GlobalTheme = createGlobalStyle`
@@ -9,9 +9,22 @@ const GlobalTheme = createGlobalStyle`
   ${({ theme }) => `
     ${media.base`
       body {
+        position: relative;
         font-size: ${theme.fontSize.MD};
         color: ${theme.colors.WHITE[100]};
-        background-color: ${theme.colors.BLACK[200]};
+        background: ${theme.colors.BLACK[200]};
+      }
+      
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          radial-gradient(circle at top left, rgba(20, 195, 254, 0) 0%, ${theme.colors.BLACK[200]} 12%),
+          linear-gradient(to bottom right, rgba(20, 195, 254, 0.5), rgba(20, 195, 254, 0));
+        z-index: -1;
       }
     `}
   `}

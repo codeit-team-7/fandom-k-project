@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { media } from "@utils";
+import styled from 'styled-components';
+import { media } from '@utils';
 /**모달창 기본레이아웃입니다.
 width와 height는 직접 추가,
 모달 최하단이 버튼이 아니라면 padding-bottom에 대한 수정이 필요함*/

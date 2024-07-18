@@ -239,7 +239,7 @@ const FundingMeter = styled.div`
   position: relative;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -279,7 +279,7 @@ function FundingItem({ item, setIsReRendering }) {
   const korReceivedDonations = receivedDonations.toLocaleString();
 
   // 데드라인(모금 종료)까지 남은 기한 계산
-  const getTimegap = (deadTime) => {
+  const getTimegap = deadTime => {
     const nowTimeDate = new Date();
     const nowTimeStamp = nowTimeDate.getTime();
 
@@ -314,9 +314,9 @@ function FundingItem({ item, setIsReRendering }) {
         <ImageButtonBox>
           <IdolImage
             src={profilePicture}
-            alt="후원을 기다리는 아이돌 이미지"
-            width="158px"
-            height="206px"
+            alt='후원을 기다리는 아이돌 이미지'
+            width='158px'
+            height='206px'
           />
           <FundingButton onClick={handleIdolFundingModal} as="button">
             후원하기
@@ -358,13 +358,13 @@ export default function Index() {
   };
 
   // 받아온 값만큼 지정한 item으로 scrollIntoView 합니다.
-  const scrollItem = (nextItemNum) => {
+  const scrollItem = nextItemNum => {
     setItemNum(nextItemNum);
     if (itemRefs.current[nextItemNum]) {
       itemRefs.current[nextItemNum].scrollIntoView({
-        block: "nearest",
-        behavior: "smooth",
-        inline: "start",
+        block: 'nearest',
+        behavior: 'smooth',
+        inline: 'start',
       });
     }
   };

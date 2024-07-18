@@ -1,8 +1,8 @@
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes, css } from 'styled-components';
 
-import { media } from "@utils";
+import { media } from '@utils';
 
-import { LoadingSpinner } from "@styles/LoadingSpinner";
+import { LoadingSpinner } from '@styles/LoadingSpinner';
 
 const moveRight = keyframes`
   from{ left : 0; }

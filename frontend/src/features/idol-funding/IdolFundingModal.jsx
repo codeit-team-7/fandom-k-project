@@ -88,7 +88,7 @@ const ModalFundingInput = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-  &[type="number"] {
+  &[type='number'] {
     -moz-appearance: textfield;
   }
   outline: none;

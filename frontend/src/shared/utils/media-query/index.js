@@ -1,5 +1,5 @@
-import { BREAKPOINTS } from "@app/theme";
-import { pxe, px } from "@utils";
+import { BREAKPOINTS } from '@app/theme';
+import { pxe, px } from '@utils';
 
 /***
  * 미디어 쿼리 함수

@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
-import { VoteModalMainBox } from "./VoteModalMain.style";
-import { LoadingItem } from "./ChartMain.style";
+import { VoteModalMainBox } from './VoteModalMain.style';
+import { LoadingItem } from './ChartMain.style';
 
-import icCheckbox from "@assets/icons/ic_checkbox.svg";
-import icCheckboxActive from "@assets/icons/ic_checkbox_active.svg";
+import icCheckbox from '@assets/icons/ic_checkbox.svg';
+import icCheckboxActive from '@assets/icons/ic_checkbox_active.svg';
 
 export default function VoteModalMain({
   idolList,
@@ -32,25 +32,24 @@ export default function VoteModalMain({
           return (
             <li
               key={Date.now() * index}
-              className="list-item"
+              className='list-item'
               onClick={() => {
                 onClickCheck(idol.id);
-              }}
-            >
-              <div className="idol">
-                <span className="img">
+              }}>
+              <div className='idol'>
+                <span className='img'>
                   <img src={idol.profilePicture} />
                 </span>
-                <span className="rank">{index + 1}</span>
-                <div className="voteWrapper">
+                <span className='rank'>{index + 1}</span>
+                <div className='voteWrapper'>
                   <div>
-                    <span className="group">{idol.group}</span>
-                    <span className="name">{idol.name}</span>
+                    <span className='group'>{idol.group}</span>
+                    <span className='name'>{idol.name}</span>
                   </div>
-                  <span className="votes">{idol.totalVotes}표</span>
+                  <span className='votes'>{idol.totalVotes}표</span>
                 </div>
               </div>
-              <button className="check">
+              <button className='check'>
                 <img
                   src={checkedId === idol.id ? icCheckboxActive : icCheckbox}
                 />
@@ -59,7 +58,7 @@ export default function VoteModalMain({
           );
         })}
       {isLoading && <LoadingItem />}
-      <div ref={targetRef} className="observer"></div>
+      <div ref={targetRef} className='observer'></div>
     </VoteModalMainBox>
   );
 }

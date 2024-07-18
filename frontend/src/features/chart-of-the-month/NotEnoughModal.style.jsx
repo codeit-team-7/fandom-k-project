@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { media } from "@utils";
+import { media } from '@utils';
 
-import { ModalLayout } from "@styles/ModalLayout";
-import { Button } from "@styles/Button";
-import icCredit from "@assets/icons/ic_credit.svg";
+import { ModalLayout } from '@styles/ModalLayout';
+import { Button } from '@styles/Button';
+import icCredit from '@assets/icons/ic_credit.svg';
 export const NotEnoughModalBox = styled(ModalLayout)`
   ${({ theme }) =>
     `${media.base`

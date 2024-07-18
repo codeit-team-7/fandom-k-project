@@ -1,6 +1,6 @@
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes, css } from 'styled-components';
 
-import { media } from "@utils";
+import { media } from '@utils';
 
 const rotate = keyframes`
   from{ transform: rotate(0deg);}

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import creditIcon from "@assets/icons/ic_credit.svg";
-import creditWhiteIcon from "@assets/icons/credit_white.svg";
-import deleteBtn24 from "@assets/icons/btn_delete_24px.svg";
-import { ModalBg } from "@shared/styles/ModalBg";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import creditIcon from '@assets/icons/ic_credit.svg';
+import creditWhiteIcon from '@assets/icons/credit_white.svg';
+import deleteBtn24 from '@assets/icons/btn_delete_24px.svg';
+import { ModalBg } from '@shared/styles/ModalBg';
+import styled from 'styled-components';
 
 const ChargeModal = styled.div`
   ${({ theme }) => `
@@ -27,7 +27,7 @@ const TopSection = styled.div`
 `;
 const Title = styled.span`
   ${({ theme }) => `
-   font-size: ${theme.fontSize["LG"]}px;
+   font-size: ${theme.fontSize['LG']}px;
   `}
   color: #ffffff;
 `;
@@ -68,11 +68,11 @@ const SelectIcon = styled.img`
 
 const SelectAmount = styled.span`
   ${({ theme }) => `
-   font-size: ${theme.fontSize["XLG"]}px;
+   font-size: ${theme.fontSize['XLG']}px;
   `}
 `;
 
-const RadioInput = styled.input.attrs({ type: "radio" })`
+const RadioInput = styled.input.attrs({ type: 'radio' })`
   appearance: none;
   background-color: #8c92ab;
   width: 16px;
@@ -86,7 +86,7 @@ const RadioInput = styled.input.attrs({ type: "radio" })`
   }
 `;
 
-const ChargeButton = styled.button.attrs({ type: "submit" })`
+const ChargeButton = styled.button.attrs({ type: 'submit' })`
   display: flex;
   width: 100%;
   height: 42px;
@@ -108,25 +108,25 @@ const ChargeButtonText = styled.span`
 `;
 
 export default function Index({ onChargeClick }) {
-  const [selectedCredit, setSelectedCredit] = useState("100");
+  const [selectedCredit, setSelectedCredit] = useState('100');
 
-  const handleCreditChange = (e) => {
+  const handleCreditChange = e => {
     setSelectedCredit(e.target.value);
   };
 
   const getCharge = () => {
-    return Number(localStorage.getItem("credit"));
+    return Number(localStorage.getItem('credit'));
   };
 
-  const handleCreditCharge = (e) => {
+  const handleCreditCharge = e => {
     e.preventDefault();
     const creditTemp = getCharge() + Number(selectedCredit);
-    localStorage.setItem("credit", creditTemp);
+    localStorage.setItem('credit', creditTemp);
     if (onChargeClick) {
       onChargeClick();
     }
   };
-
+  const creditValue = [100, 200, 300];
   return (
     <>
       <ModalBg />
@@ -137,55 +137,33 @@ export default function Index({ onChargeClick }) {
             <CloseBtn
               onClick={onChargeClick}
               src={deleteBtn24}
-              alt="삭제 버튼"
+              alt='삭제 버튼'
             />
           </TopSection>
           <Select>
-            <SelectLabel htmlFor="100" checked={selectedCredit === "100"}>
-              <SelectPrice>
-                <SelectIcon src={creditIcon} alt="creditIcon" />
-                <SelectAmount>100</SelectAmount>
-              </SelectPrice>
-              <RadioInput
-                type="radio"
-                name="credit"
-                id="100"
-                value="100"
-                checked={selectedCredit === "100"}
-                onChange={handleCreditChange}
-              />
-            </SelectLabel>
-            <SelectLabel htmlFor="200" checked={selectedCredit === "200"}>
-              <SelectPrice>
-                <SelectIcon src={creditIcon} alt="creditIcon" />
-                <SelectAmount>200</SelectAmount>
-              </SelectPrice>
-              <RadioInput
-                type="radio"
-                name="credit"
-                id="200"
-                value="200"
-                checked={selectedCredit === "200"}
-                onChange={handleCreditChange}
-              />
-            </SelectLabel>
-            <SelectLabel htmlFor="300" checked={selectedCredit === "300"}>
-              <SelectPrice>
-                <SelectIcon src={creditIcon} alt="creditIcon" />
-                <SelectAmount>300</SelectAmount>
-              </SelectPrice>
-              <RadioInput
-                type="radio"
-                name="credit"
-                id="300"
-                value="300"
-                checked={selectedCredit === "300"}
-                onChange={handleCreditChange}
-              />
-            </SelectLabel>
+            {creditValue.map(credit => {
+              return (
+                <SelectLabel
+                  htmlFor={`${credit}`}
+                  checked={selectedCredit === `${credit}`}>
+                  <SelectPrice>
+                    <SelectIcon src={creditIcon} alt='creditIcon' />
+                    <SelectAmount>{credit}</SelectAmount>
+                  </SelectPrice>
+                  <RadioInput
+                    type='radio'
+                    name='credit'
+                    id={`${credit}`}
+                    value={`${credit}`}
+                    checked={selectedCredit === `${credit}`}
+                    onChange={handleCreditChange}
+                  />
+                </SelectLabel>
+              );
+            })}
           </Select>
           <ChargeButton>
-            <ChargeButtonIcon src={creditWhiteIcon} alt="creditWhiteIcon" />
+            <ChargeButtonIcon src={creditWhiteIcon} alt='creditWhiteIcon' />
             <ChargeButtonText>충전하기</ChargeButtonText>
           </ChargeButton>
         </form>
