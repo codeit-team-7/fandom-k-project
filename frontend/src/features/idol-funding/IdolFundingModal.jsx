@@ -8,6 +8,7 @@ import { Button } from "@shared/styles/Button";
 import { media } from "@shared/utils/media-query/index";
 import { getRecheckApi, putDonationsApi } from "./api";
 
+
 const FundingModal = styled(ModalLayout)`
   padding: 24px 16px 32px 16px;
   border-radius: 8px;
@@ -16,6 +17,7 @@ const FundingModal = styled(ModalLayout)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 `;
 
 const ModalHeader = styled.div`
@@ -219,6 +221,7 @@ export default function IdolFundingModal({ item, onFundingClick, setIsReRenderin
       }
     }
   };
+
 
   return (
     <>
