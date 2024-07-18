@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 import { VoteModalMainBox } from './VoteModalMain.style';
+import { LoadingItem } from './ChartMain.style';
 
 import icCheckbox from '@assets/icons/ic_checkbox.svg';
 import icCheckboxActive from '@assets/icons/ic_checkbox_active.svg';
@@ -56,6 +57,7 @@ export default function VoteModalMain({
             </li>
           );
         })}
+      {isLoading && <LoadingItem />}
       <div ref={targetRef} className='observer'></div>
     </VoteModalMainBox>
   );

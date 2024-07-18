@@ -149,8 +149,8 @@ export default function Index() {
   useEffect(() => {
     if (lastItemRef.current) {
       lastItemRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
+        behavior: 'smooth',
+        block: 'start',
       });
     }
   }, [lastItemRef.current]);

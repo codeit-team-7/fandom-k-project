@@ -1,8 +1,8 @@
-import MainLogo from "@assets/icons/logo.svg";
-import UserIcon from "@assets/images/Frame-28.png";
-import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
+import MainLogo from '@assets/icons/logo.svg';
+import UserIcon from '@assets/images/Frame-28.png';
+import { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import styled from 'styled-components';
 
 const HeaderMargin = styled.div`
   padding: 0 24px;
@@ -38,7 +38,7 @@ const HeaderIcon = styled.img`
   height: 32px;
 `;
 
-let currentPath = "";
+let currentPath = '';
 
 export default function Index({ linkName }) {
   let location = useLocation();
@@ -53,7 +53,9 @@ export default function Index({ linkName }) {
     <HeaderMargin>
       <HeaderContainer>
         <div></div>
-        <HeaderLogo src={MainLogo} alt='MainLogo' />
+        <Link to={linkName}>
+          <HeaderLogo src={MainLogo} alt='MainLogo' />
+        </Link>
         <div>
           <Link to='/mypage'>
             <HeaderIcon src={UserIcon} alt='UserIcon' />

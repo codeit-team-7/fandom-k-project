@@ -1,5 +1,10 @@
 import ChartIdolList from './ChartIdolList';
-import { ChartMainBox, GenderSelectBox, LoadingItem, ViewMoreBox } from './ChartMain.style';
+import {
+  ChartMainBox,
+  GenderSelectBox,
+  LoadingItem,
+  ViewMoreBox,
+} from './ChartMain.style';
 
 export default function ChartMain({
   idolList,

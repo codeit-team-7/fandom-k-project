@@ -1,5 +1,5 @@
 import creditIcon from '@assets/icons/ic_credit.svg';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ChargeCredit } from '@features';
 
@@ -92,10 +92,10 @@ export default function Index() {
       setCredit(getCharge());
     };
 
-    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener('storage', handleStorageChange);
 
     return () => {
-      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener('storage', handleStorageChange);
     };
   }, []);
 

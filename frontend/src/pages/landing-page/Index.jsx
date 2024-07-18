@@ -216,7 +216,7 @@ export default function Index() {
             내가 좋아하는 아이돌을 <br /> 가장 <PointText>쉽게 덕질</PointText>
             하는 방법
           </TitleText>
-          <Link to="list">
+          <Link to='list'>
             <MainLogo src={mainLogo}></MainLogo>
           </Link>
           <BackgroundImg />
