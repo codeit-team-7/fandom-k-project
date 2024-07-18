@@ -25,6 +25,7 @@ const GlobalTheme = createGlobalStyle`
         background-image: url('${background}');
         background-repeat: no-repeat;
         background-size: auto;
+        z-index: -1;
       }
     `}
   `}
