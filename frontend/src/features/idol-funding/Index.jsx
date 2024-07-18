@@ -114,7 +114,10 @@ const ImageButtonBox = styled.div`
   align-items: center;
 `;
 
+
+
 const IdolImage = styled.img`
+  position: relative;
   border-radius: 8px;
   ${media.base`
     width: 100%;
@@ -128,7 +131,28 @@ const IdolImage = styled.img`
   `}
 `;
 
+const IdolGradient = styled.div`
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 58.9%, #000000 100%);
+  border-radius: 8px;
+  ${media.base`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  `}
+  ${media.md`
+    width: 282px;
+    height: 293px;
+    border-radius: 8px;
+    object-fit: none;
+  `}
+`
+
 const FundingButton = styled(Button)`
+  z-index: 3;
   position: absolute;
   display: inline-flex;
   justify-content: center;
@@ -324,6 +348,7 @@ function FundingItem({ item, setIsReRendering }) {
             width='158px'
             height='206px'
           />
+          <IdolGradient/>
           <FundingButton onClick={handleIdolFundingModal} as="button">
             후원하기
           </FundingButton>
