@@ -2,6 +2,8 @@ import styled, { keyframes, css } from 'styled-components';
 
 import { media } from '@utils';
 
+import { LoadingSpinner } from '@styles/LoadingSpinner';
+
 const moveRight = keyframes`
   from{ left : 0; }
   to { left : 50%; }
@@ -81,4 +83,8 @@ export const ViewMoreBox = styled.div`
         border-radius: 3px;
         }
 `}`}
+`;
+
+export const LoadingItem = styled(LoadingSpinner)`
+  margin: 0 auto;
 `;

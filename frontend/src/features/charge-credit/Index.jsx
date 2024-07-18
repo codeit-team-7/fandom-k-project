@@ -126,7 +126,7 @@ export default function Index({ onChargeClick }) {
       onChargeClick();
     }
   };
-
+  const creditValue = [100, 200, 300];
   return (
     <>
       <ModalBg />
@@ -141,48 +141,26 @@ export default function Index({ onChargeClick }) {
             />
           </TopSection>
           <Select>
-            <SelectLabel htmlFor='100' checked={selectedCredit === '100'}>
-              <SelectPrice>
-                <SelectIcon src={creditIcon} alt='creditIcon' />
-                <SelectAmount>100</SelectAmount>
-              </SelectPrice>
-              <RadioInput
-                type='radio'
-                name='credit'
-                id='100'
-                value='100'
-                checked={selectedCredit === '100'}
-                onChange={handleCreditChange}
-              />
-            </SelectLabel>
-            <SelectLabel htmlFor='200' checked={selectedCredit === '200'}>
-              <SelectPrice>
-                <SelectIcon src={creditIcon} alt='creditIcon' />
-                <SelectAmount>200</SelectAmount>
-              </SelectPrice>
-              <RadioInput
-                type='radio'
-                name='credit'
-                id='200'
-                value='200'
-                checked={selectedCredit === '200'}
-                onChange={handleCreditChange}
-              />
-            </SelectLabel>
-            <SelectLabel htmlFor='300' checked={selectedCredit === '300'}>
-              <SelectPrice>
-                <SelectIcon src={creditIcon} alt='creditIcon' />
-                <SelectAmount>300</SelectAmount>
-              </SelectPrice>
-              <RadioInput
-                type='radio'
-                name='credit'
-                id='300'
-                value='300'
-                checked={selectedCredit === '300'}
-                onChange={handleCreditChange}
-              />
-            </SelectLabel>
+            {creditValue.map(credit => {
+              return (
+                <SelectLabel
+                  htmlFor={`${credit}`}
+                  checked={selectedCredit === `${credit}`}>
+                  <SelectPrice>
+                    <SelectIcon src={creditIcon} alt='creditIcon' />
+                    <SelectAmount>{credit}</SelectAmount>
+                  </SelectPrice>
+                  <RadioInput
+                    type='radio'
+                    name='credit'
+                    id={`${credit}`}
+                    value={`${credit}`}
+                    checked={selectedCredit === `${credit}`}
+                    onChange={handleCreditChange}
+                  />
+                </SelectLabel>
+              );
+            })}
           </Select>
           <ChargeButton>
             <ChargeButtonIcon src={creditWhiteIcon} alt='creditWhiteIcon' />
