@@ -53,12 +53,10 @@ export default function Index({ linkName }) {
     <HeaderMargin>
       <HeaderContainer>
         <div></div>
-        <Link to={linkName}>
-          <HeaderLogo src={MainLogo} alt="MainLogo" />
-        </Link>
+        <HeaderLogo src={MainLogo} alt='MainLogo' />
         <div>
-          <Link to="/mypage">
-            <HeaderIcon src={UserIcon} alt="UserIcon" />
+          <Link to='/mypage'>
+            <HeaderIcon src={UserIcon} alt='UserIcon' />
           </Link>
         </div>
       </HeaderContainer>
