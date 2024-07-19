@@ -1,12 +1,12 @@
-import styled from "styled-components";
-import { useState } from "react";
-import DeleteBtn24 from "@assets/icons/btn_delete_24px.svg";
-import Cedit from "@assets/icons/ic_credit.svg";
-import { ModalBg } from "@shared/styles/ModalBg";
-import { ModalLayout } from "@shared/styles/ModalLayout";
-import { Button } from "@shared/styles/Button";
-import { media } from "@shared/utils/media-query/index";
-import { getRecheckApi, putDonationsApi } from "./api";
+import styled from 'styled-components';
+import { useState } from 'react';
+import DeleteBtn24 from '@assets/icons/btn_delete_24px.svg';
+import Cedit from '@assets/icons/ic_credit.svg';
+import { ModalBg } from '@shared/styles/ModalBg';
+import { ModalLayout } from '@shared/styles/ModalLayout';
+import { Button } from '@shared/styles/Button';
+import { media } from '@shared/utils/media-query/index';
+import { getRecheckApi, putDonationsApi } from './api';
 
 const FundingModal = styled(ModalLayout)`
   padding: 24px 16px 32px 16px;
@@ -16,6 +16,7 @@ const FundingModal = styled(ModalLayout)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 `;
 
 const ModalHeader = styled.div`
@@ -92,7 +93,8 @@ const ModalFundingInput = styled.input`
     -moz-appearance: textfield;
   }
   outline: none;
-  border: ${({ isOverCredit }) => (isOverCredit ? `1px solid #FF2626` : `1px solid #fff`)};
+  border: ${({ isOverCredit }) =>
+    isOverCredit ? `1px solid #FF2626` : `1px solid #fff`};
   ${({ theme }) => `
   margin-top: 24px;
   width: 295px;
@@ -132,7 +134,11 @@ const ModalFundingButton = styled(Button)`
   `}
 `;
 
-export default function IdolFundingModal({ item, onFundingClick, setIsReRendering }) {
+export default function IdolFundingModal({
+  item,
+  onFundingClick,
+  setIsReRendering,
+}) {
   const {
     id,
     status,
@@ -142,26 +148,26 @@ export default function IdolFundingModal({ item, onFundingClick, setIsReRenderin
     profilePicture = item.idol.profilePicture,
     idolId = item.idol.id,
   } = item;
-  const [creditUse, setCreditUse] = useState("");
+  const [creditUse, setCreditUse] = useState('');
   const [isInValid, setIsInValid] = useState(true);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isOverCredit, setIsOverCredit] = useState(false);
 
   const getCharge = () => {
-    return Number(localStorage.getItem("credit"));
+    return Number(localStorage.getItem('credit'));
   };
   const myCredit = getCharge();
 
   const deductCredit = () => {
     const resultCredit = myCredit - Number(creditUse);
-    localStorage.setItem("credit", resultCredit);
+    localStorage.setItem('credit', resultCredit);
   };
 
-  const onChangeCredit = (e) => {
+  const onChangeCredit = e => {
     const currentEnterCredit = e.target.value;
-    if (!currentEnterCredit || currentEnterCredit === "0") {
+    if (!currentEnterCredit || currentEnterCredit === '0') {
       setIsInValid(true);
-      setCreditUse("");
+      setCreditUse('');
       setIsOverCredit(false);
     } else if (Number(currentEnterCredit) > myCredit) {
       setIsInValid(true);
@@ -174,7 +180,7 @@ export default function IdolFundingModal({ item, onFundingClick, setIsReRenderin
     }
   };
 
-  const fetchReCheckData = async (idolId) => {
+  const fetchReCheckData = async idolId => {
     try {
       const result = await getRecheckApi(idolId);
       return result;
@@ -204,11 +210,13 @@ export default function IdolFundingModal({ item, onFundingClick, setIsReRenderin
     }
   };
 
-  const reCheckItem = (result) => {
+  const reCheckItem = result => {
     if (result) {
       const reCheckStatus = status === result.status;
-      const reCheckValidCredit = targetDonation >= result.receivedDonations + Number(creditUse);
-      const overCredit = result.receivedDonations + Number(creditUse) - targetDonation;
+      const reCheckValidCredit =
+        targetDonation >= result.receivedDonations + Number(creditUse);
+      const overCredit =
+        result.receivedDonations + Number(creditUse) - targetDonation;
       const validType = reCheckStatus && reCheckValidCredit;
       if (overCredit > 0) {
         alert(`목표 후원 금액을 ${overCredit}크레딧 초과하였습니다.`);
@@ -226,10 +234,14 @@ export default function IdolFundingModal({ item, onFundingClick, setIsReRenderin
       <FundingModal>
         <ModalHeader>
           <ModalFundingTitle>후원하기</ModalFundingTitle>
-          <ModalCloseBtn src={DeleteBtn24} alt="모달창 닫기 버튼" onClick={onFundingClick} />
+          <ModalCloseBtn
+            src={DeleteBtn24}
+            alt='모달창 닫기 버튼'
+            onClick={onFundingClick}
+          />
         </ModalHeader>
         <ModalInfoContainer>
-          <ModalImg src={profilePicture} alt="후원할 아이돌 이미지" />
+          <ModalImg src={profilePicture} alt='후원할 아이돌 이미지' />
           <ModalInfo>
             <ModalTag>{subtitle}</ModalTag>
             <ModalTitle>{title}</ModalTitle>
@@ -238,15 +250,14 @@ export default function IdolFundingModal({ item, onFundingClick, setIsReRenderin
         <ModalFundingInput
           onChange={onChangeCredit}
           value={creditUse}
-          type="number"
-          placeholder="크레딧 입력"
-          $isOverCredit={isOverCredit}
-        ></ModalFundingInput>
+          type='number'
+          placeholder='크레딧 입력'
+          $isOverCredit={isOverCredit}></ModalFundingInput>
         <ModalFundingWaring>
-          {isOverCredit ? "갖고 있는 크레딧보다 더 많이 후원할 수 없어요" : ""}
+          {isOverCredit ? '갖고 있는 크레딧보다 더 많이 후원할 수 없어요' : ''}
         </ModalFundingWaring>
         <ModalFundingButton onClick={onClick} $activable={isInValid}>
-          {isProcessing ? "처리 중..." : "후원하기"}
+          {isProcessing ? '처리 중...' : '후원하기'}
         </ModalFundingButton>
       </FundingModal>
     </>
