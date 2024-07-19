@@ -81,6 +81,7 @@ export const ViewMoreBox = styled.div`
         background-color:rgba(255,255,255,0.1);
         border: 1px solid rgba(255,255,255,0.8);
         border-radius: 3px;
+        cursor: pointer;
         }
 `}`}
 `;
