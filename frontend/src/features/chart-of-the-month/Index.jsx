@@ -141,6 +141,7 @@ export default function Index() {
     }
     localStorage.setItem('credit', credit - 1000);
     setIsOpenVote(false);
+    document.body.style.overflow = 'auto';
   };
 
   const handleNotEnough = () => {
@@ -159,12 +160,10 @@ export default function Index() {
   useEffect(() => {
     scrollObserverRef.current = new IntersectionObserver(entries => {
       if (cursor[gender] === null) {
-        console.log('끝');
         scrollObserverRef.current.disconnect();
         return;
       }
       if (entries[0].isIntersecting && !isLoading) {
-        console.log('실행');
         loadIdols();
       }
     });
