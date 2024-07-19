@@ -1,10 +1,12 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from '@app/header/Index';
 
 export default function Index() {
+  const location = useLocation();
+
   return (
     <>
-      {window.location.pathname !== '/' && <Header />}
+      {location.pathname !== '/' && <Header />}
       <Outlet />
     </>
   );
