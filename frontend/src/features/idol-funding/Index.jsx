@@ -395,13 +395,13 @@ export default function Index() {
   // 받아온 값만큼 지정한 item으로 scrollIntoView 합니다.
   const scrollItem = nextItemNum => {
     setItemNum(nextItemNum);
-    if (itemRefs.current[nextItemNum]) {
-      itemRefs.current[nextItemNum].scrollIntoView({
-        block: 'nearest',
-        behavior: 'smooth',
-        inline: 'start',
-      });
-    }
+    // if (itemRefs.current[nextItemNum]) {
+    //   itemRefs.current[nextItemNum].scrollIntoView({
+    //     block: 'nearest',
+    //     behavior: 'smooth',
+    //     inline: 'start',
+    //   });
+    // }
   };
 
   const onClickRight = () => {

@@ -27,9 +27,9 @@ export default function Index() {
   const [isOpenVote, setIsOpenVote] = useState(false);
   const [isNotEnough, setIsNotEnough] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const observerRef = useRef();
-  const cursorRef = useRef(cursor);
+  const scrollObserverRef = useRef();
   const lastItemRef = useRef();
+  const cursorRef = useRef(cursor);
 
   const loadIdols = async ({ retry = 3 } = {}) => {
     setIsLoading(true);
@@ -85,13 +85,15 @@ export default function Index() {
     loadIdols();
   }, []);
 
-  const handleViewMoreButton = () => {
+  const handleViewMoreButton = async () => {
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
     const hasItemNum =
       gender === 'female' ? idolList.female.length : idolList.male.length;
 
     if (hasItemNum < showItemNum + pageSize) {
-      loadIdols();
+      await loadIdols();
+      setShowItemNum(prev => prev + pageSize);
+      return;
     }
     setShowItemNum(prev => prev + pageSize);
   };
@@ -138,7 +140,6 @@ export default function Index() {
       return;
     }
     localStorage.setItem('credit', credit - 1000);
-    console.log('실행');
     setIsOpenVote(false);
   };
 
@@ -153,24 +154,25 @@ export default function Index() {
         block: 'start',
       });
     }
-  }, [lastItemRef.current]);
+  }, [showItemNum]);
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && cursor[gender] !== null) {
+    scrollObserverRef.current = new IntersectionObserver(entries => {
+      if (cursor[gender] === null) {
+        console.log('끝');
+        scrollObserverRef.current.disconnect();
+        return;
+      }
+      if (entries[0].isIntersecting && !isLoading) {
+        console.log('실행');
         loadIdols();
       }
     });
 
     return () => {
-      observerRef.current.disconnect();
+      scrollObserverRef.current.disconnect();
     };
   }, []);
-  useEffect(() => {
-    if (cursorRef.current[gender] === null) {
-      observerRef.current.disconnect();
-    }
-  }, [cursorRef.current[gender]]);
 
   return (
     <>
@@ -194,7 +196,7 @@ export default function Index() {
             idolList={gender === 'female' ? idolList.female : idolList.male}
             handleModal={handleVoteModal}
             handleVote={handleVoteButton}
-            observer={observerRef.current}
+            observer={scrollObserverRef.current}
             gender={gender}
             isLoading={isLoading}
           />

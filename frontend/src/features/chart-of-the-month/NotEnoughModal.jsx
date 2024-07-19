@@ -10,7 +10,8 @@ export default function NotEnoughModal({ onClick }) {
       </button>
       <div className='bottom-box'>
         <p>
-          앗! 투표하기 위한&nbsp;<p className='color-p'>크레딧</p>이 부족해요
+          앗! 투표하기 위한&nbsp;<span className='color-p'>크레딧</span>이
+          부족해요
         </p>
         <ModalButton onClick={onClick}>확인</ModalButton>
       </div>
