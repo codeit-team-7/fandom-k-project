@@ -43,7 +43,7 @@ export default function ChartMain({
           lastItemRef={lastItemRef}
         />
       </ChartMainBox>
-      {idolList.length >= showItemNum && (
+      {idolList.length >= showItemNum && !isLoading && (
         <ViewMoreBox>
           <button onClick={onClickViewMore}>더보기</button>
         </ViewMoreBox>

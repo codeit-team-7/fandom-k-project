@@ -1,7 +1,8 @@
-import { IdolListUl, SkeletonUl } from './ChartIdolList.style';
+import { IdolListUl } from './ChartIdolList.style';
 
 export default function ChartIdolList({ idolList, showItemNum, lastItemRef }) {
   const showList = idolList.slice(0, showItemNum);
+
   return (
     <IdolListUl>
       {showList?.length > 0 &&
