@@ -36,7 +36,7 @@ export default function VoteModal({
         observer={observer}
         isLoading={isLoading}
       />
-      <VoteModalBottom onClick={onClickVote} />
+      <VoteModalBottom onClick={onClickVote} checkedId={checkedId} />
     </VoteModalLayout>
   );
 }

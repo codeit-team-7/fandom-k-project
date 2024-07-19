@@ -15,16 +15,21 @@ export default function VoteModalMain({
 }) {
   const targetRef = useRef(null);
   useEffect(() => {
-    if (observer && targetRef.current) {
-      observer.observe(targetRef.current);
+    if (!observer && !targetRef.current) {
+      return;
     }
+    if (isLoading) {
+      observer.unobserve(targetRef.current);
+      return;
+    }
+    observer.observe(targetRef.current);
 
     return () => {
       if (observer && targetRef.current) {
         observer.unobserve(targetRef.current);
       }
     };
-  }, [observer]);
+  }, [isLoading]);
   return (
     <VoteModalMainBox>
       {!idolList.length ||

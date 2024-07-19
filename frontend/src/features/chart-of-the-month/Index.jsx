@@ -43,17 +43,18 @@ export default function Index() {
     if (showItemNum === 0) {
       setShowItemNum(pageSize);
     }
-
     const { idols, nextCursor } = await getIdolList({
       cursor: genderCursor,
       gender,
       pageSize,
     });
     if (idols === null && retry) {
+      console.log(`차트 불러오기 실패 남은 재시도 횟수 ${retry}`);
       loadIdols({ retry: retry - 1 });
       return;
     }
     if (idols === null) {
+      console.log(`차트 불러오기 실패`);
       return;
     }
     setCursor(prev => {

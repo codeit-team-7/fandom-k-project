@@ -1,10 +1,12 @@
 import { Button } from '@styles/Button';
 import { VoteModalBottomBox } from './VoteModalBottom.style';
 
-export default function VoteModalBottom({ onClick }) {
+export default function VoteModalBottom({ onClick, checkedId }) {
   return (
     <VoteModalBottomBox>
-      <Button onClick={onClick}>투표하기</Button>
+      <Button $activable={!checkedId} onClick={onClick}>
+        투표하기
+      </Button>
       <div className='info'>
         <p>투표하는 데&nbsp;</p>
         <p className='strong'>1000 크레딧</p>
