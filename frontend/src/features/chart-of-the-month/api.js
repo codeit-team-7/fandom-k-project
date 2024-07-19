@@ -16,7 +16,7 @@ export const getIdolList = async ({
   }
 };
 
-export const postVote = async (idolId, retry = 3) => {
+export const postVote = async idolId => {
   try {
     await fetch(`${API_URL}/votes`, {
       method: 'POST',
