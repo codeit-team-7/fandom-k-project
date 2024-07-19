@@ -1,16 +1,62 @@
+import MainLogo from '@assets/icons/logo.svg';
+import UserIcon from '@assets/images/Frame-28.png';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { media } from '@utils';
 
-const StyledHeader = styled.header`
-  ${({ theme }) => `
-    ${media.base`
-      font-size: ${65};
-      color: ${theme.colors.BRAND[200]};
-    `}
-
-  `}
+const HeaderMargin = styled.div`
+  padding: 0 24px;
 `;
 
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 88px;
+  padding-bottom: 16px;
+  @media (min-width: 728px) {
+    align-items: center;
+  }
+  @media (min-width: 1024px) {
+    max-width: 1200px;
+    margin: 0 auto 50px;
+  }
+`;
+
+const HeaderLogo = styled.img`
+  height: 21px;
+  @media (min-width: 728px) {
+    height: 23px;
+  }
+  @media (min-width: 1024px) {
+    height: 32px;
+  }
+`;
+
+const HeaderIcon = styled.img`
+  width: 32px;
+  height: 32px;
+`;
+
+const handleLinkClick = () => {
+  if (window.location.pathname === '/list') {
+    window.location.reload();
+  }
+};
+
 export default function Index() {
-  return <StyledHeader></StyledHeader>;
+  return (
+    <HeaderMargin>
+      <HeaderContainer>
+        <div></div>
+        <Link to='/list' onClick={handleLinkClick}>
+          <HeaderLogo src={MainLogo} alt='MainLogo' />
+        </Link>
+        <div>
+          <Link to='/mypage'>
+            <HeaderIcon src={UserIcon} alt='UserIcon' />
+          </Link>
+        </div>
+      </HeaderContainer>
+    </HeaderMargin>
+  );
 }

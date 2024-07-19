@@ -4,7 +4,7 @@ import Header from '@app/header/Index';
 export default function Index() {
   return (
     <>
-      <Header />
+      {window.location.pathname !== '/' && <Header />}
       <Outlet />
     </>
   );
