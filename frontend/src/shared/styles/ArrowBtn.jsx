@@ -22,5 +22,5 @@ export const ArrowBtn = styled.button`
   width: 40px;
   height: 78px;
   cursor: pointer;
-  z-index: 10;
+  z-index: 5;
 `;

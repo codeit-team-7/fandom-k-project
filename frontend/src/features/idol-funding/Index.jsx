@@ -1,12 +1,12 @@
-import { styled } from "styled-components";
-import { useEffect, useRef, useState } from "react";
-import { media } from "@utils";
-import { Button } from "@shared/styles/Button";
-import { ArrowBtn } from "@shared/styles/ArrowBtn";
-import CreditSVG from "@assets/icons/ic_credit.svg";
-import { LoadingSpinner } from "@shared/styles/LoadingSpinner";
-import IdolFundingModal from "./IdolFundingModal";
-import { getFundingApi } from "./api";
+import { styled } from 'styled-components';
+import { useEffect, useRef, useState } from 'react';
+import { media } from '@utils';
+import { Button } from '@shared/styles/Button';
+import { ArrowBtn } from '@shared/styles/ArrowBtn';
+import CreditSVG from '@assets/icons/ic_credit.svg';
+import { LoadingSpinner } from '@shared/styles/LoadingSpinner';
+import IdolFundingModal from './IdolFundingModal';
+import { getFundingApi } from './api';
 
 const Container = styled.section`
   ${media.base`
@@ -115,6 +115,7 @@ const ImageButtonBox = styled.div`
 `;
 
 const IdolImage = styled.img`
+  position: relative;
   border-radius: 8px;
   ${media.base`
     width: 100%;
@@ -128,7 +129,28 @@ const IdolImage = styled.img`
   `}
 `;
 
+const IdolGradient = styled.div`
+  top: 0;
+  left: -1px;
+  position: absolute;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 58.9%, #000000 100%);
+  border-radius: 8px;
+  ${media.base`
+    width: 160px;
+    height: 100%;
+    object-fit: cover;
+  `}
+  ${media.md`
+    width: 284px;
+    height: 293px;
+    border-radius: 8px;
+    object-fit: none;
+  `}
+`;
+
 const FundingButton = styled(Button)`
+  z-index: 3;
   position: absolute;
   display: inline-flex;
   justify-content: center;
@@ -243,7 +265,7 @@ const FundingMeter = styled.div`
     position: absolute;
     top: 0;
     left: 0;
-    width: ${({ $percentage }) => ($percentage ? `${$percentage}%` : "0%")};
+    width: ${({ $percentage }) => ($percentage ? `${$percentage}%` : '0%')};
     height: 100%;
     border-radius: 5px;
     background-color: ${({ theme }) => theme.colors.BRAND[100]};
@@ -266,8 +288,8 @@ function FundingItem({ item, setIsReRendering }) {
     targetDonation,
     profilePicture = item.idol.profilePicture,
   } = item;
-  const [idolFundingModal, setIdolFundingModal] = useState(false);
-  const handleIdolFundingModal = () => setIdolFundingModal((prev) => !prev);
+  const [isIdolFundingModal, setIsIdolFundingModal] = useState(false);
+  const handleIdolFundingModal = () => setIsIdolFundingModal(prev => !prev);
 
   // 목표금액, 모인 금액을 %로 바꿈
   const calculatePercentage = (part, whole) => {
@@ -301,9 +323,15 @@ function FundingItem({ item, setIsReRendering }) {
     }
   };
 
+  if (isIdolFundingModal) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = 'auto';
+  }
+
   return (
     <IdolFundingContainer>
-      {idolFundingModal && (
+      {isIdolFundingModal && (
         <IdolFundingModal
           item={item}
           onFundingClick={handleIdolFundingModal}
@@ -318,7 +346,8 @@ function FundingItem({ item, setIsReRendering }) {
             width='158px'
             height='206px'
           />
-          <FundingButton onClick={handleIdolFundingModal} as="button">
+          <IdolGradient />
+          <FundingButton onClick={handleIdolFundingModal} as='button'>
             후원하기
           </FundingButton>
         </ImageButtonBox>
@@ -328,7 +357,12 @@ function FundingItem({ item, setIsReRendering }) {
           <DonationGoalContainer>
             <InfoBox>
               <DonationAmount>
-                <img src={CreditSVG} alt="크레딧 아이콘 이미지" width={12} height={12} />
+                <img
+                  src={CreditSVG}
+                  alt='크레딧 아이콘 이미지'
+                  width={12}
+                  height={12}
+                />
                 {korReceivedDonations}
               </DonationAmount>
               <DaysRemaining>{getTimegap(deadline)}</DaysRemaining>
@@ -347,12 +381,13 @@ export default function Index() {
   const [itemNum, setItemNum] = useState(0);
   const [isReRendering, setIsReRendering] = useState(false);
   const itemRefs = useRef([]);
+
   // 카드의 처음과 마지막은 화살표 버튼 안 보이게 설정
-  const showArrowButton = (direction) => {
+  const showArrowButton = direction => {
     const lastNum = items.length - 1;
-    if (direction === "left") {
+    if (direction === 'left') {
       return itemNum === 0;
-    } else if (direction === "right") {
+    } else if (direction === 'right') {
       return lastNum - 3 === itemNum;
     }
   };
@@ -410,24 +445,26 @@ export default function Index() {
     <Container>
       <Title>후원을 기다리는 조공</Title>
       <Box>
-        {showArrowButton("left") ? (
+        {showArrowButton('left') ? (
           <></>
         ) : (
-          <LgArrowBtnLeft direction="left" onClick={onClickLeft} />
+          <LgArrowBtnLeft direction='left' onClick={onClickLeft} />
         )}
         <FundingItems>
-          {cutItems
-            // .filter((item) => item.status)
-            .map((item, i) => (
-              <li key={item.id} ref={(el) => (itemRefs.current[i] = el)}>
-                <FundingItem id={`content${i}`} item={item} setIsReRendering={setIsReRendering} />
-              </li>
-            ))}
+          {cutItems.map((item, i) => (
+            <li key={item.id} ref={el => (itemRefs.current[i] = el)}>
+              <FundingItem
+                id={`content${i}`}
+                item={item}
+                setIsReRendering={setIsReRendering}
+              />
+            </li>
+          ))}
         </FundingItems>
-        {showArrowButton("right") ? (
+        {showArrowButton('right') ? (
           <></>
         ) : (
-          <LgArrowBtnRight direction="right" onClick={onClickRight} />
+          <LgArrowBtnRight direction='right' onClick={onClickRight} />
         )}
       </Box>
     </Container>
