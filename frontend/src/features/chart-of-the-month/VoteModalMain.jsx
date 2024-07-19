@@ -57,7 +57,12 @@ export default function VoteModalMain({
             </li>
           );
         })}
-      {isLoading && <LoadingItem />}
+
+      {isLoading && (
+        <div className='spinner-box'>
+          <LoadingItem />
+        </div>
+      )}
       <div ref={targetRef} className='observer'></div>
     </VoteModalMainBox>
   );
