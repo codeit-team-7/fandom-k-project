@@ -1,6 +1,7 @@
 import reset from 'styled-reset';
 import { createGlobalStyle } from 'styled-components';
 import { media } from '@utils';
+import background from '@assets/images/background.png';
 
 // 전역 CSS 설정
 const GlobalTheme = createGlobalStyle`
@@ -21,9 +22,9 @@ const GlobalTheme = createGlobalStyle`
         left: 0;
         width: 100%;
         height: 100%;
-        background: 
-          radial-gradient(circle at top left, rgba(20, 195, 254, 0) 0%, ${theme.colors.BLACK[200]} 12%),
-          linear-gradient(to bottom right, rgba(20, 195, 254, 0.5), rgba(20, 195, 254, 0));
+        background-image: url('${background}');
+        background-repeat: no-repeat;
+        background-size: auto;
         z-index: -1;
       }
     `}

@@ -49,7 +49,7 @@ export default function Index() {
   const handleScroll = debounce(e => {
     const { scrollLeft, scrollWidth, offsetWidth } = e.target;
     if (scrollWidth - scrollLeft === offsetWidth) {
-      const addedPageSize = Math.ceil(innerWidth / 100) * 2;
+      const addedPageSize = Math.min(Math.ceil(innerWidth / 100) * 2, 16);
       fetchItems({ scroll: true, addedPageSize });
     }
   }, 200);

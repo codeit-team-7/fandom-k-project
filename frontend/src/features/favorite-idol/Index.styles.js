@@ -7,7 +7,7 @@ export const StyledSection = styled.section`
       user-select: none;
       
       .title {
-        padding: 0 ${24};
+        padding: 0 ${24} ${57};
       }
 
       .items-wrap {
