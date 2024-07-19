@@ -145,6 +145,7 @@ export default function Index({ onChargeClick }) {
               return (
                 <SelectLabel
                   htmlFor={`${credit}`}
+                  key={`${credit}`}
                   checked={selectedCredit === `${credit}`}>
                   <SelectPrice>
                     <SelectIcon src={creditIcon} alt='creditIcon' />
