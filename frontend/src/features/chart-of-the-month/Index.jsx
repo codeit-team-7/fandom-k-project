@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 
-import ChartTop from './ChartTop';
-import ChartMain from './ChartMain';
+import ChartTop from './components/ChartTop';
+import ChartMain from './components/ChartMain';
+import VoteModal from './components/VoteModal';
+import NotEnoughModal from './components/NotEnoughModal';
 
 import { getIdolList } from './api';
 import { postVote } from './api';
 
-import { ChartLayout } from './Index.style';
 import { ModalBg } from '@styles/ModalBg';
-import VoteModal from './VoteModal';
-import NotEnoughModal from './NotEnoughModal';
 
 const INITIAL_LIST = {
   female: [],
@@ -176,18 +175,20 @@ export default function Index() {
 
   return (
     <>
-      <ChartLayout>
-        <ChartTop onClick={handleVoteModal} />
-        <ChartMain
-          idolList={gender === 'female' ? idolList.female : idolList.male}
-          onClickGender={handleGenderChange}
-          onClickViewMore={handleViewMoreButton}
-          gender={gender}
-          showItemNum={showItemNum}
-          lastItemRef={lastItemRef}
-          isLoading={isLoading}
-        />
-      </ChartLayout>
+      <ChartTop onClick={handleVoteModal} />
+      <ChartMain
+        idolList={
+          gender === 'female'
+            ? idolList.female.slice(0, showItemNum)
+            : idolList.male(0, showItemNum)
+        }
+        onClickGender={handleGenderChange}
+        onClickViewMore={handleViewMoreButton}
+        gender={gender}
+        showItemNum={showItemNum}
+        lastItemRef={lastItemRef}
+        isLoading={isLoading}
+      />
 
       {isOpenVote && (
         <>

@@ -1,12 +1,10 @@
-import { IdolListUl } from './ChartIdolList.style';
+import { IdolListUl } from '../styles/ChartIdolList.style';
 
-export default function ChartIdolList({ idolList, showItemNum, lastItemRef }) {
-  const showList = idolList.slice(0, showItemNum);
-
+export default function ChartIdolList({ idolList, lastItemRef }) {
   return (
     <IdolListUl>
-      {showList?.length > 0 &&
-        showList.map((idol, index) => {
+      {idolList?.length > 0 &&
+        idolList.map((idol, index) => {
           return (
             <li
               key={Date.now() * index}

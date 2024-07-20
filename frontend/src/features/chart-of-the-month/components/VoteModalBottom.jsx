@@ -1,5 +1,5 @@
 import { Button } from '@styles/Button';
-import { VoteModalBottomBox } from './VoteModalBottom.style';
+import { VoteModalBottomBox } from '../styles/VoteModalBottom.style';
 
 export default function VoteModalBottom({ onClick, checkedId }) {
   return (

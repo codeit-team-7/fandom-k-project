@@ -1,4 +1,4 @@
-import { VoteModalTopBox } from './VoteModalTop.style';
+import { VoteModalTopBox } from '../styles/VoteModalTop.style';
 
 import icClose from '@assets/icons/btn_delete_24px.svg';
 import icLeft from '@assets/icons/ic_arrow_left.svg';
