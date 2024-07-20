@@ -6,6 +6,7 @@ import {
   LoadingItem,
   ViewMoreBox,
 } from '../styles/ChartMain.style';
+import ChartTop from './ChartTop';
 
 export default function ChartMain({
   idolList,
@@ -15,9 +16,11 @@ export default function ChartMain({
   showItemNum,
   lastItemRef,
   isLoading,
+  onClickOpenVote,
 }) {
   return (
     <ChartLayout>
+      <ChartTop onClick={onClickOpenVote} />
       <ChartMainBox>
         <GenderSelectBox $isMale={gender === 'male' ? true : false}>
           <button

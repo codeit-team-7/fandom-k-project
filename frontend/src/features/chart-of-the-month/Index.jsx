@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 
-import ChartTop from './components/ChartTop';
+import { getIdolList } from './api';
+import { postVote } from './api';
+
 import ChartMain from './components/ChartMain';
 import VoteModal from './components/VoteModal';
 import NotEnoughModal from './components/NotEnoughModal';
-
-import { getIdolList } from './api';
-import { postVote } from './api';
 
 import { ModalBg } from '@styles/ModalBg';
 
@@ -175,7 +174,6 @@ export default function Index() {
 
   return (
     <>
-      <ChartTop onClick={handleVoteModal} />
       <ChartMain
         idolList={
           gender === 'female'
@@ -187,8 +185,8 @@ export default function Index() {
         gender={gender}
         showItemNum={showItemNum}
         lastItemRef={lastItemRef}
-        isLoading={isLoading}
-      />
+        onClickOpenVote={handleVoteModal}
+        isLoading={isLoading}></ChartMain>
 
       {isOpenVote && (
         <>
