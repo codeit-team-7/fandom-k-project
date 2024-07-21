@@ -1,4 +1,4 @@
-import { ViewMoreBox } from './ChartViewMore.style';
+import { ViewMoreBox } from '../styles/ChartViewMore.style';
 
 export default function ChartViewMore({ onClick, cursor }) {
   return (

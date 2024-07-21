@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
-import ChartTop from './ChartTop';
-import ChartMain from './ChartMain';
-
 import { getIdolList } from './api';
 import { postVote } from './api';
 
-import { ChartLayout } from './Index.style';
+import ChartMain from './components/ChartMain';
+import VoteModal from './components/VoteModal';
+import NotEnoughModal from './components/NotEnoughModal';
+
 import { ModalBg } from '@styles/ModalBg';
-import VoteModal from './VoteModal';
-import NotEnoughModal from './NotEnoughModal';
 
 const INITIAL_LIST = {
   female: [],
@@ -43,17 +41,18 @@ export default function Index() {
     if (showItemNum === 0) {
       setShowItemNum(pageSize);
     }
-
     const { idols, nextCursor } = await getIdolList({
       cursor: genderCursor,
       gender,
       pageSize,
     });
     if (idols === null && retry) {
+      console.log(`차트 불러오기 실패 남은 재시도 횟수 ${retry}`);
       loadIdols({ retry: retry - 1 });
       return;
     }
     if (idols === null) {
+      console.log(`차트 불러오기 실패`);
       return;
     }
     setCursor(prev => {
@@ -175,18 +174,19 @@ export default function Index() {
 
   return (
     <>
-      <ChartLayout>
-        <ChartTop onClick={handleVoteModal} />
-        <ChartMain
-          idolList={gender === 'female' ? idolList.female : idolList.male}
-          onClickGender={handleGenderChange}
-          onClickViewMore={handleViewMoreButton}
-          gender={gender}
-          showItemNum={showItemNum}
-          lastItemRef={lastItemRef}
-          isLoading={isLoading}
-        />
-      </ChartLayout>
+      <ChartMain
+        idolList={
+          gender === 'female'
+            ? idolList.female.slice(0, showItemNum)
+            : idolList.male(0, showItemNum)
+        }
+        onClickGender={handleGenderChange}
+        onClickViewMore={handleViewMoreButton}
+        gender={gender}
+        showItemNum={showItemNum}
+        lastItemRef={lastItemRef}
+        onClickOpenVote={handleVoteModal}
+        isLoading={isLoading}></ChartMain>
 
       {isOpenVote && (
         <>

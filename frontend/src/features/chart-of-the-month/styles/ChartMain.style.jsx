@@ -14,6 +14,29 @@ const moveLeft = keyframes`
   to { right: 50%; }
 `;
 
+export const ChartLayout = styled.article`
+  ${({ theme }) =>
+    `${media.base`
+      display: flex;
+      flex-direction: column;
+      max-width: 1200px;
+      gap: 16px;
+      padding: 0 ${24};
+      margin: 0 auto 200px;
+    
+  `}${media.md`
+      gap: 24px;
+      
+  `}${media.lg`
+      gap: 24px;
+  `}
+  @media (min-width: 1200px) {
+    padding: 0;
+  }
+
+  `}
+`;
+
 export const ChartMainBox = styled.div`
   ${({ theme }) =>
     `${media.base`
@@ -81,6 +104,7 @@ export const ViewMoreBox = styled.div`
         background-color:rgba(255,255,255,0.1);
         border: 1px solid rgba(255,255,255,0.8);
         border-radius: 3px;
+        cursor: pointer;
         }
 `}`}
 `;

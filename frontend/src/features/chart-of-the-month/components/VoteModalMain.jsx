@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-import { VoteModalMainBox } from './VoteModalMain.style';
-import { LoadingItem } from './ChartMain.style';
+import { VoteModalMainBox } from '../styles/VoteModalMain.style';
+import { LoadingItem } from '../styles/ChartMain.style';
 
 import icCheckbox from '@assets/icons/ic_checkbox.svg';
 import icCheckboxActive from '@assets/icons/ic_checkbox_active.svg';
@@ -15,16 +15,21 @@ export default function VoteModalMain({
 }) {
   const targetRef = useRef(null);
   useEffect(() => {
-    if (observer && targetRef.current) {
-      observer.observe(targetRef.current);
+    if (!observer && !targetRef.current) {
+      return;
     }
+    if (isLoading) {
+      observer.unobserve(targetRef.current);
+      return;
+    }
+    observer.observe(targetRef.current);
 
     return () => {
       if (observer && targetRef.current) {
         observer.unobserve(targetRef.current);
       }
     };
-  }, [observer]);
+  }, [isLoading]);
   return (
     <VoteModalMainBox>
       {!idolList.length ||

@@ -1,10 +1,12 @@
 import ChartIdolList from './ChartIdolList';
 import {
+  ChartLayout,
   ChartMainBox,
   GenderSelectBox,
   LoadingItem,
   ViewMoreBox,
-} from './ChartMain.style';
+} from '../styles/ChartMain.style';
+import ChartTop from './ChartTop';
 
 export default function ChartMain({
   idolList,
@@ -14,13 +16,13 @@ export default function ChartMain({
   showItemNum,
   lastItemRef,
   isLoading,
+  onClickOpenVote,
 }) {
-  const isMale = gender === 'male' ? true : false;
-
   return (
-    <>
+    <ChartLayout>
+      <ChartTop onClick={onClickOpenVote} />
       <ChartMainBox>
-        <GenderSelectBox $isMale={isMale}>
+        <GenderSelectBox $isMale={gender === 'male' ? true : false}>
           <button
             className='gender female'
             onClick={() => {
@@ -49,6 +51,6 @@ export default function ChartMain({
         </ViewMoreBox>
       )}
       {isLoading && <LoadingItem />}
-    </>
+    </ChartLayout>
   );
 }
