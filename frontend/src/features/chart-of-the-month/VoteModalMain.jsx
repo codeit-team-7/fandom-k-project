@@ -6,13 +6,7 @@ import { LoadingItem } from './ChartMain.style';
 import icCheckbox from '@assets/icons/ic_checkbox.svg';
 import icCheckboxActive from '@assets/icons/ic_checkbox_active.svg';
 
-export default function VoteModalMain({
-  idolList,
-  onClickCheck,
-  checkedId,
-  observer,
-  isLoading,
-}) {
+export default function VoteModalMain({ idolList, onClickCheck, checkedId, observer, isLoading }) {
   const targetRef = useRef(null);
   useEffect(() => {
     if (observer && targetRef.current) {
@@ -50,9 +44,7 @@ export default function VoteModalMain({
                 </div>
               </div>
               <button className='check'>
-                <img
-                  src={checkedId === idol.id ? icCheckboxActive : icCheckbox}
-                />
+                <img src={checkedId === idol.id ? icCheckboxActive : icCheckbox} />
               </button>
             </li>
           );

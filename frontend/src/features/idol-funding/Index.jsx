@@ -290,12 +290,7 @@ function FundingItem({ item, onFundingClick }) {
     <IdolFundingContainer>
       <ItemBox>
         <ImageButtonBox>
-          <IdolImage
-            src={profilePicture}
-            alt='후원을 기다리는 아이돌 이미지'
-            width='158px'
-            height='206px'
-          />
+          <IdolImage src={profilePicture} alt='후원을 기다리는 아이돌 이미지' width='158px' height='206px' />
           <FundingButton onClick={onFundingClick} as='button'>
             후원하기
           </FundingButton>
@@ -306,12 +301,7 @@ function FundingItem({ item, onFundingClick }) {
           <DonationGoalContainer>
             <InfoBox>
               <DonationAmount>
-                <img
-                  src={CreditSVG}
-                  alt='크레딧 아이콘 이미지'
-                  width={12}
-                  height={12}
-                />
+                <img src={CreditSVG} alt='크레딧 아이콘 이미지' width={12} height={12} />
                 {korReceivedDonations}
               </DonationAmount>
               <DaysRemaining>{getTimegap(deadline)}</DaysRemaining>
@@ -384,11 +374,7 @@ export default function Index({ onFundingClick }) {
             .filter(item => item.status)
             .map((item, i) => (
               <li key={item.id} ref={el => (itemRefs.current[i] = el)}>
-                <FundingItem
-                  id={`content${i}`}
-                  item={item}
-                  onFundingClick={onFundingClick}
-                />
+                <FundingItem id={`content${i}`} item={item} onFundingClick={onFundingClick} />
               </li>
             ))}
         </FundingItems>

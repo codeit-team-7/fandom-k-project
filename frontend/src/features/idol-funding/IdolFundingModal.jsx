@@ -130,11 +130,7 @@ export default function IdolFundingModal({ onFundingClick }) {
       <FundingMoadl>
         <ModalHeader>
           <ModalFundingTitle>후원하기</ModalFundingTitle>
-          <ModalCloseBtn
-            src={DeleteBtn24}
-            alt='모달창 닫기 버튼'
-            onClick={onFundingClick}
-          />
+          <ModalCloseBtn src={DeleteBtn24} alt='모달창 닫기 버튼' onClick={onFundingClick} />
         </ModalHeader>
         <ModalInfoContainer>
           <ModalImg src={Cedit} alt='후원할 아이돌 이미지' />
@@ -143,9 +139,7 @@ export default function IdolFundingModal({ onFundingClick }) {
             <ModalTitle>타이틀 이름</ModalTitle>
           </ModalInfo>
         </ModalInfoContainer>
-        <ModalFundingInput
-          type='number'
-          placeholder='크레딧 입력'></ModalFundingInput>
+        <ModalFundingInput type='number' placeholder='크레딧 입력'></ModalFundingInput>
         <ModalFundingButton $activable={isInValid}>후원하기</ModalFundingButton>
       </FundingMoadl>
     </>

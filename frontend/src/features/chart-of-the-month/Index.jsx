@@ -34,8 +34,7 @@ export default function Index() {
   const loadIdols = async ({ retry = 3 } = {}) => {
     setIsLoading(true);
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
-    const genderCursor =
-      gender === 'female' ? cursorRef.current.female : cursorRef.current.male;
+    const genderCursor = gender === 'female' ? cursorRef.current.female : cursorRef.current.male;
     if (genderCursor === null) {
       setIsLoading(false);
       return;
@@ -57,10 +56,7 @@ export default function Index() {
       return;
     }
     setCursor(prev => {
-      cursorRef.current =
-        gender === 'female'
-          ? { ...prev, female: nextCursor }
-          : { ...prev, male: nextCursor };
+      cursorRef.current = gender === 'female' ? { ...prev, female: nextCursor } : { ...prev, male: nextCursor };
       return cursorRef.current;
     });
     if (!idols?.length) {
@@ -87,8 +83,7 @@ export default function Index() {
 
   const handleViewMoreButton = () => {
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
-    const hasItemNum =
-      gender === 'female' ? idolList.female.length : idolList.male.length;
+    const hasItemNum = gender === 'female' ? idolList.female.length : idolList.male.length;
 
     if (hasItemNum < showItemNum + pageSize) {
       loadIdols();
@@ -121,9 +116,7 @@ export default function Index() {
     const voteResult = await postVote(id);
     setIdolList(prev => {
       const updateList = prev[gender].map(item => {
-        return item.id === id
-          ? { ...item, totalVotes: item.totalVotes + 1 }
-          : item;
+        return item.id === id ? { ...item, totalVotes: item.totalVotes + 1 } : item;
       });
       updateList.sort((a, b) => b.totalVotes - a.totalVotes);
       return { ...prev, [gender]: updateList };

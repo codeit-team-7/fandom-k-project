@@ -4,11 +4,4 @@ import Credit from './credit/Index';
 import ChargeCredit from './charge-credit/Index';
 import Header from './header/Index';
 import IdolFundingModal from './idol-funding/IdolFundingModal';
-export {
-  IdolFundingModal,
-  IdolFunding,
-  ChartOfTheMonth,
-  Credit,
-  ChargeCredit,
-  Header,
-};
+export { IdolFundingModal, IdolFunding, ChartOfTheMonth, Credit, ChargeCredit, Header };

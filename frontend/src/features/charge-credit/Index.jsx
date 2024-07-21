@@ -134,18 +134,12 @@ export default function Index({ onChargeClick }) {
         <form onSubmit={handleCreditCharge}>
           <TopSection>
             <Title>크레딧 충전하기</Title>
-            <CloseBtn
-              onClick={onChargeClick}
-              src={deleteBtn24}
-              alt='삭제 버튼'
-            />
+            <CloseBtn onClick={onChargeClick} src={deleteBtn24} alt='삭제 버튼' />
           </TopSection>
           <Select>
             {creditValue.map(credit => {
               return (
-                <SelectLabel
-                  htmlFor={`${credit}`}
-                  checked={selectedCredit === `${credit}`}>
+                <SelectLabel htmlFor={`${credit}`} checked={selectedCredit === `${credit}`}>
                   <SelectPrice>
                     <SelectIcon src={creditIcon} alt='creditIcon' />
                     <SelectAmount>{credit}</SelectAmount>

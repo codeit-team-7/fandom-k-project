@@ -7,10 +7,7 @@ export default function ChartIdolList({ idolList, showItemNum, lastItemRef }) {
       {showList?.length > 0 &&
         showList.map((idol, index) => {
           return (
-            <li
-              key={Date.now() * index}
-              className='list-item'
-              ref={idolList.length - 1 === index ? lastItemRef : null}>
+            <li key={Date.now() * index} className='list-item' ref={idolList.length - 1 === index ? lastItemRef : null}>
               <div className='idol'>
                 <span className='img'>
                   <img src={idol.profilePicture} />
