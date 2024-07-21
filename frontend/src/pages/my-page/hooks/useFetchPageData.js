@@ -10,8 +10,10 @@ const useFetchPageData = () => {
       setIsStatus('pending');
       abortControllerRef.current?.abort();
       abortControllerRef.current = new AbortController();
+
       const signal = abortControllerRef.current.signal;
       const response = await fetchAsyncData(query, signal);
+
       if (!response.ok) throw new Error('First request Failure');
       return response;
     } catch (e) {
@@ -20,11 +22,13 @@ const useFetchPageData = () => {
         setIsStatus('rejected');
         return null;
       }
+
       if (retry === 0) {
         console.error('Last Request Failure');
         setIsStatus('rejected');
         return null;
       }
+
       setTimeout(() => {
         console.log('Request Retry');
         getLazyData(query, retry - 1);

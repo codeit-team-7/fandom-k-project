@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { ObserverContext } from '../app/contexts';
+import { ObserverContext } from '@pages/my-page/app/contexts';
 import useMyPageState from '../hooks/useMyPageState';
 import useFetchPageData from '../hooks/useFetchPageData';
 
 export default function ObserverProvider({ children }) {
   const { QueryState, DatasState } = useMyPageState();
-  const { state: queryState, dispatch: queryDispatch, prevState: queryPrevState } = QueryState;
-  const { state: datasState, dispatch: datasDispatch, prevState: dataPrevState } = DatasState;
+  const { state: queryState, dispatch: queryDispatch } = QueryState;
+  const { state: datasState, dispatch: datasDispatch } = DatasState;
+
   const [getLazyData, { isLoading, isError }] = useFetchPageData();
   const [isPossibleFetch, setisPossibleFetch] = useState(true);
 
@@ -22,18 +23,25 @@ export default function ObserverProvider({ children }) {
     const datasState = datasStateRef.current;
     const pageSize = queryState.pageSize;
     const cursor = datasState.cursors[queryState.cursorIndex];
+
     if (cursor === null) return;
+
     const response = await getLazyData({ pageSize, cursor });
+
     if (response === null) return;
+
     const data = await response.json();
     const { list, nextCursor } = data;
+
     if (list.length === 0) {
       setisPossibleFetch(false);
       return;
     }
+
     const newCursorIndex = queryState.cursorIndex + 1;
     const newCursors = [...datasState.cursors, nextCursor];
     const newDatas = [...datasState.datas, list];
+
     queryDispatch({ type: 'UPDATE', payload: { cursorIndex: newCursorIndex } });
     datasDispatch({ type: 'UPDATE', payload: { datas: newDatas, cursors: newCursors } });
   }, [datasDispatch, getLazyData, isPossibleFetch, queryDispatch]);

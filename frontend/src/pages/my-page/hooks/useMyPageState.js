@@ -1,10 +1,10 @@
-import useQueryState from './useQueryState';
-import useDatasState from './useDatasState';
-import { QueryContext, DatasContext } from '../app/contexts';
+import { QueryContext, DatasContext, FavoriteContext } from '../app/contexts';
+import useMyPageContext from './useMyPageContext';
 
 const useMyPageState = () => ({
-  QueryState: useQueryState(QueryContext),
-  DatasState: useDatasState(DatasContext),
+  QueryState: useMyPageContext(QueryContext),
+  DatasState: useMyPageContext(DatasContext),
+  FavoriteState: useMyPageContext(FavoriteContext),
 });
 
 export default useMyPageState;
