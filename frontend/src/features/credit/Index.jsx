@@ -33,6 +33,8 @@ const MyCredit = styled.span`
   font-size: ${theme.fontSize['3xSM']}px;
   color: #ffffff;
   `}
+  opacity: 60%;
+  font-weight: 400;
   @media (min-width: 728px) {
     font-size: 16px;
   }
@@ -49,6 +51,7 @@ const CreditAmount = styled.div`
   font-size: ${theme.fontSize['XLG']}px;
   
   `}
+  font-weight:700;
   color: #ffffff;
   @media (min-width: 728px) {
     font-size: 24px;
@@ -61,6 +64,7 @@ const Charge = styled.div`
   font-size: ${theme.fontSize['2xSM']}px;
   
   `}
+  font-weight: 700;
   cursor: pointer;
   @media (min-width: 728px) {
     font-size: 16px;

@@ -30,6 +30,7 @@ const Title = styled.span`
    font-size: ${theme.fontSize['LG']}px;
   `}
   color: #ffffff;
+  font-weight: 600;
 `;
 const CloseBtn = styled.img`
   cursor: pointer;
@@ -70,6 +71,9 @@ const SelectAmount = styled.span`
   ${({ theme }) => `
    font-size: ${theme.fontSize['XLG']}px;
   `}
+  font-weight:700;
+  color: #828282;
+  ${({ checked }) => checked && `color: #ffffff;`}
 `;
 
 const RadioInput = styled.input.attrs({ type: 'radio' })`
@@ -105,6 +109,8 @@ const ChargeButtonIcon = styled.img`
 
 const ChargeButtonText = styled.span`
   color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
 `;
 
 export default function Index({ onChargeClick }) {
@@ -149,7 +155,9 @@ export default function Index({ onChargeClick }) {
                   checked={selectedCredit === `${credit}`}>
                   <SelectPrice>
                     <SelectIcon src={creditIcon} alt='creditIcon' />
-                    <SelectAmount>{credit}</SelectAmount>
+                    <SelectAmount checked={selectedCredit === `${credit}`}>
+                      {credit}
+                    </SelectAmount>
                   </SelectPrice>
                   <RadioInput
                     type='radio'
