@@ -5,19 +5,25 @@ async function retryFetch(url, retries = 5, delay = 0) {
       const result = await response.json();
       return result;
     } else if (response.status >= 500 && retries > 0) {
-      console.warn(`Retrying fetch... Attempts left: ${retries}`);
+      console.warn(
+        `후원을 기다리는 조공 데이터 불러오기 실패 남은 재시도 횟수: ${retries}`,
+      );
       await new Promise(resolve => setTimeout(resolve, delay));
       return retryFetch(url, retries - 1, delay);
     } else {
-      throw new Error(`HTTP-Error: ${response.status}`);
+      throw new Error(`HTTP-오류: ${response.status}`);
     }
   } catch (error) {
     if (retries > 0) {
-      console.warn(`Retrying fetch... Attempts left: ${retries}`);
+      console.warn(
+        `후원을 기다리는 조공 데이터 불러오기 실패 남은 재시도 횟수: ${retries}`,
+      );
       await new Promise(resolve => setTimeout(resolve, delay));
       return retryFetch(url, retries - 1, delay);
     } else {
-      alert(`Fetch failed after multiple attempts: ${error.message}`);
+      alert(
+        `후원을 기다리는 조공 데이터 불러오기를 여러 번 시도 후에도 요청에 실패했습니다: ${error.message}`,
+      );
       throw error;
     }
   }
@@ -31,10 +37,10 @@ export async function getFundingApi() {
       const newResult = result.list.filter(item => item.status);
       return newResult;
     } else {
-      throw new Error('Invalid response format');
+      throw new Error('응답 형식이 올바르지 않습니다');
     }
   } catch (error) {
-    console.error('Failed to fetch funding data:', error);
+    console.error('후원을 기다리는 조공 데이터 불러오기 실패했습니다:', error);
   }
 }
 
@@ -44,7 +50,10 @@ export async function getRecheckApi(idolId) {
     const result = await retryFetch(url);
     return result;
   } catch (error) {
-    console.error('Failed to fetch recheck data:', error);
+    console.error(
+      '후원을 기다리는 조공 재확인 데이터를 가져오는데 실패했습니다:',
+      error,
+    );
   }
 }
 
@@ -61,11 +70,11 @@ export async function putDonationsApi(id, creditUse) {
       }),
     });
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      throw new Error('네트워크 응답이 올바르지 않습니다');
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error(error);
+    console.error('후원하기 요청에 실패했습니다:', error);
   }
 }
