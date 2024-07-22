@@ -81,8 +81,10 @@ export default function Index() {
   };
 
   useEffect(() => {
-    loadIdols();
-  }, []);
+    if (!idolList[gender].length) {
+      loadIdols();
+    }
+  }, [gender]);
 
   const handleViewMoreButton = async () => {
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
@@ -178,7 +180,7 @@ export default function Index() {
         idolList={
           gender === 'female'
             ? idolList.female.slice(0, showItemNum)
-            : idolList.male(0, showItemNum)
+            : idolList.male.slice(0, showItemNum)
         }
         onClickGender={handleGenderChange}
         onClickViewMore={handleViewMoreButton}

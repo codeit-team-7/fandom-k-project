@@ -5,7 +5,7 @@ import {
   GenderSelectBox,
   LoadingItem,
   ViewMoreBox,
-} from '../styles/ChartMain.style';
+} from '../styles/ChartMain.styles';
 import ChartTop from './ChartTop';
 
 export default function ChartMain({

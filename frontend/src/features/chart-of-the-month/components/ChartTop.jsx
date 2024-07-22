@@ -1,4 +1,4 @@
-import { ChartTopBox, OpenVoteButton } from '../styles/ChartTop.style';
+import { ChartTopBox, OpenVoteButton } from '../styles/ChartTop.styles';
 import chartIc from '@assets/icons/ic_chart.svg';
 
 export default function ChartTop({ onClick }) {

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { VoteModalLayout } from '../styles/VoteModal.style';
+import { VoteModalLayout } from '../styles/VoteModal.styles';
 import VoteModalTop from './VoteModalTop';
 import VoteModalMain from './VoteModalMain';
 import VoteModalBottom from './VoteModalBottom';
