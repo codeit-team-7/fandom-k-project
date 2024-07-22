@@ -5,7 +5,7 @@ const useFetchPageData = () => {
   const [status, setIsStatus] = useState('pending');
   const abortControllerRef = useRef(null);
 
-  const getLazyData = useCallback(async (query, retry = 2, delay = 1000) => {
+  const getLazyData = useCallback(async query => {
     try {
       setIsStatus('pending');
       abortControllerRef.current?.abort();
@@ -13,8 +13,8 @@ const useFetchPageData = () => {
 
       const signal = abortControllerRef.current.signal;
       const response = await fetchAsyncData(query, signal);
-
       if (!response.ok) throw new Error('First request Failure');
+      setIsStatus('fullfield');
       return response;
     } catch (e) {
       if (e.name === 'AbortError') {
@@ -22,19 +22,8 @@ const useFetchPageData = () => {
         setIsStatus('rejected');
         return null;
       }
-
-      if (retry === 0) {
-        console.error('Last Request Failure');
-        setIsStatus('rejected');
-        return null;
-      }
-
-      setTimeout(() => {
-        console.log('Request Retry');
-        getLazyData(query, retry - 1);
-      }, delay);
-    } finally {
-      setIsStatus('fullfield');
+      setIsStatus('rejected');
+      return null;
     }
   }, []);
 

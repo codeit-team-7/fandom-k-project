@@ -9,47 +9,52 @@ import { media } from '@utils';
 
 const S = {
   ImgWrap: styled.picture`
-    ${({ theme }) => media.base`
-      position: relative;
-      border: 2px solid ${theme.colors.BRAND[100]};
-      border-radius: 50%;
-      overflow: hidden;
-      padding: ${7};
-    
-      &::before {
-        display: none;
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: calc(100% - ${9});
-        height: calc(100% - ${9});
+    ${({ theme }) => `
+      ${media.base`
+        position: relative;
+        overflow: hidden;
+        max-width: ${120};
+        width: 100%;
+        border: 2px solid ${theme.colors.BRAND[100]};
         border-radius: 50%;
-        background: rgba(200, 0, 0, 0.3);
-        background-image: url('${checkIcon}');
-        background-repeat: no-repeat;
-        background-position: center;
-        z-index: 1;
-      }
+        padding: ${7};
+        
+        &::before {
+          display: none;
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: calc(100% - ${12});
+          height: calc(100% - ${12});
+          border-radius: inherit;
+          background: rgba(255, 0, 0, 0.3);
+          background-image: url(${checkIcon});
+          background-position: center;
+          background-repeat: no-repeat;
+          z-index: 1;
+        }
 
-      &.checked::before {
-        display: block; 
-      }
+        &.checked::before {
+          display: block;
+        }
+      `}
     `}
   `,
   Img: styled.img`
     ${() => media.base`
-      position: relative;
-      border: none;
-      border-radius: inherit;
-      object-fit: cover;
+        position: relative;
+        max-width: ${120};
+        width: 100%;
+        border: none;
+        border-radius: inherit;
 
-      @media (hover: hover) {
-        &:hover {
-          scale: 1.05;
+        @media (hover: hover) {
+          &:hover {
+            scale: 1.02;
+          }
         }
-      }
     `};
   `,
 };
@@ -94,7 +99,9 @@ export default function ImageComponent({ id, src, last }) {
   const favorited = favoriteState.findIndex(item => item.id === id);
 
   return (
-    <S.ImgWrap className={favorited !== -1 ? 'checked' : ''} onClick={handleClick}>
+    <S.ImgWrap
+      className={`${favorited !== -1 ? 'checked' : ''} ${status === 'pending' ? 'pending' : ''}`}
+      onClick={handleClick}>
       <S.Img ref={imgRef} id={`img-${id}`} alt='' data-src={src} data-last={last} />
     </S.ImgWrap>
   );

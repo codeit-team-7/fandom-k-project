@@ -56,7 +56,7 @@ function MyPageContextProvider({ children }) {
       update: updateFavoriteState,
       delete: deleteFavoriteState,
     }),
-    [favoriteState],
+    [deleteFavoriteState, favoriteState, updateFavoriteState],
   );
 
   return (

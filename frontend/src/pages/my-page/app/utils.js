@@ -1,9 +1,14 @@
 import { BREAKPOINTS } from '@app/theme';
 
 export const getCurrentPageSize = width => {
-  if (width < BREAKPOINTS.SM) return 6;
-  if (width < BREAKPOINTS.LG) return 8;
-  if (BREAKPOINTS.LG <= width) return 16;
+  if (width <= BREAKPOINTS.MD) return 8;
+  return 16;
+};
+
+export const getDeviceMode = width => {
+  if (width <= BREAKPOINTS.SM) return 'mobile';
+  if (width <= BREAKPOINTS.MD) return 'tablet';
+  return 'desktop';
 };
 
 export const initialPageSize = () => {

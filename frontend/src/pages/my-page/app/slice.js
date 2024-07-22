@@ -8,6 +8,7 @@ export const queryInitializer = () => ({
 export const datasInitializer = () => ({
   datas: [],
   cursors: [0],
+  renderPosition: 0,
 });
 
 export const queryReducer = (state, action) => {
