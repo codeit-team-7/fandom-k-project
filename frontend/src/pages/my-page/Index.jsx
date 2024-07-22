@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useReducer, useState } from 'react';
+import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 
 import MyPage from './MyPage';
 import usePrevious from './hooks/usePrevious';
@@ -12,6 +12,8 @@ function MyPageContextProvider({ children }) {
 
   const queryPrevState = usePrevious(queryState);
   const datasPrevState = usePrevious(datasState);
+
+  const initialFavoriteState = newStorage => setFavoriteState(newStorage);
 
   const updateFavoriteState = useCallback(
     newItem =>
@@ -58,6 +60,14 @@ function MyPageContextProvider({ children }) {
     }),
     [deleteFavoriteState, favoriteState, updateFavoriteState],
   );
+
+  useEffect(() => {
+    const storage = localStorage.getItem('my-page');
+    if (storage) {
+      const newStorage = JSON.parse(storage);
+      initialFavoriteState(newStorage);
+    }
+  }, []);
 
   return (
     <QueryContext.Provider value={queryContextValue}>
