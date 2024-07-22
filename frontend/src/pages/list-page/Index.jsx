@@ -1,17 +1,10 @@
-import { IdolFunding, IdolFundingModal, Credit, ChartOfTheMonth } from '@features';
-import { useState } from 'react';
-import { Header } from '../../features';
+import { IdolFunding, Credit, ChartOfTheMonth } from '@features';
 
 export default function Index() {
-  const [idolFundingModal, setIdolFundingModal] = useState(false);
-  const handleIdolFundingModal = () => setIdolFundingModal(prev => !prev);
-
   return (
     <main>
-      <Header linkName={'/list'} />
       <Credit />
-      <IdolFunding onFundingClick={handleIdolFundingModal} />
-      {idolFundingModal && <IdolFundingModal onFundingClick={handleIdolFundingModal} />}
+      <IdolFunding />
       <ChartOfTheMonth></ChartOfTheMonth>
     </main>
   );

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { VoteModalLayout } from './VoteModal.style';
+import { VoteModalLayout } from '../styles/VoteModal.styles';
 import VoteModalTop from './VoteModalTop';
 import VoteModalMain from './VoteModalMain';
 import VoteModalBottom from './VoteModalBottom';
@@ -29,7 +29,7 @@ export default function VoteModal({ idolList, handleModal, handleVote, observer,
         observer={observer}
         isLoading={isLoading}
       />
-      <VoteModalBottom onClick={onClickVote} />
+      <VoteModalBottom onClick={onClickVote} checkedId={checkedId} />
     </VoteModalLayout>
   );
 }

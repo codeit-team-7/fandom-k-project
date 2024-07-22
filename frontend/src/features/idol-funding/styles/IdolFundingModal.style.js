@@ -1,13 +1,10 @@
 import styled from 'styled-components';
-import DeleteBtn24 from '@assets/icons/btn_delete_24px.svg';
 import Cedit from '@assets/icons/ic_credit.svg';
-import { ModalBg } from '../../shared/styles/ModalBg';
-import { ModalLayout } from './../../shared/styles/ModalLayout';
-import { Button } from '../../shared/styles/Button';
-import { media } from './../../shared/utils/media-query/index';
-import { useState } from 'react';
+import { ModalLayout } from '@shared/styles/ModalLayout';
+import { Button } from '@shared/styles/Button';
+import { media } from '@shared/utils/media-query/index';
 
-const FundingMoadl = styled(ModalLayout)`
+export const FundingModal = styled(ModalLayout)`
   padding: 24px 16px 32px 16px;
   border-radius: 8px;
   width: 327px;
@@ -15,15 +12,16 @@ const FundingMoadl = styled(ModalLayout)`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
 `;
 
-const ModalHeader = styled.div`
+export const ModalHeader = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 
-const ModalFundingTitle = styled.p`
+export const ModalFundingTitle = styled.p`
   ${({ theme }) => `
   font-size: ${18};
   font-weight: 600;
@@ -31,14 +29,15 @@ const ModalFundingTitle = styled.p`
   `}
 `;
 
-const ModalCloseBtn = styled.img`
+export const ModalCloseBtn = styled.img`
   cursor: pointer;
 `;
-const ModalInfoContainer = styled.div`
+export const ModalInfoContainer = styled.div`
   width: 158px;
 `;
 
-const ModalImg = styled.img`
+export const ModalImg = styled.img`
+  object-fit: cover;
   margin-top: 24px;
   width: 100%;
   height: 206px;
@@ -46,7 +45,7 @@ const ModalImg = styled.img`
   box-shadow: 0px 0px 40px 0px rgba(255, 255, 255, 0.1);
 `;
 
-const ModalInfo = styled.div`
+export const ModalInfo = styled.div`
   width: 100%;
   justify-content: left;
   margin-top: 10px;
@@ -54,7 +53,7 @@ const ModalInfo = styled.div`
   gap: 6px;
 `;
 
-const ModalTag = styled.p`
+export const ModalTag = styled.p`
   ${({ theme }) => `
     color: ${theme.colors.WHITE[100]};
     opacity: 0.4;
@@ -64,7 +63,7 @@ const ModalTag = styled.p`
     `}
 `;
 
-const ModalTitle = styled.p`
+export const ModalTitle = styled.p`
   ${({ theme }) => `
     color: ${theme.colors.WHITE[100]};
     font-weight: 500;
@@ -76,7 +75,7 @@ const ModalTitle = styled.p`
   `}
 `;
 
-const ModalFundingInput = styled.input`
+export const ModalFundingInput = styled.input`
   background-image: url(${Cedit});
   background-position: calc(100% - 8px) center;
   background-repeat: no-repeat;
@@ -89,25 +88,34 @@ const ModalFundingInput = styled.input`
   &[type='number'] {
     -moz-appearance: textfield;
   }
+  outline: none;
+  border: ${({ isOverCredit }) => (isOverCredit ? `1px solid #FF2626` : `1px solid #fff`)};
   ${({ theme }) => `
   margin-top: 24px;
   width: 295px;
   height: 58px;
   border-radius: 8px;
-  border: 1px solid #fff;
   font-size: 20px;
   font-weight: 700;
   padding: 16px 48px 16px 16px;
   color: ${theme.colors.WHITE[100]};
   background-color: #272f3d;
-  outline: none;
   ::placeholder {
     color: ${theme.colors.GRAY[300]};
   }
   
   `}
 `;
-const ModalFundingButton = styled(Button)`
+
+export const ModalFundingWaring = styled.p`
+  width: 100%;
+  color: #ff2626;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 6px;
+`;
+
+export const ModalFundingButton = styled(Button)`
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -120,28 +128,3 @@ const ModalFundingButton = styled(Button)`
     font-size: ${14};
   `}
 `;
-
-export default function IdolFundingModal({ onFundingClick }) {
-  const [isInValid, setIsInValid] = useState(true);
-
-  return (
-    <>
-      <ModalBg />
-      <FundingMoadl>
-        <ModalHeader>
-          <ModalFundingTitle>후원하기</ModalFundingTitle>
-          <ModalCloseBtn src={DeleteBtn24} alt='모달창 닫기 버튼' onClick={onFundingClick} />
-        </ModalHeader>
-        <ModalInfoContainer>
-          <ModalImg src={Cedit} alt='후원할 아이돌 이미지' />
-          <ModalInfo>
-            <ModalTag>태그 이름</ModalTag>
-            <ModalTitle>타이틀 이름</ModalTitle>
-          </ModalInfo>
-        </ModalInfoContainer>
-        <ModalFundingInput type='number' placeholder='크레딧 입력'></ModalFundingInput>
-        <ModalFundingButton $activable={isInValid}>후원하기</ModalFundingButton>
-      </FundingMoadl>
-    </>
-  );
-}

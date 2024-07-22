@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { media } from '@utils';
 
+import { LoadingSpinner } from '@styles/LoadingSpinner';
 export const VoteModalMainBox = styled.ul`
   ${({ theme }) =>
     `${media.base`
@@ -67,8 +68,15 @@ export const VoteModalMainBox = styled.ul`
       width:100px;
       height:100px;
       }
+      .spinner-box{
+      display: flex;
+      justify-content: center;
+      }
   `}
   ${media.md`
-    height: 540px`}
+    height: 540px;
+    `}
   `}
 `;
+
+export const LoadingItem = styled(LoadingSpinner)``;

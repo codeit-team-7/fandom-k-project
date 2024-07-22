@@ -178,7 +178,7 @@ const IntroDeco = styled.div`
   transform: translate(-50%, 0);
   opacity: 10%;
   @media (min-width: 728px) {
-    top: 1600px;
+    top: 1500px;
     height: 2000px;
   }
   @media (min-width: 1024px) {

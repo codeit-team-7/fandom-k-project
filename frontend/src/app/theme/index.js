@@ -1,11 +1,11 @@
 // 미디어 쿼리 작성 시엔 소문자로 써주세요
 export const BREAKPOINTS = {
-  BASE: 1,
-  XSM: 320,
-  SM: 425,
-  MD: 768,
-  LG: 1024,
-  XLG: 1440,
+  'BASE': 1,
+  'XSM': 320,
+  'SM': 425,
+  'MD': 768,
+  'LG': 1024,
+  'XLG': 1440,
   '2xLG': 1920,
 };
 
@@ -37,11 +37,11 @@ export const COLORS = {
 export const FONT_SIZES = {
   '3xSM': 12, // 대괄호 표기법
   '2xSM': 13, // 대괄호 표기법
-  XSM: 14,
-  SM: 15,
-  MD: 16,
-  LG: 18,
-  XLG: 20,
+  'XSM': 14,
+  'SM': 15,
+  'MD': 16,
+  'LG': 18,
+  'XLG': 20,
   '2xLG': 26, // 대괄호 표기법
 };
 

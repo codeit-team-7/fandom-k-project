@@ -57,13 +57,10 @@ export default function MyPage() {
       if (cursor === null) return;
       const response = await getLazyData({ pageSize, cursor });
       if (response === null) {
-        console.log('retry');
         if (retry === 0) {
-          console.error('Request Error');
           return;
         }
         setTimeout(() => {
-          console.log('Request retry');
           add(type, retry - 1);
         }, 3000);
         return;
@@ -92,9 +89,9 @@ export default function MyPage() {
   };
 
   const handleAddClick = () => {
-    console.log('추가');
     const favoriteState = favoriteStateRef.current;
     localStorage.setItem('my-page', JSON.stringify(favoriteState));
+    navigate('/list');
   };
 
   const init = useCallback(
@@ -103,13 +100,11 @@ export default function MyPage() {
       const cursor = datasStateRef.current.cursors[datasStateRef.current.cursorIndex];
       const response = await getLazyData({ pageSize, cursor });
       if (response === null) {
-        console.log('retry');
         if (retry === 0) {
           console.error('Request Error');
           return;
         }
         setTimeout(() => {
-          console.log('Request retry');
           init(retry - 1);
         }, 3000);
         return;

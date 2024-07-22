@@ -1,15 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 
-import ChartTop from './ChartTop';
-import ChartMain from './ChartMain';
-
 import { getIdolList } from './api';
 import { postVote } from './api';
 
-import { ChartLayout } from './Index.style';
+import ChartMain from './components/ChartMain';
+import VoteModal from './components/VoteModal';
+import NotEnoughModal from './components/NotEnoughModal';
+
 import { ModalBg } from '@styles/ModalBg';
-import VoteModal from './VoteModal';
-import NotEnoughModal from './NotEnoughModal';
 
 const INITIAL_LIST = {
   female: [],
@@ -27,9 +25,9 @@ export default function Index() {
   const [isOpenVote, setIsOpenVote] = useState(false);
   const [isNotEnough, setIsNotEnough] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const observerRef = useRef();
-  const cursorRef = useRef(cursor);
+  const scrollObserverRef = useRef();
   const lastItemRef = useRef();
+  const cursorRef = useRef(cursor);
 
   const loadIdols = async ({ retry = 3 } = {}) => {
     setIsLoading(true);
@@ -42,17 +40,18 @@ export default function Index() {
     if (showItemNum === 0) {
       setShowItemNum(pageSize);
     }
-
     const { idols, nextCursor } = await getIdolList({
       cursor: genderCursor,
       gender,
       pageSize,
     });
     if (idols === null && retry) {
+      console.log(`차트 불러오기 실패 남은 재시도 횟수 ${retry}`);
       loadIdols({ retry: retry - 1 });
       return;
     }
     if (idols === null) {
+      console.log(`차트 불러오기 실패`);
       return;
     }
     setCursor(prev => {
@@ -78,15 +77,19 @@ export default function Index() {
   };
 
   useEffect(() => {
-    loadIdols();
-  }, []);
+    if (!idolList[gender].length) {
+      loadIdols();
+    }
+  }, [gender]);
 
-  const handleViewMoreButton = () => {
+  const handleViewMoreButton = async () => {
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
     const hasItemNum = gender === 'female' ? idolList.female.length : idolList.male.length;
 
     if (hasItemNum < showItemNum + pageSize) {
-      loadIdols();
+      await loadIdols();
+      setShowItemNum(prev => prev + pageSize);
+      return;
     }
     setShowItemNum(prev => prev + pageSize);
   };
@@ -131,8 +134,8 @@ export default function Index() {
       return;
     }
     localStorage.setItem('credit', credit - 1000);
-    console.log('실행');
     setIsOpenVote(false);
+    document.body.style.overflow = 'auto';
   };
 
   const handleNotEnough = () => {
@@ -146,39 +149,39 @@ export default function Index() {
         block: 'start',
       });
     }
-  }, [lastItemRef.current]);
+  }, [showItemNum]);
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && cursor[gender] !== null) {
+    scrollObserverRef.current = new IntersectionObserver(entries => {
+      if (cursor[gender] === null) {
+        scrollObserverRef.current.disconnect();
+        return;
+      }
+      if (entries[0].isIntersecting && !isLoading) {
         loadIdols();
       }
     });
 
     return () => {
-      observerRef.current.disconnect();
+      scrollObserverRef.current.disconnect();
     };
   }, []);
-  useEffect(() => {
-    if (cursorRef.current[gender] === null) {
-      observerRef.current.disconnect();
-    }
-  }, [cursorRef.current[gender]]);
 
   return (
     <>
-      <ChartLayout>
-        <ChartTop onClick={handleVoteModal} />
-        <ChartMain
-          idolList={gender === 'female' ? idolList.female : idolList.male}
-          onClickGender={handleGenderChange}
-          onClickViewMore={handleViewMoreButton}
-          gender={gender}
-          showItemNum={showItemNum}
-          lastItemRef={lastItemRef}
-          isLoading={isLoading}
-        />
-      </ChartLayout>
+      <ChartMain
+        idolList={
+          gender === 'female'
+            ? idolList.female.slice(0, showItemNum)
+            : idolList.male.slice(0, showItemNum)
+        }
+        onClickGender={handleGenderChange}
+        onClickViewMore={handleViewMoreButton}
+        gender={gender}
+        showItemNum={showItemNum}
+        lastItemRef={lastItemRef}
+        onClickOpenVote={handleVoteModal}
+        isLoading={isLoading}></ChartMain>
 
       {isOpenVote && (
         <>
@@ -187,7 +190,7 @@ export default function Index() {
             idolList={gender === 'female' ? idolList.female : idolList.male}
             handleModal={handleVoteModal}
             handleVote={handleVoteButton}
-            observer={observerRef.current}
+            observer={scrollObserverRef.current}
             gender={gender}
             isLoading={isLoading}
           />
