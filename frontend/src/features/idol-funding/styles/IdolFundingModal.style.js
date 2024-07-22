@@ -89,8 +89,7 @@ export const ModalFundingInput = styled.input`
     -moz-appearance: textfield;
   }
   outline: none;
-  border: ${({ isOverCredit }) =>
-    isOverCredit ? `1px solid #FF2626` : `1px solid #fff`};
+  border: ${({ isOverCredit }) => (isOverCredit ? `1px solid #FF2626` : `1px solid #fff`)};
   ${({ theme }) => `
   margin-top: 24px;
   width: 295px;

@@ -5,14 +5,7 @@ import VoteModalTop from './VoteModalTop';
 import VoteModalMain from './VoteModalMain';
 import VoteModalBottom from './VoteModalBottom';
 
-export default function VoteModal({
-  idolList,
-  handleModal,
-  handleVote,
-  observer,
-  gender,
-  isLoading,
-}) {
+export default function VoteModal({ idolList, handleModal, handleVote, observer, gender, isLoading }) {
   const [checkedId, setCheckedId] = useState();
 
   const handleChecked = id => {

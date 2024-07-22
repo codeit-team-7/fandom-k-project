@@ -74,27 +74,15 @@ export default function Index() {
     <S.Container>
       <S.Title>후원을 기다리는 조공</S.Title>
       <S.Box>
-        {showArrowButton('left') ? (
-          <></>
-        ) : (
-          <S.LgArrowBtnLeft direction='left' onClick={onClickLeft} />
-        )}
+        {showArrowButton('left') ? <></> : <S.LgArrowBtnLeft direction='left' onClick={onClickLeft} />}
         <S.FundingItems>
           {cutItems.map((item, i) => (
             <li key={item.id} ref={el => (itemRefs.current[i] = el)}>
-              <FundingItem
-                id={`content${i}`}
-                item={item}
-                setIsReRendering={setIsReRendering}
-              />
+              <FundingItem id={`content${i}`} item={item} setIsReRendering={setIsReRendering} />
             </li>
           ))}
         </S.FundingItems>
-        {showArrowButton('right') ? (
-          <></>
-        ) : (
-          <S.LgArrowBtnRight direction='right' onClick={onClickRight} />
-        )}
+        {showArrowButton('right') ? <></> : <S.LgArrowBtnRight direction='right' onClick={onClickRight} />}
       </S.Box>
     </S.Container>
   );

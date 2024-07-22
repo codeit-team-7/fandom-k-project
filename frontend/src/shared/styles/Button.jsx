@@ -9,11 +9,7 @@ export const Button = styled.button`
       display: flex;
       justify-content: center;
       align-items: center;
-      background: ${
-        $activable
-          ? `${theme.colors.GRAY[200]};`
-          : `${theme.colors.MIXED[100]};`
-      }
+      background: ${$activable ? `${theme.colors.GRAY[200]};` : `${theme.colors.MIXED[100]};`}
       cursor: pointer;
       color: #fff;
       width: 100%;
