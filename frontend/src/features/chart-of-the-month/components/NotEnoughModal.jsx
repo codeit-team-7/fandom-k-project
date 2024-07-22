@@ -1,4 +1,7 @@
-import { NotEnoughModalBox, ModalButton } from '../styles/NotEnoughModal.style';
+import {
+  NotEnoughModalBox,
+  ModalButton,
+} from '../styles/NotEnoughModal.styles';
 
 import icClose from '@assets/icons/btn_delete_24px.svg';
 

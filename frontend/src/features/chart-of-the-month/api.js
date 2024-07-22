@@ -1,10 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const getIdolList = async ({
-  cursor,
-  gender = 'female',
-  pageSize = 10,
-}) => {
+export const getIdolList = async ({ cursor, gender, pageSize = 10 }) => {
   try {
     const response = await fetch(
       `${API_URL}/charts/{gender}?gender=${gender}&pageSize=${pageSize}&cursor=${cursor}`,

@@ -68,10 +68,3 @@ export const IdolListUl = styled.ul`
   `}
   `}
 `;
-
-export const SkeletonUl = styled(IdolListUl)`
-  ${({ theme }) =>
-    `${media.base`
-  background-color: ${theme.colors.GRAY[100]}
-`}`}
-`;

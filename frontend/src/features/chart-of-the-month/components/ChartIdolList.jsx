@@ -1,4 +1,4 @@
-import { IdolListUl } from '../styles/ChartIdolList.style';
+import { IdolListUl } from '../styles/ChartIdolList.styles';
 
 export default function ChartIdolList({ idolList, lastItemRef }) {
   return (

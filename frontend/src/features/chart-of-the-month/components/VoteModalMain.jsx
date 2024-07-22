@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-import { VoteModalMainBox } from '../styles/VoteModalMain.style';
-import { LoadingItem } from '../styles/ChartMain.style';
+import { VoteModalMainBox } from '../styles/VoteModalMain.styles';
+import { LoadingItem } from '../styles/ChartMain.styles';
 
 import icCheckbox from '@assets/icons/ic_checkbox.svg';
 import icCheckboxActive from '@assets/icons/ic_checkbox_active.svg';
