@@ -1,3 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL;
+
 async function retryFetch(url, retries = 5, delay = 0) {
   try {
     const response = await fetch(url);
@@ -30,7 +32,7 @@ async function retryFetch(url, retries = 5, delay = 0) {
 }
 
 export async function getFundingApi() {
-  const url = `https://fandom-k-api.vercel.app/8-7/donations?pageSize=10`;
+  const url = `${API_URL}/donations?pageSize=10`;
   try {
     const result = await retryFetch(url);
     if (Array.isArray(result.list)) {
@@ -45,7 +47,7 @@ export async function getFundingApi() {
 }
 
 export async function getRecheckApi(idolId) {
-  const url = `https://fandom-k-api.vercel.app/8-7/donations?pageSize=1&priorityIdolIds=${idolId}`;
+  const url = `${API_URL}/donations?pageSize=1&priorityIdolIds=${idolId}`;
   try {
     const result = await retryFetch(url);
     return result;
@@ -58,7 +60,7 @@ export async function getRecheckApi(idolId) {
 }
 
 export async function putDonationsApi(id, creditUse) {
-  const url = `https://fandom-k-api.vercel.app/8-7/donations/${id}/contribute`;
+  const url = `${API_URL}/donations/${id}/contribute`;
   try {
     const response = await fetch(url, {
       method: 'PUT',
