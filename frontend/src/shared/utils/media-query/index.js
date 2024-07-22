@@ -9,7 +9,7 @@ import { pxe, px } from '@utils';
 export const media = Object.keys(BREAKPOINTS).reduce((acc, label) => {
   return (
     (acc[label.toLowerCase()] = (...args) => `
-      @media (min-width: ${pxe(BREAKPOINTS[label])}) {
+      @media (min-width: ${pxe(BREAKPOINTS[label] + 1)}) {
         ${px(...args)}
       }
     `),

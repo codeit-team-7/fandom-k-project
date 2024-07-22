@@ -1,108 +1,87 @@
-import { useEffect } from 'react';
-import styled from 'styled-components';
+import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 
-import { debounce } from '@utils';
-import { AddYourFavoriteIdol, FavoriteIdol } from '@features';
-import { Container } from '@styles/StylesByWoosung';
+import MyPage from './MyPage';
+import usePrevious from './hooks/usePrevious';
+import { QueryContext, DatasContext, FavoriteContext } from './app/contexts';
+import { queryReducer, datasReducer, queryInitializer, datasInitializer } from './app/slice';
 
-import { useMyPageReducer } from './hooks/use-mypage-reducer';
-import { useMyPageStorageReducer } from './hooks/use-mypage-storage-reducer';
-import { Button } from '@styles/Button';
-import { media } from '@utils';
-import { useNavigate } from 'react-router-dom';
-import { updateIdols } from './api';
+function MyPageContextProvider({ children }) {
+  const [queryState, queryDispatch] = useReducer(queryReducer, {}, queryInitializer);
+  const [datasState, datasDispatch] = useReducer(datasReducer, {}, datasInitializer);
+  const [favoriteState, setFavoriteState] = useState([]);
 
-const StyledContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  const queryPrevState = usePrevious(queryState);
+  const datasPrevState = usePrevious(datasState);
 
-  ${media.base`
-    .hr {
-      width: 100%;
-      height: ${2};
-      background: white;
-      opacity: 0.2;
-      margin: ${34} 0;
-    }  
-  `}
-`;
+  const initialFavoriteState = newStorage => setFavoriteState(newStorage);
 
-const StyledButton = styled(Button)`
-  ${media.base`
-    width: ${255};
-    height: ${48};
-    transform: translateY(${24});
-    align-self: center;
-    font-size: ${17};
-  `}
-`;
+  const updateFavoriteState = useCallback(
+    newItem =>
+      setFavoriteState(prevState => {
+        const existingIndex = prevState.findIndex(item => item.id === newItem.id);
+        if (existingIndex !== -1) {
+          return prevState.filter((_, index) => index !== existingIndex);
+        } else {
+          return [...prevState, newItem];
+        }
+      }),
+    [],
+  );
 
-const isContains = (classesToCheck, target) =>
-  classesToCheck.some(className => target.classList.contains(className));
-
-export default function Index() {
-  const navitate = useNavigate();
-  const { store, chooseAnIdol } = useMyPageStorageReducer();
-  const { state, fetchItems } = useMyPageReducer();
-
-  const handleScroll = debounce(e => {
-    const { scrollLeft, scrollWidth, offsetWidth } = e.target;
-    if (scrollWidth - scrollLeft === offsetWidth) {
-      const addedPageSize = Math.min(Math.ceil(innerWidth / 100) * 2, 16);
-      fetchItems({ scroll: true, addedPageSize });
-    }
-  }, 200);
-
-  useEffect(() => {
-    const handleResize = debounce(() => {
-      fetchItems({ reset: true });
-    }, 200);
-
-    fetchItems({ reset: true });
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  const deleteFavoriteState = useCallback(id => {
+    setFavoriteState(prevState => {
+      return prevState.filter(item => item.id !== id);
+    });
   }, []);
 
-  const handleClick = e => {
-    const id = e.target.id;
-    fetchItems({ direction: id });
-  };
+  const queryContextValue = useMemo(
+    () => ({
+      state: queryState,
+      dispatch: queryDispatch,
+      prevState: queryPrevState,
+    }),
+    [queryPrevState, queryState],
+  );
 
-  const handleChoose = e => {
-    const { currentTarget, target } = e;
-    const picture = currentTarget.querySelector('.item-picture');
-    const classesToCheck = ['item-picture', 'item-delete'];
-    if (isContains(classesToCheck, target)) {
-      const targetId = Number(picture.dataset.id);
-      let item = state.items.find(item => item.id === targetId);
-      if (!item) {
-        item = store.find(item => item.id, targetId);
-      }
-      chooseAnIdol(item);
+  const datasContextValue = useMemo(
+    () => ({
+      state: datasState,
+      dispatch: datasDispatch,
+      prevState: datasPrevState,
+    }),
+    [datasPrevState, datasState],
+  );
+
+  const favoriteContextValue = useMemo(
+    () => ({
+      state: favoriteState,
+      update: updateFavoriteState,
+      delete: deleteFavoriteState,
+    }),
+    [deleteFavoriteState, favoriteState, updateFavoriteState],
+  );
+
+  useEffect(() => {
+    const storage = localStorage.getItem('my-page');
+    if (storage) {
+      const newStorage = JSON.parse(storage);
+      initialFavoriteState(newStorage);
     }
-  };
-
-  const handleAdd = () => {
-    updateIdols(store);
-    navitate('/list');
-  };
+  }, []);
 
   return (
-    <main>
-      <StyledContainer $width={1920} $padding={360}>
-        <FavoriteIdol store={store} handleChoose={handleChoose} />
-        <div className='hr'></div>
-        <AddYourFavoriteIdol
-          store={store}
-          state={state}
-          handleClick={handleClick}
-          handleChoose={handleChoose}
-          handleScroll={handleScroll}
-        />
-        <StyledButton onClick={handleAdd}>+ 추가하기</StyledButton>
-      </StyledContainer>
-    </main>
+    <QueryContext.Provider value={queryContextValue}>
+      <DatasContext.Provider value={datasContextValue}>
+        <FavoriteContext.Provider value={favoriteContextValue}>{children}</FavoriteContext.Provider>
+      </DatasContext.Provider>
+    </QueryContext.Provider>
+  );
+}
+
+export default function Index() {
+  return (
+    <MyPageContextProvider>
+      <MyPage />
+    </MyPageContextProvider>
   );
 }

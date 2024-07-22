@@ -5,9 +5,7 @@ async function retryFetch(url, retries = 5, delay = 0) {
       const result = await response.json();
       return result;
     } else if (response.status >= 500 && retries > 0) {
-      console.warn(
-        `후원을 기다리는 조공 데이터 불러오기 실패 남은 재시도 횟수: ${retries}`,
-      );
+      console.warn(`후원을 기다리는 조공 데이터 불러오기 실패 남은 재시도 횟수: ${retries}`);
       await new Promise(resolve => setTimeout(resolve, delay));
       return retryFetch(url, retries - 1, delay);
     } else {
@@ -15,15 +13,11 @@ async function retryFetch(url, retries = 5, delay = 0) {
     }
   } catch (error) {
     if (retries > 0) {
-      console.warn(
-        `후원을 기다리는 조공 데이터 불러오기 실패 남은 재시도 횟수: ${retries}`,
-      );
+      console.warn(`후원을 기다리는 조공 데이터 불러오기 실패 남은 재시도 횟수: ${retries}`);
       await new Promise(resolve => setTimeout(resolve, delay));
       return retryFetch(url, retries - 1, delay);
     } else {
-      alert(
-        `후원을 기다리는 조공 데이터 불러오기를 여러 번 시도 후에도 요청에 실패했습니다: ${error.message}`,
-      );
+      alert(`후원을 기다리는 조공 데이터 불러오기를 여러 번 시도 후에도 요청에 실패했습니다: ${error.message}`);
       throw error;
     }
   }
@@ -50,10 +44,7 @@ export async function getRecheckApi(idolId) {
     const result = await retryFetch(url);
     return result;
   } catch (error) {
-    console.error(
-      '후원을 기다리는 조공 재확인 데이터를 가져오는데 실패했습니다:',
-      error,
-    );
+    console.error('후원을 기다리는 조공 재확인 데이터를 가져오는데 실패했습니다:', error);
   }
 }
 

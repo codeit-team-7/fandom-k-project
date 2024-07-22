@@ -1,11 +1,5 @@
 import ChartIdolList from './ChartIdolList';
-import {
-  ChartLayout,
-  ChartMainBox,
-  GenderSelectBox,
-  LoadingItem,
-  ViewMoreBox,
-} from '../styles/ChartMain.styles';
+import { ChartLayout, ChartMainBox, GenderSelectBox, LoadingItem, ViewMoreBox } from '../styles/ChartMain.styles';
 import ChartTop from './ChartTop';
 
 export default function ChartMain({
@@ -39,11 +33,7 @@ export default function ChartMain({
             이달의 남자 아이돌
           </button>
         </GenderSelectBox>
-        <ChartIdolList
-          showItemNum={showItemNum}
-          idolList={idolList}
-          lastItemRef={lastItemRef}
-        />
+        <ChartIdolList showItemNum={showItemNum} idolList={idolList} lastItemRef={lastItemRef} />
       </ChartMainBox>
       {idolList.length >= showItemNum && !isLoading && (
         <ViewMoreBox>
