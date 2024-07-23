@@ -92,6 +92,20 @@ const S = {
         width: 100%;
         height: ${400};
         padding: ${32} ${24}; 
+
+        &::-webkit-scrollbar {
+          width: 100%;
+          height: ${5};
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: #a0a0a5;
+          border-radius: ${10};
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: transparent;
+        }
       `}
 
       ${media.sm`
@@ -145,7 +159,6 @@ export default function Index({ handlePage, queryState, datasState }) {
     const { datas, cursors, renderPosition } = datasState;
     const { cursorIndex } = queryState;
     flatDatas = datas[renderPosition];
-    console.log(flatDatas);
   }
 
   useEffect(() => {
