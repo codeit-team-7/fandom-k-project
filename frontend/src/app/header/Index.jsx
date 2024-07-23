@@ -1,6 +1,6 @@
 import MainLogo from '@assets/icons/logo.svg';
 import UserIcon from '@assets/images/Frame-28.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderMargin = styled.div`
@@ -37,22 +37,16 @@ const HeaderIcon = styled.img`
   height: 32px;
 `;
 
-const handleLinkClick = () => {
-  if (window.location.pathname === '/list') {
-    window.location.reload();
-  }
-};
-
 export default function Index() {
   return (
     <HeaderMargin>
       <HeaderContainer>
         <div></div>
-        <Link to='/list' onClick={handleLinkClick}>
+        <Link to='/list' reloadDocument>
           <HeaderLogo src={MainLogo} alt='MainLogo' />
         </Link>
         <div>
-          <Link to='/mypage'>
+          <Link to='/mypage' reloadDocument>
             <HeaderIcon src={UserIcon} alt='UserIcon' />
           </Link>
         </div>
