@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
+import styledComponents from 'vite-plugin-styled-components';
 import { defineConfig } from 'vite';
 import { fileURLToPath } from 'url';
 
@@ -24,5 +25,5 @@ export default defineConfig({
       '@styles': path.resolve(__dirname, './src/shared/styles'),
     },
   },
-  plugins: [react()],
+  plugins: [react(), styledComponents()],
 });
