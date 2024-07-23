@@ -20,20 +20,18 @@ const INITIAL_CURSOR = {
 export default function Index() {
   const [gender, setGender] = useState('female');
   const [idolList, setIdolList] = useState(INITIAL_LIST);
-  const [cursor, setCursor] = useState(INITIAL_CURSOR);
   const [showItemNum, setShowItemNum] = useState(0);
   const [isOpenVote, setIsOpenVote] = useState(false);
   const [isNotEnough, setIsNotEnough] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const scrollObserverRef = useRef();
   const lastItemRef = useRef();
-  const cursorRef = useRef(cursor);
+  const cursorRef = useRef(INITIAL_CURSOR);
 
   const loadIdols = async ({ retry = 3 } = {}) => {
     setIsLoading(true);
     const pageSize = window.innerWidth > 1024 ? 10 : 5;
-    const genderCursor = gender === 'female' ? cursorRef.current.female : cursorRef.current.male;
-    if (genderCursor === null) {
+    if (cursorRef.current[gender] === null) {
       setIsLoading(false);
       return;
     }
@@ -41,7 +39,7 @@ export default function Index() {
       setShowItemNum(pageSize);
     }
     const { idols, nextCursor } = await getIdolList({
-      cursor: genderCursor,
+      cursor: cursorRef.current[gender],
       gender,
       pageSize,
     });
@@ -54,10 +52,7 @@ export default function Index() {
       console.log(`차트 불러오기 실패`);
       return;
     }
-    setCursor(prev => {
-      cursorRef.current = gender === 'female' ? { ...prev, female: nextCursor } : { ...prev, male: nextCursor };
-      return cursorRef.current;
-    });
+    cursorRef.current[gender] = nextCursor;
     if (!idols?.length) {
       setIsLoading(false);
       return;
@@ -153,7 +148,7 @@ export default function Index() {
 
   useEffect(() => {
     scrollObserverRef.current = new IntersectionObserver(entries => {
-      if (cursor[gender] === null) {
+      if (cursorRef.current[gender] === null) {
         scrollObserverRef.current.disconnect();
         return;
       }
@@ -170,11 +165,7 @@ export default function Index() {
   return (
     <>
       <ChartMain
-        idolList={
-          gender === 'female'
-            ? idolList.female.slice(0, showItemNum)
-            : idolList.male.slice(0, showItemNum)
-        }
+        idolList={gender === 'female' ? idolList.female.slice(0, showItemNum) : idolList.male.slice(0, showItemNum)}
         onClickGender={handleGenderChange}
         onClickViewMore={handleViewMoreButton}
         gender={gender}
