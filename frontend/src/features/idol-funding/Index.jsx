@@ -55,6 +55,7 @@ export default function Index() {
       console.error(error);
     }
   };
+
   useEffect(() => {
     fetchItemData();
     setIsReRendering(false);
