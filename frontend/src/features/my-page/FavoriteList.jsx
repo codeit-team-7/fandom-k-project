@@ -121,11 +121,6 @@ const Section = styled.section`
 `;
 
 export default function FavoriteList({ favoriteState, handleClick }) {
-  const {
-    InfoContext: { state: infoState },
-    DataContext: { state: dataState },
-  } = useContextSelector();
-
   return (
     <Section>
       <div className='container'>
